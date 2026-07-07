@@ -43,6 +43,65 @@
             overflow-x: hidden;
         }
 
+        /* LOGIN MODAL */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        .login-box h2 {
+            margin-bottom: 10px;
+        }
+        .login-box p {
+            color: var(--text2);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            font-family: monospace;
+        }
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .login-box .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        .login-box .help-text {
+            font-size: 0.7rem;
+            color: var(--text2);
+            margin-top: 12px;
+        }
+        .login-box .help-text a {
+            color: var(--info);
+        }
+
         /* HEADER */
         .header {
             background: var(--surface);
@@ -84,6 +143,28 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            align-items: center;
+        }
+        .sync-indicator {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sync-online {
+            background: rgba(0, 200, 83, 0.2);
+            color: var(--success);
+        }
+        .sync-offline {
+            background: rgba(255, 23, 68, 0.2);
+            color: var(--danger);
+        }
+        .sync-syncing {
+            background: rgba(255, 214, 0, 0.2);
+            color: var(--warning);
+            animation: pulse 1s infinite;
         }
 
         /* BOTÕES */
@@ -127,10 +208,6 @@
         }
         .btn-success {
             background: var(--success);
-            color: #000;
-        }
-        .btn-warning {
-            background: var(--warning);
             color: #000;
         }
 
@@ -559,6 +636,15 @@
                 transform: translateY(-10px);
             }
         }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
 
         /* STATUS BAR */
         .status-bar {
@@ -575,29 +661,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 50;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-        }
-        .status-dot.salvo {
-            background: var(--success);
-        }
-        .status-dot.pendente {
-            background: var(--warning);
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         /* RESPONSIVO */
@@ -624,7 +689,6 @@
             }
             .card-datas {
                 grid-template-columns: 1fr 1fr 1fr;
-                font-size: 0.6rem;
             }
         }
 
@@ -694,7 +758,6 @@
             color: #6aaed9;
         }
 
-        /* IMPORT BUTTON */
         .import-wrapper {
             position: relative;
             display: inline-block;
@@ -712,6 +775,22 @@
 </head>
 <body>
 
+    <!-- LOGIN MODAL -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>🔐 Configurar Sincronização</h2>
+            <p>Para salvar os dados automaticamente no GitHub, cole seu <strong>Token de Acesso Pessoal</strong> abaixo.</p>
+            <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            <button class="btn btn-primary" onclick="configurarToken()">💾 Salvar e Sincronizar</button>
+            <p class="help-text">
+                Não tem token? <a href="https://github.com/settings/tokens" target="_blank">Clique aqui para criar</a><br>
+                Marque apenas a permissão <strong>repo</strong> (ou public_repo)<br><br>
+                <small>O token fica salvo apenas no seu navegador.</small><br>
+                <button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="usarOffline()">📴 Usar offline (sem sincronizar)</button>
+            </p>
+        </div>
+    </div>
+
     <!-- HEADER -->
     <div class="header">
         <h1>🎬 Gestão Audiovisual</h1>
@@ -722,12 +801,15 @@
             <span>📚 Gaveta: <strong id="gavetaCount">0</strong></span>
         </div>
         <div class="header-actions">
+            <span class="sync-indicator sync-offline" id="syncIndicator">🔴 Offline</span>
             <button class="btn btn-primary" onclick="abrirModalNovo()">+ Novo Conteúdo</button>
-            <button class="btn btn-outline btn-sm" onclick="exportarDados()" title="Exportar backup JSON">📥 Exportar</button>
+            <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥 Exportar</button>
             <span class="import-wrapper">
                 <button class="btn btn-outline btn-sm">📤 Importar</button>
-                <input type="file" accept=".json" onchange="importarDados(event)" title="Importar backup JSON">
+                <input type="file" accept=".json" onchange="importarDados(event)">
             </span>
+            <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄 Sincronizar</button>
+            <button class="btn btn-sm btn-outline" onclick="document.getElementById('loginOverlay').style.display='flex'" style="font-size:0.7rem">⚙️ Token</button>
         </div>
     </div>
 
@@ -787,14 +869,6 @@
                     <span class="stage-count" id="countResult">0</span>
                 </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:6px">
-                <button class="btn btn-outline btn-sm" onclick="exportarDados()" style="width:100%">📥 Exportar Backup</button>
-                <span class="import-wrapper" style="width:100%">
-                    <button class="btn btn-outline btn-sm" style="width:100%">📤 Importar Backup</button>
-                    <input type="file" accept=".json" onchange="importarDados(event)" style="width:100%">
-                </span>
-                <button class="btn btn-outline btn-sm" onclick="limparTudo()" style="width:100%;color:var(--danger);border-color:var(--danger)">🗑 Limpar Tudo</button>
-            </div>
         </div>
 
         <!-- CONTENT -->
@@ -825,9 +899,7 @@
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="🔍 Buscar por título, formato, categoria, tags..." oninput="renderCards()">
                 </div>
-                <div class="cards-grid" id="cardsGrid">
-                    <!-- Cards dinâmicos aqui -->
-                </div>
+                <div class="cards-grid" id="cardsGrid"></div>
             </div>
         </div>
     </div>
@@ -836,9 +908,7 @@
     <div class="modal-overlay" id="modalOverlay" style="display:none" onclick="fecharModal(event)">
         <div class="modal" id="modalContent" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="fecharModal()">✕</button>
-            <div id="modalInner">
-                <!-- Conteúdo dinâmico -->
-            </div>
+            <div id="modalInner"></div>
         </div>
     </div>
 
@@ -847,35 +917,154 @@
 
     <!-- STATUS BAR -->
     <div class="status-bar">
-        <span><span class="status-dot salvo" id="statusDot"></span><span id="statusText">Dados salvos no navegador</span></span>
-        <span>💡 Dica: Exporte o backup regularmente para não perder seus dados | Ctrl+N = Novo | ESC = Fechar</span>
+        <span id="statusText">💾 Carregando...</span>
+        <span>💡 Ctrl+N = Novo | Ctrl+S = Salvar | ESC = Fechar</span>
     </div>
 
     <script>
-        // ============ CONSTANTES ============
-        const STORAGE_KEY = 'audiovisual_cards_v2';
-        const LOG_KEY = 'audiovisual_log';
+        // ============ CONFIGURAÇÃO GITHUB ============
+        // ⚠️ ALTERE ESTAS VARIÁVEIS COM SEUS DADOS:
+        const GITHUB_USERNAME = 'cleversonandrade25'; // <-- Coloque seu usuário do GitHub
+        const GITHUB_REPO = 'ControleAudiovisual'; // <-- Coloque o nome do repositório
+        const GITHUB_FILE_PATH = 'log.json'; // Arquivo que será lido/escrito
+        const GITHUB_BRANCH = 'main'; // ou 'master'
 
+        const STORAGE_KEY = 'audiovisual_cards_v3';
+        const TOKEN_KEY = 'github_token_v2';
+        const SETTINGS_KEY = 'audiovisual_settings';
+
+        // ============ ESTÁGIOS ============
         const STAGES = {
             ideia: { nome: '💡 Ideias', cor: 'ideia', badge: 'badge-ideia', stageClass: 'stage-ideia' },
-            desenv: { nome: '📝 Desenvolvimento', cor: 'desenv', badge: 'badge-desenv', stageClass: 'stage-desenv' },
-            preprod: { nome: '🎬 Pré-produção', cor: 'preprod', badge: 'badge-preprod', stageClass: 'stage-preprod' },
+            desenv: { nome: '📝 Desenvolvimento', cor: 'desenv', badge: 'badge-desenv',
+            stageClass: 'stage-desenv' },
+            preprod: { nome: '🎬 Pré-produção', cor: 'preprod', badge: 'badge-preprod',
+            stageClass: 'stage-preprod' },
             prod: { nome: '🎥 Produção', cor: 'prod', badge: 'badge-prod', stageClass: 'stage-prod' },
-            posprod: { nome: '🎞 Pós-produção', cor: 'posprod', badge: 'badge-posprod', stageClass: 'stage-posprod' },
+            posprod: { nome: '🎞 Pós-produção', cor: 'posprod', badge: 'badge-posprod',
+            stageClass: 'stage-posprod' },
             aprov: { nome: '✅ Aprovação', cor: 'aprov', badge: 'badge-aprov', stageClass: 'stage-aprov' },
             pub: { nome: '📲 Publicação', cor: 'pub', badge: 'badge-pub', stageClass: 'stage-pub' },
             gaveta: { nome: '📚 Gaveta', cor: 'gaveta', badge: 'badge-gaveta', stageClass: 'stage-gaveta' },
             result: { nome: '📊 Resultados', cor: 'result', badge: 'badge-result', stageClass: 'stage-result' }
         };
 
-        // ============ PERSISTÊNCIA COM LOG ============
-        function carregarDados() {
+        // ============ GITHUB API ============
+        let githubToken = localStorage.getItem(TOKEN_KEY) || '';
+        let syncInterval = null;
+        let isSyncing = false;
+        let lastSyncData = null;
+
+        function getApiUrl() {
+            return `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+        }
+
+        async function lerDoGitHub() {
+            if (!githubToken) return null;
+            try {
+                const response = await fetch(getApiUrl(), {
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        console.log('📄 Arquivo log.json não encontrado no GitHub. Será criado no primeiro salvamento.');
+                        return [];
+                    }
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                const data = await response.json();
+                const content = atob(data.content);
+                const cards = JSON.parse(content);
+                console.log(`📥 Lidos ${cards.length} cards do GitHub`);
+                return { cards, sha: data.sha };
+            } catch (error) {
+                console.error('❌ Erro ao ler do GitHub:', error);
+                return null;
+            }
+        }
+
+        async function salvarNoGitHub(cards, sha = null) {
+            if (!githubToken) return false;
+            if (isSyncing) return false;
+            isSyncing = true;
+            atualizarSyncIndicator('syncing');
+
+            try {
+                // Se não temos o SHA, precisamos buscar primeiro
+                if (!sha) {
+                    const dadosExistentes = await lerDoGitHub();
+                    sha = dadosExistentes ? dadosExistentes.sha : null;
+                }
+
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(cards, null, 2))));
+                const body = {
+                    message: `🔄 Atualização automática - ${new Date().toLocaleString('pt-BR')}`,
+                    content: content,
+                    branch: GITHUB_BRANCH
+                };
+                if (sha) body.sha = sha;
+
+                const response = await fetch(getApiUrl(), {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Erro ao salvar: ${response.status} - ${errorData.message}`);
+                }
+
+                const data = await response.json();
+                lastSyncData = data.content.sha;
+                console.log('📤 Dados salvos no GitHub com sucesso!');
+                atualizarSyncIndicator('online');
+                atualizarStatusBar('☁️ Sincronizado com GitHub ' + new Date().toLocaleTimeString());
+                return true;
+            } catch (error) {
+                console.error('❌ Erro ao salvar no GitHub:', error);
+                atualizarSyncIndicator('offline');
+                atualizarStatusBar('⚠️ Falha ao sincronizar: ' + error.message);
+                return false;
+            } finally {
+                isSyncing = false;
+            }
+        }
+
+        function atualizarSyncIndicator(status) {
+            const indicator = document.getElementById('syncIndicator');
+            if (!indicator) return;
+            indicator.className = 'sync-indicator';
+            switch (status) {
+                case 'online':
+                    indicator.classList.add('sync-online');
+                    indicator.textContent = '🟢 Online';
+                    break;
+                case 'offline':
+                    indicator.classList.add('sync-offline');
+                    indicator.textContent = '🔴 Offline';
+                    break;
+                case 'syncing':
+                    indicator.classList.add('sync-syncing');
+                    indicator.textContent = '🟡 Sincronizando...';
+                    break;
+            }
+        }
+
+        // ============ PERSISTÊNCIA LOCAL ============
+        function carregarDadosLocais() {
             try {
                 const dados = localStorage.getItem(STORAGE_KEY);
                 if (dados) {
                     const parsed = JSON.parse(dados);
                     if (Array.isArray(parsed)) {
-                        // Migrar dados antigos (adicionar campos novos se não existirem)
                         return parsed.map(card => ({
                             id: card.id || Date.now(),
                             titulo: card.titulo || '',
@@ -887,10 +1076,9 @@
                             responsavel: card.responsavel || '',
                             tags: card.tags || [],
                             descricao: card.descricao || '',
-                            checklist: card.checklist || { sinopse: false, objetivo: false, estrutura: false,
-                                roteiro: false },
+                            checklist: card.checklist || { sinopse: false, objetivo: false,
+                                estrutura: false, roteiro: false },
                             metricas: card.metricas || {},
-                            // NOVOS CAMPOS
                             dataGravacao: card.dataGravacao || '',
                             dataEdicao: card.dataEdicao || '',
                             dataEntrega: card.dataEntrega || '',
@@ -899,99 +1087,143 @@
                     }
                 }
             } catch (e) {
-                console.error('Erro ao carregar dados:', e);
-                registrarLog('erro', 'Falha ao carregar dados do localStorage');
+                console.error('Erro ao carregar dados locais:', e);
             }
             return [];
         }
 
-        function salvarDados(cardsData) {
+        function salvarDadosLocais(cardsData) {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsData));
-                atualizarStatusBar(true);
-                // Backup automático no sessionStorage como redundância
                 sessionStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify(cardsData));
             } catch (e) {
-                console.error('Erro ao salvar dados:', e);
-                registrarLog('erro', 'Falha ao salvar dados: ' + e.message);
-                atualizarStatusBar(false);
-                mostrarToast('⚠️ Erro ao salvar! Verifique o espaço do navegador.', 'danger');
+                console.error('Erro ao salvar localmente:', e);
             }
         }
 
-        function registrarLog(tipo, mensagem) {
-            try {
-                const logs = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
-                logs.push({
-                    timestamp: new Date().toISOString(),
-                    tipo: tipo,
-                    mensagem: mensagem
-                });
-                // Manter apenas os últimos 100 logs
-                if (logs.length > 100) logs.shift();
-                localStorage.setItem(LOG_KEY, JSON.stringify(logs));
-            } catch (e) {
-                // Silencioso
-            }
-        }
+        // ============ SINCRONIZAÇÃO ============
+        async function sincronizar() {
+            if (!githubToken) return;
 
-        function atualizarStatusBar(salvo) {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            if (salvo) {
-                dot.className = 'status-dot salvo';
-                text.textContent = 'Dados salvos ' + new Date().toLocaleTimeString();
-                setTimeout(() => {
-                    text.textContent = 'Dados salvos no navegador';
-                }, 3000);
-            } else {
-                dot.className = 'status-dot pendente';
-                text.textContent = 'Alterações não salvas';
-            }
-        }
-
-        // Backup automático antes de sair da página
-        window.addEventListener('beforeunload', () => {
-            salvarDados(cards);
-            registrarLog('info', 'Backup automático ao sair da página. Total: ' + cards.length + ' cards');
-        });
-
-        // Backup periódico (a cada 30 segundos)
-        setInterval(() => {
-            salvarDados(cards);
-        }, 30000);
-
-        // Recuperar backup de sessão se localStorage falhar
-        function recuperarBackupSessao() {
-            try {
-                const backup = sessionStorage.getItem(STORAGE_KEY + '_backup');
-                if (backup && (!cards || cards.length === 0)) {
-                    const dados = JSON.parse(backup);
-                    if (Array.isArray(dados) && dados.length > 0) {
-                        cards = dados;
-                        salvarDados(cards);
-                        mostrarToast('🔄 Dados recuperados do backup de sessão!');
-                        registrarLog('info', 'Dados recuperados do backup de sessão');
-                    }
+            // Se tem dados do GitHub, usa eles; senão, envia os locais
+            const dadosGitHub = await lerDoGitHub();
+            if (dadosGitHub && dadosGitHub.cards) {
+                // GitHub tem dados, usar como fonte principal
+                if (JSON.stringify(dadosGitHub.cards) !== JSON.stringify(cards)) {
+                    cards = dadosGitHub.cards;
+                    salvarDadosLocais(cards);
+                    renderCards();
+                    console.log('📥 Dados atualizados do GitHub');
                 }
-            } catch (e) {
-                console.error('Erro ao recuperar backup:', e);
+                lastSyncData = dadosGitHub.sha;
+                atualizarSyncIndicator('online');
+                atualizarStatusBar('☁️ Sincronizado com GitHub');
+            } else if (cards.length > 0) {
+                // GitHub vazio, enviar dados locais
+                await salvarNoGitHub(cards);
             }
+        }
+
+        async function sincronizarAgora() {
+            if (!githubToken) {
+                mostrarToast('⚠️ Configure o token do GitHub primeiro!', 'danger');
+                document.getElementById('loginOverlay').style.display = 'flex';
+                return;
+            }
+            mostrarToast('🔄 Sincronizando...');
+            await sincronizar();
+            if (cards.length > 0) {
+                await salvarNoGitHub(cards, lastSyncData);
+            }
+            mostrarToast('✅ Sincronização concluída!');
+        }
+
+        // ============ TOKEN ============
+        function configurarToken() {
+            const token = document.getElementById('tokenInput').value.trim();
+            if (!token || !token.startsWith('ghp_')) {
+                alert('❌ Token inválido! Deve começar com "ghp_"');
+                return;
+            }
+            githubToken = token;
+            localStorage.setItem(TOKEN_KEY, token);
+            document.getElementById('loginOverlay').style.display = 'none';
+            mostrarToast('🔐 Token configurado! Sincronizando...');
+            inicializarSistema();
+        }
+
+        function usarOffline() {
+            githubToken = '';
+            localStorage.removeItem(TOKEN_KEY);
+            document.getElementById('loginOverlay').style.display = 'none';
+            atualizarSyncIndicator('offline');
+            atualizarStatusBar('📴 Modo offline (dados salvos apenas no navegador)');
+            inicializarSistema();
         }
 
         // ============ DADOS ============
-        let cards = carregarDados();
+        let cards = [];
         let stageFiltro = 'all';
         let cardEditando = null;
 
-        // Recuperar backup se necessário
-        recuperarBackupSessao();
+        async function inicializarSistema() {
+            cards = carregarDadosLocais();
 
-        // Registrar início da sessão
-        registrarLog('info', 'Sistema iniciado. Cards carregados: ' + cards.length);
+            if (githubToken) {
+                atualizarSyncIndicator('syncing');
+                const dadosGitHub = await lerDoGitHub();
+                if (dadosGitHub && dadosGitHub.cards && dadosGitHub.cards.length > 0) {
+                    // GitHub tem dados - usar como fonte principal
+                    cards = dadosGitHub.cards;
+                    salvarDadosLocais(cards);
+                    lastSyncData = dadosGitHub.sha;
+                    atualizarSyncIndicator('online');
+                    atualizarStatusBar('☁️ Dados carregados do GitHub (' + cards.length + ' cards)');
+                } else if (cards.length > 0) {
+                    // GitHub vazio, enviar dados locais
+                    await salvarNoGitHub(cards);
+                    atualizarSyncIndicator('online');
+                } else {
+                    // Ambos vazios - dados demo
+                    carregarDadosDemo();
+                    await salvarNoGitHub(cards);
+                    atualizarSyncIndicator('online');
+                }
 
-        // ============ DADOS INICIAIS DEMO ============
-        if (cards.length === 0) {
+                // Iniciar sincronização periódica
+                if (syncInterval) clearInterval(syncInterval);
+                syncInterval = setInterval(async () => {
+                    await salvarNoGitHub(cards, lastSyncData);
+                }, 30000);
+            } else {
+                atualizarSyncIndicator('offline');
+                if (cards.length === 0) {
+                    carregarDadosDemo();
+                }
+                atualizarStatusBar('📴 Modo offline - Configure o token para sincronizar');
+            }
+
+            renderCards();
+            document.getElementById('loginOverlay').style.display = 'none';
+
+            // Salvar ao sair
+            window.addEventListener('beforeunload', async () => {
+                salvarDadosLocais(cards);
+                if (githubToken) {
+                    // Usar sendBeacon para garantir envio ao sair
+                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(cards, null, 2))));
+                    const body = JSON.stringify({
+                        message: `🔄 Backup ao sair - ${new Date().toLocaleString('pt-BR')}`,
+                        content: content,
+                        branch: GITHUB_BRANCH,
+                        sha: lastSyncData
+                    });
+                    navigator.sendBeacon(getApiUrl(), new Blob([body], { type: 'application/json' }));
+                }
+            });
+        }
+
+        function carregarDadosDemo() {
             const hoje = new Date().toISOString().split('T')[0];
             const proxSemana = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
             const prox2Semanas = new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0];
@@ -1025,11 +1257,11 @@
                 tags: ['#bastidores', '#evento'],
                 checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: false },
                 metricas: {},
-                descricao: 'Mostrar os bastidores do evento, entrevistas rápidas com a equipe.',
+                descricao: 'Mostrar os bastidores do evento.',
                 dataGravacao: proxSemana,
                 dataEdicao: '',
                 dataEntrega: prox2Semanas,
-                linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo-bastidores'
+                linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo'
             }, {
                 id: Date.now() + 3,
                 titulo: 'Depoimento cliente satisfeito',
@@ -1046,45 +1278,9 @@
                 dataGravacao: '2026-06-25',
                 dataEdicao: '2026-06-28',
                 dataEntrega: '2026-07-01',
-                linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos-clientes'
-            }, {
-                id: Date.now() + 4,
-                titulo: 'Dicas rápidas de produtividade',
-                formato: 'Stories',
-                categoria: 'Educativo',
-                prioridade: 'baixa',
-                stage: 'gaveta',
-                dataCriacao: '2026-05-15',
-                responsavel: 'Carlos',
-                tags: ['#dicas', '#produtividade'],
-                checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
-                metricas: {},
-                descricao: '5 dicas rápidas em formato de stories, uma por slide.',
-                dataGravacao: '2026-05-20',
-                dataEdicao: '2026-05-22',
-                dataEntrega: '2026-05-25',
-                linkArmazenamento: 'https://onedrive.live.com/exemplo-dicas'
-            }, {
-                id: Date.now() + 5,
-                titulo: 'Lançamento coleção verão',
-                formato: 'Carrossel',
-                categoria: 'Vendas',
-                prioridade: 'media',
-                stage: 'pub',
-                dataCriacao: '2026-06-25',
-                responsavel: 'Maria',
-                tags: ['#lançamento', '#verão'],
-                checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
-                metricas: { visualizacoes: 15200, curtidas: 2340, comentarios: 156, salvos: 890,
-                    compartilhamentos: 340, cliques: 1200 },
-                descricao: 'Apresentar a nova coleção de verão com fotos e preços.',
-                dataGravacao: '2026-06-20',
-                dataEdicao: '2026-06-23',
-                dataEntrega: '2026-06-25',
-                linkArmazenamento: 'https://drive.google.com/drive/folders/colecao-verao'
+                linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos'
             }];
-            salvarDados(cards);
-            registrarLog('info', 'Dados demo carregados. 5 cards iniciais criados.');
+            salvarDadosLocais(cards);
         }
 
         // ============ RENDER ============
@@ -1105,13 +1301,9 @@
                 );
             }
             const formato = document.getElementById('filtroFormato')?.value || '';
-            if (formato) {
-                filtrados = filtrados.filter(c => c.formato === formato);
-            }
+            if (formato) filtrados = filtrados.filter(c => c.formato === formato);
             const prioridade = document.getElementById('filtroPrioridade')?.value || '';
-            if (prioridade) {
-                filtrados = filtrados.filter(c => c.prioridade === prioridade);
-            }
+            if (prioridade) filtrados = filtrados.filter(c => c.prioridade === prioridade);
             return filtrados;
         }
 
@@ -1152,7 +1344,7 @@
                     return `
                     <div class="card ${stage.stageClass}" onclick="abrirModalEditar(${card.id})">
                         <div class="card-header">
-                            <span class="card-title">${card.titulo}</span>
+                            <span class="card-title">${escapeHTML(card.titulo)}</span>
                             <span class="card-badge ${stage.badge}">${stage.nome}</span>
                         </div>
                         <div class="card-meta">
@@ -1160,40 +1352,20 @@
                             <span>📂 ${card.categoria}</span>
                             <span><span class="priority-dot ${prioridadeClass}"></span> ${prioridadeEmoji} ${card.prioridade}</span>
                         </div>
-                        ${card.descricao ? `<p style="font-size:0.8rem;color:var(--text2);margin-bottom:8px;line-height:1.4">${card.descricao.substring(0, 100)}${card.descricao.length > 100 ? '...' : ''}</p>` : ''}
-
-                        <!-- DATAS -->
+                        ${card.descricao ? `<p style="font-size:0.8rem;color:var(--text2);margin-bottom:8px;line-height:1.4">${escapeHTML(card.descricao.substring(0, 100))}${card.descricao.length > 100 ? '...' : ''}</p>` : ''}
                         <div class="card-datas">
-                            <div class="card-data-item">
-                                <div class="data-label">🎥 Gravação</div>
-                                <div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div>
-                            </div>
-                            <div class="card-data-item">
-                                <div class="data-label">🎞 Edição</div>
-                                <div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div>
-                            </div>
-                            <div class="card-data-item">
-                                <div class="data-label">📅 Entrega</div>
-                                <div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div>
-                            </div>
+                            <div class="card-data-item"><div class="data-label">🎥 Gravação</div><div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div></div>
+                            <div class="card-data-item"><div class="data-label">🎞 Edição</div><div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div></div>
+                            <div class="card-data-item"><div class="data-label">📅 Entrega</div><div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div></div>
                         </div>
-
-                        <!-- LINK ARMAZENAMENTO -->
-                        ${card.linkArmazenamento ? `
-                        <div class="card-link">
-                            🔗 <a href="${card.linkArmazenamento}" target="_blank" onclick="event.stopPropagation()" title="Abrir link de armazenamento">${card.linkArmazenamento.length > 50 ? card.linkArmazenamento.substring(0, 50) + '...' : card.linkArmazenamento}</a>
-                        </div>` : ''}
-
-                        ${card.tags && card.tags.length > 0 ? `
-                        <div class="card-tags">${card.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : ''}
+                        ${card.linkArmazenamento ? `<div class="card-link">🔗 <a href="${escapeHTML(card.linkArmazenamento)}" target="_blank" onclick="event.stopPropagation()">${escapeHTML(card.linkArmazenamento.length > 50 ? card.linkArmazenamento.substring(0, 50) + '...' : card.linkArmazenamento)}</a></div>` : ''}
+                        ${card.tags && card.tags.length > 0 ? `<div class="card-tags">${card.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>` : ''}
                         <div class="card-progress">
-                            <div class="card-progress-bar">
-                                <div class="card-progress-fill" style="width:${progresso}%;background:var(--${stage.cor})"></div>
-                            </div>
+                            <div class="card-progress-bar"><div class="card-progress-fill" style="width:${progresso}%;background:var(--${stage.cor})"></div></div>
                             <div class="card-progress-text">📋 ${progresso}% concluído</div>
                         </div>
                         <div class="card-meta" style="margin-top:8px">
-                            <span>👤 ${card.responsavel || '—'}</span>
+                            <span>👤 ${escapeHTML(card.responsavel || '—')}</span>
                             <span>📅 ${card.dataCriacao ? new Date(card.dataCriacao + 'T00:00:00').toLocaleDateString('pt-BR') : '—'}</span>
                         </div>
                         <div class="card-actions" onclick="event.stopPropagation()">
@@ -1205,7 +1377,6 @@
                 }).join('');
             }
             atualizarContadores();
-            atualizarStatusBar(true);
         }
 
         function getProximoStageBtn(card) {
@@ -1215,20 +1386,17 @@
                 const next = ordem[idx + 1];
                 return `<button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();moverStage(${card.id},'${next}')">➡ ${STAGES[next].nome}</button>`;
             }
-            if (card.stage === 'result') {
-                return '<span style="font-size:0.7rem;color:var(--success)">✅ Finalizado</span>';
-            }
+            if (card.stage === 'result') return '<span style="font-size:0.7rem;color:var(--success)">✅ Finalizado</span>';
             return '';
         }
 
         function moverStage(id, novoStage) {
             const card = cards.find(c => c.id === id);
             if (card) {
-                const stageAntigo = card.stage;
                 card.stage = novoStage;
-                salvarDados(cards);
+                salvarDadosLocais(cards);
+                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 renderCards();
-                registrarLog('info', `Card "${card.titulo}" movido de "${stageAntigo}" para "${novoStage}"`);
                 mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
             }
         }
@@ -1236,37 +1404,22 @@
         function moverParaGaveta(id) {
             const card = cards.find(c => c.id === id);
             if (card && card.stage !== 'gaveta') {
-                const stageAntigo = card.stage;
                 card.stage = 'gaveta';
-                salvarDados(cards);
+                salvarDadosLocais(cards);
+                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 renderCards();
-                registrarLog('info', `Card "${card.titulo}" arquivado na gaveta (estava em: ${stageAntigo})`);
                 mostrarToast('📚 Conteúdo movido para a Gaveta!');
             }
         }
 
         function excluirCard(id) {
             const card = cards.find(c => c.id === id);
-            if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?\n\nEsta ação não pode ser desfeita.`)) {
+            if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?`)) {
                 cards = cards.filter(c => c.id !== id);
-                salvarDados(cards);
+                salvarDadosLocais(cards);
+                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 renderCards();
-                registrarLog('warning', `Card "${card.titulo}" (ID: ${id}) excluído`);
                 mostrarToast('🗑 Conteúdo excluído!');
-            }
-        }
-
-        function limparTudo() {
-            if (confirm(
-                    '⚠️ ATENÇÃO!\n\nTem certeza que deseja EXCLUIR TODOS os conteúdos?\n\nRecomendamos exportar um backup antes de limpar.\n\nEsta ação não pode ser desfeita.'
-                    )) {
-                if (confirm('Confirme novamente: deseja realmente LIMPAR TUDO?')) {
-                    cards = [];
-                    salvarDados(cards);
-                    renderCards();
-                    registrarLog('warning', 'TODOS os cards foram excluídos pelo usuário');
-                    mostrarToast('🗑 Todos os conteúdos foram excluídos!');
-                }
             }
         }
 
@@ -1286,15 +1439,13 @@
             document.getElementById('gavetaCount').textContent = counts.gaveta;
         }
 
-        // ============ FILTRO ============
         function filtrarStage(stage, el) {
             stageFiltro = stage;
             document.querySelectorAll('.stage-item').forEach(item => item.classList.remove('active'));
             if (el) el.classList.add('active');
             const count = stage === 'all' ? cards.length : cards.filter(c => c.stage === stage).length;
-            document.getElementById('contentTitle').textContent = stage === 'all' ?
-                '📌 Todos os Conteúdos' :
-                STAGES[stage].nome + ' (' + count + ')';
+            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos os Conteúdos' : STAGES[
+                stage].nome + ' (' + count + ')';
             renderCards();
         }
 
@@ -1342,122 +1493,55 @@
             return `
             <h2>${isEdit ? '✏️ Editar Conteúdo' : '➕ Novo Conteúdo'}</h2>
             <form onsubmit="salvarCard(event, ${isEdit ? card.id : 'null'})">
-                <div class="form-group">
-                    <label>Título *</label>
-                    <input type="text" id="formTitulo" value="${escapeHTML(titulo)}" required placeholder="Nome do conteúdo">
+                <div class="form-group"><label>Título *</label><input type="text" id="formTitulo" value="${escapeHTML(titulo)}" required></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Formato</label><select id="formFormato">${['Reels','Stories','YouTube','TikTok','Carrossel','IGTV','Feed','LinkedIn'].map(f => `<option value="${f}" ${f === formato ? 'selected' : ''}>${f}</option>`).join('')}</select></div>
+                    <div class="form-group"><label>Categoria</label><select id="formCategoria">${['Educativo','Entretenimento','Bastidores','Vendas','Institucional','Tendência','Depoimento','Tutorial'].map(c => `<option value="${c}" ${c === categoria ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Formato</label>
-                        <select id="formFormato">
-                            ${['Reels','Stories','YouTube','TikTok','Carrossel','IGTV','Feed','LinkedIn'].map(f => `<option value="${f}" ${f === formato ? 'selected' : ''}>${f}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Categoria</label>
-                        <select id="formCategoria">
-                            ${['Educativo','Entretenimento','Bastidores','Vendas','Institucional','Tendência','Depoimento','Tutorial'].map(c => `<option value="${c}" ${c === categoria ? 'selected' : ''}>${c}</option>`).join('')}
-                        </select>
-                    </div>
+                    <div class="form-group"><label>Prioridade</label><select id="formPrioridade"><option value="alta" ${prioridade==='alta'?'selected':''}>🔴 Alta</option><option value="media" ${prioridade==='media'?'selected':''}>🟡 Média</option><option value="baixa" ${prioridade==='baixa'?'selected':''}>🟢 Baixa</option></select></div>
+                    <div class="form-group"><label>Etapa</label><select id="formStage">${Object.entries(STAGES).map(([k,v])=>`<option value="${k}" ${k===stage?'selected':''}>${v.nome}</option>`).join('')}</select></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Prioridade</label>
-                        <select id="formPrioridade">
-                            <option value="alta" ${prioridade === 'alta' ? 'selected' : ''}>🔴 Alta</option>
-                            <option value="media" ${prioridade === 'media' ? 'selected' : ''}>🟡 Média</option>
-                            <option value="baixa" ${prioridade === 'baixa' ? 'selected' : ''}>🟢 Baixa</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Etapa Atual</label>
-                        <select id="formStage">
-                            ${Object.entries(STAGES).map(([k,v]) => `<option value="${k}" ${k === stage ? 'selected' : ''}>${v.nome}</option>`).join('')}
-                        </select>
-                    </div>
+                    <div class="form-group"><label>Responsável</label><input type="text" id="formResponsavel" value="${escapeHTML(responsavel)}"></div>
+                    <div class="form-group"><label>Data de Criação</label><input type="date" id="formDataCriacao" value="${dataCriacao}"></div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Responsável</label>
-                        <input type="text" id="formResponsavel" value="${escapeHTML(responsavel)}" placeholder="Nome do responsável">
-                    </div>
-                    <div class="form-group">
-                        <label>Data de Criação</label>
-                        <input type="date" id="formDataCriacao" value="${dataCriacao}">
-                    </div>
-                </div>
-
-                <!-- NOVOS CAMPOS: DATAS -->
-                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📅 CRONOGRAMA DE PRODUÇÃO</h3>
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📅 CRONOGRAMA</h3>
                 <div class="form-row-3">
-                    <div class="form-group">
-                        <label>🎥 Data de Gravação</label>
-                        <input type="date" id="formDataGravacao" value="${dataGravacao}">
-                    </div>
-                    <div class="form-group">
-                        <label>🎞 Data de Edição</label>
-                        <input type="date" id="formDataEdicao" value="${dataEdicao}">
-                    </div>
-                    <div class="form-group">
-                        <label>📅 Data de Entrega</label>
-                        <input type="date" id="formDataEntrega" value="${dataEntrega}">
-                    </div>
+                    <div class="form-group"><label>🎥 Gravação</label><input type="date" id="formDataGravacao" value="${dataGravacao}"></div>
+                    <div class="form-group"><label>🎞 Edição</label><input type="date" id="formDataEdicao" value="${dataEdicao}"></div>
+                    <div class="form-group"><label>📅 Entrega</label><input type="date" id="formDataEntrega" value="${dataEntrega}"></div>
                 </div>
-
-                <!-- NOVO CAMPO: LINK ARMAZENAMENTO -->
-                <div class="form-group">
-                    <label>🔗 Link de Armazenamento (Google Drive, OneDrive, etc.)</label>
-                    <input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://drive.google.com/drive/folders/...">
-                    <small style="color:var(--text2);font-size:0.7rem">Cole aqui o link da pasta onde os arquivos estão armazenados</small>
-                </div>
-
-                <div class="form-group">
-                    <label>Tags (separadas por vírgula)</label>
-                    <input type="text" id="formTags" value="${escapeHTML(tags)}" placeholder="#tutorial, #produtoX">
-                </div>
-                <div class="form-group">
-                    <label>Descrição / Sinopse</label>
-                    <textarea id="formDescricao" rows="3" placeholder="Descreva a ideia, objetivo e estrutura...">${escapeHTML(descricao)}</textarea>
-                </div>
-
+                <div class="form-group"><label>🔗 Link Armazenamento</label><input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://drive.google.com/..."></div>
+                <div class="form-group"><label>Tags (vírgula)</label><input type="text" id="formTags" value="${escapeHTML(tags)}"></div>
+                <div class="form-group"><label>Descrição</label><textarea id="formDescricao" rows="3">${escapeHTML(descricao)}</textarea></div>
                 <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📋 CHECKLIST</h3>
                 <div class="checkbox-list">
-                    <label class="checkbox-item"><input type="checkbox" id="chkSinopse" ${checklist.sinopse ? 'checked' : ''}> Sinopse / Resumo (3-5 linhas)</label>
-                    <label class="checkbox-item"><input type="checkbox" id="chkObjetivo" ${checklist.objetivo ? 'checked' : ''}> Objetivo definido</label>
-                    <label class="checkbox-item"><input type="checkbox" id="chkEstrutura" ${checklist.estrutura ? 'checked' : ''}> Estrutura narrativa</label>
-                    <label class="checkbox-item"><input type="checkbox" id="chkRoteiro" ${checklist.roteiro ? 'checked' : ''}> Roteiro finalizado</label>
+                    <label class="checkbox-item"><input type="checkbox" id="chkSinopse" ${checklist.sinopse?'checked':''}> Sinopse</label>
+                    <label class="checkbox-item"><input type="checkbox" id="chkObjetivo" ${checklist.objetivo?'checked':''}> Objetivo</label>
+                    <label class="checkbox-item"><input type="checkbox" id="chkEstrutura" ${checklist.estrutura?'checked':''}> Estrutura</label>
+                    <label class="checkbox-item"><input type="checkbox" id="chkRoteiro" ${checklist.roteiro?'checked':''}> Roteiro</label>
                 </div>
-
-                ${card && (card.stage === 'pub' || card.stage === 'result') ? `
+                ${card && (card.stage==='pub'||card.stage==='result') ? `
                 <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📊 MÉTRICAS</h3>
-                <div class="form-row">
-                    <div class="form-group"><label>Visualizações</label><input type="number" id="metVisualizacoes" value="${metricas.visualizacoes || 0}"></div>
-                    <div class="form-group"><label>Curtidas</label><input type="number" id="metCurtidas" value="${metricas.curtidas || 0}"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Comentários</label><input type="number" id="metComentarios" value="${metricas.comentarios || 0}"></div>
-                    <div class="form-group"><label>Salvos</label><input type="number" id="metSalvos" value="${metricas.salvos || 0}"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Compartilhamentos</label><input type="number" id="metCompartilhamentos" value="${metricas.compartilhamentos || 0}"></div>
-                    <div class="form-group"><label>Cliques no Link</label><input type="number" id="metCliques" value="${metricas.cliques || 0}"></div>
-                </div>
-                ` : ''}
-
+                <div class="form-row"><div class="form-group"><label>Visualizações</label><input type="number" id="metVisualizacoes" value="${metricas.visualizacoes||0}"></div><div class="form-group"><label>Curtidas</label><input type="number" id="metCurtidas" value="${metricas.curtidas||0}"></div></div>
+                <div class="form-row"><div class="form-group"><label>Comentários</label><input type="number" id="metComentarios" value="${metricas.comentarios||0}"></div><div class="form-group"><label>Salvos</label><input type="number" id="metSalvos" value="${metricas.salvos||0}"></div></div>
+                <div class="form-row"><div class="form-group"><label>Compartilhamentos</label><input type="number" id="metCompartilhamentos" value="${metricas.compartilhamentos||0}"></div><div class="form-group"><label>Cliques</label><input type="number" id="metCliques" value="${metricas.cliques||0}"></div></div>`:''}
                 <div style="display:flex;gap:10px;margin-top:24px;justify-content:flex-end">
                     <button type="button" class="btn btn-outline" onclick="fecharModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">💾 ${isEdit ? 'Salvar Alterações' : 'Criar Conteúdo'}</button>
+                    <button type="submit" class="btn btn-primary">💾 Salvar</button>
                 </div>
             </form>`;
         }
 
         function escapeHTML(str) {
             if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
         }
 
-        function salvarCard(event, id) {
+        async function salvarCard(event, id) {
             event.preventDefault();
             const dados = {
                 titulo: document.getElementById('formTitulo').value,
@@ -1476,18 +1560,16 @@
                     roteiro: document.getElementById('chkRoteiro').checked,
                 },
                 metricas: {},
-                // NOVOS CAMPOS
                 dataGravacao: document.getElementById('formDataGravacao').value,
                 dataEdicao: document.getElementById('formDataEdicao').value,
                 dataEntrega: document.getElementById('formDataEntrega').value,
                 linkArmazenamento: document.getElementById('formLinkArmazenamento').value,
             };
 
-            // Coletar métricas se existirem
-            const metVisualizacoes = document.getElementById('metVisualizacoes');
-            if (metVisualizacoes) {
+            const metVis = document.getElementById('metVisualizacoes');
+            if (metVis) {
                 dados.metricas = {
-                    visualizacoes: parseInt(metVisualizacoes.value) || 0,
+                    visualizacoes: parseInt(metVis.value) || 0,
                     curtidas: parseInt(document.getElementById('metCurtidas')?.value) || 0,
                     comentarios: parseInt(document.getElementById('metComentarios')?.value) || 0,
                     salvos: parseInt(document.getElementById('metSalvos')?.value) || 0,
@@ -1498,54 +1580,42 @@
 
             if (id) {
                 const idx = cards.findIndex(c => c.id === id);
-                if (idx >= 0) {
-                    cards[idx] = { ...cards[idx], ...dados };
-                }
-                registrarLog('info', `Card "${dados.titulo}" (ID: ${id}) atualizado`);
-                mostrarToast('✅ Conteúdo atualizado com sucesso!');
+                if (idx >= 0) cards[idx] = { ...cards[idx], ...dados };
+                mostrarToast('✅ Conteúdo atualizado!');
             } else {
-                const novoCard = { ...dados, id: Date.now() };
-                cards.push(novoCard);
-                registrarLog('info', `Novo card criado: "${dados.titulo}" (ID: ${novoCard.id})`);
+                cards.push({ ...dados, id: Date.now() });
                 mostrarToast('🎉 Novo conteúdo criado!');
             }
 
-            salvarDados(cards);
+            salvarDadosLocais(cards);
+            if (githubToken) await salvarNoGitHub(cards, lastSyncData);
             document.getElementById('modalOverlay').style.display = 'none';
             cardEditando = null;
             renderCards();
         }
 
-        // ============ EXPORTAR / IMPORTAR ============
+        // ============ EXPORTAR/IMPORTAR ============
         function exportarDados() {
             const dados = JSON.stringify(cards, null, 2);
             const blob = new Blob([dados], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            const timestamp = new Date().toISOString().split('T')[0];
-            a.download = `backup_audiovisual_${timestamp}.json`;
+            a.download = `backup_audiovisual_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
             URL.revokeObjectURL(url);
-            registrarLog('info', `Backup exportado: ${cards.length} cards`);
-            mostrarToast('📥 Backup exportado com sucesso!');
+            mostrarToast('📥 Backup exportado!');
         }
 
         function importarDados(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = async function(e) {
                 try {
                     const dados = JSON.parse(e.target.result);
-                    if (!Array.isArray(dados)) {
-                        throw new Error('Formato inválido');
-                    }
-                    if (confirm(
-                            `📤 Importar ${dados.length} conteúdos?\n\n⚠️ Isso vai SUBSTITUIR todos os dados atuais.\n\nRecomendamos exportar um backup antes de continuar.\n\nDeseja continuar?`
-                            )) {
-                        // Migrar dados importados para garantir campos novos
+                    if (!Array.isArray(dados)) throw new Error('Formato inválido');
+                    if (confirm(`📤 Importar ${dados.length} conteúdos? Isso substituirá todos os dados atuais.`)) {
                         cards = dados.map(card => ({
                             id: card.id || Date.now(),
                             titulo: card.titulo || '',
@@ -1565,14 +1635,13 @@
                             dataEntrega: card.dataEntrega || '',
                             linkArmazenamento: card.linkArmazenamento || '',
                         }));
-                        salvarDados(cards);
+                        salvarDadosLocais(cards);
+                        if (githubToken) await salvarNoGitHub(cards, lastSyncData);
                         renderCards();
-                        registrarLog('info', `Backup importado: ${cards.length} cards`);
-                        mostrarToast(`📤 ${cards.length} conteúdos importados com sucesso!`);
+                        mostrarToast(`📤 ${cards.length} conteúdos importados!`);
                     }
                 } catch (err) {
-                    alert('❌ Arquivo inválido! Por favor, selecione um arquivo JSON válido.');
-                    registrarLog('erro', 'Falha ao importar arquivo: ' + err.message);
+                    alert('❌ Arquivo inválido!');
                 }
             };
             reader.readAsText(file);
@@ -1591,37 +1660,35 @@
             setTimeout(() => { toast.style.display = 'none'; }, 2800);
         }
 
+        function atualizarStatusBar(msg) {
+            document.getElementById('statusText').textContent = msg;
+        }
+
         // ============ TECLAS ============
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.getElementById('modalOverlay').style.display = 'none';
                 cardEditando = null;
             }
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault();
-                abrirModalNovo();
-            }
+            if (e.ctrlKey && e.key === 'n') { e.preventDefault();
+                abrirModalNovo(); }
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
-                salvarDados(cards);
-                mostrarToast('💾 Dados salvos manualmente!');
+                salvarDadosLocais(cards);
+                if (githubToken) salvarNoGitHub(cards, lastSyncData);
+                mostrarToast('💾 Dados salvos!');
             }
         });
 
         // ============ INIT ============
-        renderCards();
-
-        console.log('🎬 Sistema de Gestão Audiovisual v2.0 carregado!');
-        console.log('📋 ' + cards.length + ' conteúdos no sistema');
-        console.log('🆕 Novidades:');
-        console.log('  - Log automático de alterações');
-        console.log('  - Backup automático ao sair da página');
-        console.log('  - Backup periódico a cada 30 segundos');
-        console.log('  - Campos de data: Gravação, Edição e Entrega');
-        console.log('  - Campo de link de armazenamento (Drive, OneDrive)');
-        console.log('  - Exportar/Importar backup JSON');
-        console.log('  - Ctrl+S para salvar manualmente');
-        console.log('💡 Dica: Exporte o backup regularmente!');
+        // Verificar se token já existe
+        if (githubToken) {
+            document.getElementById('tokenInput').value = githubToken;
+            document.getElementById('loginOverlay').style.display = 'none';
+            inicializarSistema();
+        }
+        // Se não tem token, mostrar tela de login
+        // (o overlay já está visível por padrão)
     </script>
 </body>
 </html>
