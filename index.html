@@ -55,6 +55,8 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            gap: 12px;
         }
         .header h1 {
             font-size: 1.5rem;
@@ -66,15 +68,22 @@
             display: flex;
             gap: 20px;
             font-size: 0.85rem;
+            flex-wrap: wrap;
         }
         .header-stats span {
             background: var(--surface2);
             padding: 6px 14px;
             border-radius: 20px;
             color: var(--text2);
+            white-space: nowrap;
         }
         .header-stats span strong {
             color: var(--text);
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         /* BOTÕES */
@@ -116,6 +125,14 @@
             border-color: var(--primary);
             color: var(--primary);
         }
+        .btn-success {
+            background: var(--success);
+            color: #000;
+        }
+        .btn-warning {
+            background: var(--warning);
+            color: #000;
+        }
 
         /* LAYOUT PRINCIPAL */
         .main-container {
@@ -133,6 +150,7 @@
             flex-direction: column;
             gap: 6px;
             overflow-y: auto;
+            flex-shrink: 0;
         }
         .sidebar-section {
             margin-bottom: 20px;
@@ -191,6 +209,8 @@
             align-items: center;
             justify-content: space-between;
             flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 12px;
         }
         .content-header h2 {
             font-size: 1.3rem;
@@ -207,7 +227,7 @@
         /* CARDS */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 16px;
         }
         .card {
@@ -234,6 +254,8 @@
             font-weight: 600;
             font-size: 1rem;
             line-height: 1.4;
+            flex: 1;
+            margin-right: 8px;
         }
         .card-badge {
             font-size: 0.7rem;
@@ -241,6 +263,7 @@
             border-radius: 20px;
             font-weight: 600;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         .card-meta {
             font-size: 0.8rem;
@@ -249,6 +272,50 @@
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 10px;
+        }
+        .card-datas {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin: 10px 0;
+            font-size: 0.7rem;
+            background: var(--surface2);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .card-data-item {
+            text-align: center;
+        }
+        .card-data-item .data-label {
+            color: var(--text2);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-data-item .data-value {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        .card-data-item .data-value.pendente {
+            color: var(--warning);
+        }
+        .card-link {
+            font-size: 0.75rem;
+            color: var(--info);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin: 8px 0;
+            word-break: break-all;
+        }
+        .card-link a {
+            color: var(--info);
+            text-decoration: none;
+        }
+        .card-link a:hover {
+            text-decoration: underline;
         }
         .card-progress {
             margin-top: 10px;
@@ -295,9 +362,15 @@
             border-radius: 50%;
             display: inline-block;
         }
-        .priority-alta { background: var(--danger); }
-        .priority-media { background: var(--warning); }
-        .priority-baixa { background: var(--success); }
+        .priority-alta {
+            background: var(--danger);
+        }
+        .priority-media {
+            background: var(--warning);
+        }
+        .priority-baixa {
+            background: var(--success);
+        }
 
         /* MODAL */
         .modal-overlay {
@@ -314,23 +387,33 @@
             animation: fadeIn 0.2s;
         }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         .modal {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
             width: 90%;
-            max-width: 750px;
+            max-width: 800px;
             max-height: 85vh;
             overflow-y: auto;
             padding: 30px;
             animation: slideUp 0.3s;
         }
         @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         .modal h2 {
             margin-bottom: 20px;
@@ -385,6 +468,11 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 14px;
         }
         .checkbox-list {
@@ -453,14 +541,63 @@
             border-radius: 10px;
             font-weight: 600;
             z-index: 999;
-            animation: slideIn 0.3s, fadeOut 0.3s 2.5s forwards;
+            animation: slideIn 0.3s, fadeOutToast 0.3s 2.5s forwards;
         }
         @keyframes slideIn {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        @keyframes fadeOut {
-            to { opacity: 0; transform: translateY(-10px); }
+        @keyframes fadeOutToast {
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 8px 20px;
+            font-size: 0.7rem;
+            color: var(--text2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .status-dot.salvo {
+            background: var(--success);
+        }
+        .status-dot.pendente {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
         }
 
         /* RESPONSIVO */
@@ -478,34 +615,99 @@
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            .form-row {
+            .form-row,
+            .form-row-3 {
                 grid-template-columns: 1fr;
             }
             .header-stats {
                 display: none;
             }
+            .card-datas {
+                grid-template-columns: 1fr 1fr 1fr;
+                font-size: 0.6rem;
+            }
         }
 
         /* ETAPA CORES */
-        .stage-ideia { border-left: 4px solid var(--ideia); }
-        .stage-desenv { border-left: 4px solid var(--desenv); }
-        .stage-preprod { border-left: 4px solid var(--preprod); }
-        .stage-prod { border-left: 4px solid var(--prod); }
-        .stage-posprod { border-left: 4px solid var(--posprod); }
-        .stage-aprov { border-left: 4px solid var(--aprov); }
-        .stage-pub { border-left: 4px solid var(--pub); }
-        .stage-gaveta { border-left: 4px solid var(--gaveta); }
-        .stage-result { border-left: 4px solid var(--result); }
+        .stage-ideia {
+            border-left: 4px solid var(--ideia);
+        }
+        .stage-desenv {
+            border-left: 4px solid var(--desenv);
+        }
+        .stage-preprod {
+            border-left: 4px solid var(--preprod);
+        }
+        .stage-prod {
+            border-left: 4px solid var(--prod);
+        }
+        .stage-posprod {
+            border-left: 4px solid var(--posprod);
+        }
+        .stage-aprov {
+            border-left: 4px solid var(--aprov);
+        }
+        .stage-pub {
+            border-left: 4px solid var(--pub);
+        }
+        .stage-gaveta {
+            border-left: 4px solid var(--gaveta);
+        }
+        .stage-result {
+            border-left: 4px solid var(--result);
+        }
 
-        .badge-ideia { background: rgba(155, 89, 182, 0.2); color: #c39bdb; }
-        .badge-desenv { background: rgba(52, 152, 219, 0.2); color: #7db9e8; }
-        .badge-preprod { background: rgba(26, 188, 156, 0.2); color: #5ee0c8; }
-        .badge-prod { background: rgba(230, 126, 34, 0.2); color: #f0a860; }
-        .badge-posprod { background: rgba(231, 76, 60, 0.2); color: #f08080; }
-        .badge-aprov { background: rgba(46, 204, 113, 0.2); color: #6ee8a0; }
-        .badge-pub { background: rgba(243, 156, 18, 0.2); color: #f7c060; }
-        .badge-gaveta { background: rgba(127, 140, 141, 0.2); color: #b0b8b9; }
-        .badge-result { background: rgba(41, 128, 185, 0.2); color: #6aaed9; }
+        .badge-ideia {
+            background: rgba(155, 89, 182, 0.2);
+            color: #c39bdb;
+        }
+        .badge-desenv {
+            background: rgba(52, 152, 219, 0.2);
+            color: #7db9e8;
+        }
+        .badge-preprod {
+            background: rgba(26, 188, 156, 0.2);
+            color: #5ee0c8;
+        }
+        .badge-prod {
+            background: rgba(230, 126, 34, 0.2);
+            color: #f0a860;
+        }
+        .badge-posprod {
+            background: rgba(231, 76, 60, 0.2);
+            color: #f08080;
+        }
+        .badge-aprov {
+            background: rgba(46, 204, 113, 0.2);
+            color: #6ee8a0;
+        }
+        .badge-pub {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f7c060;
+        }
+        .badge-gaveta {
+            background: rgba(127, 140, 141, 0.2);
+            color: #b0b8b9;
+        }
+        .badge-result {
+            background: rgba(41, 128, 185, 0.2);
+            color: #6aaed9;
+        }
+
+        /* IMPORT BUTTON */
+        .import-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .import-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+        }
     </style>
 </head>
 <body>
@@ -517,8 +719,16 @@
             <span>📋 Total: <strong id="totalCount">0</strong></span>
             <span>✅ Aprovados: <strong id="aprovCount">0</strong></span>
             <span>📲 Publicados: <strong id="pubCount">0</strong></span>
+            <span>📚 Gaveta: <strong id="gavetaCount">0</strong></span>
         </div>
-        <button class="btn btn-primary" onclick="abrirModalNovo()">+ Novo Conteúdo</button>
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="abrirModalNovo()">+ Novo Conteúdo</button>
+            <button class="btn btn-outline btn-sm" onclick="exportarDados()" title="Exportar backup JSON">📥 Exportar</button>
+            <span class="import-wrapper">
+                <button class="btn btn-outline btn-sm">📤 Importar</button>
+                <input type="file" accept=".json" onchange="importarDados(event)" title="Importar backup JSON">
+            </span>
+        </div>
     </div>
 
     <!-- MAIN -->
@@ -577,14 +787,21 @@
                     <span class="stage-count" id="countResult">0</span>
                 </div>
             </div>
-            <button class="btn btn-outline btn-sm" onclick="exportarDados()" style="width:100%">📥 Exportar Dados</button>
+            <div style="display:flex;flex-direction:column;gap:6px">
+                <button class="btn btn-outline btn-sm" onclick="exportarDados()" style="width:100%">📥 Exportar Backup</button>
+                <span class="import-wrapper" style="width:100%">
+                    <button class="btn btn-outline btn-sm" style="width:100%">📤 Importar Backup</button>
+                    <input type="file" accept=".json" onchange="importarDados(event)" style="width:100%">
+                </span>
+                <button class="btn btn-outline btn-sm" onclick="limparTudo()" style="width:100%;color:var(--danger);border-color:var(--danger)">🗑 Limpar Tudo</button>
+            </div>
         </div>
 
         <!-- CONTENT -->
         <div class="content">
             <div class="content-header">
                 <h2 id="contentTitle">📌 Todos os Conteúdos</h2>
-                <div style="display:flex;gap:8px">
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
                     <select id="filtroFormato" onchange="renderCards()" style="padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem">
                         <option value="">Todos os formatos</option>
                         <option value="Reels">Reels</option>
@@ -593,6 +810,8 @@
                         <option value="TikTok">TikTok</option>
                         <option value="Carrossel">Carrossel</option>
                         <option value="IGTV">IGTV</option>
+                        <option value="Feed">Feed</option>
+                        <option value="LinkedIn">LinkedIn</option>
                     </select>
                     <select id="filtroPrioridade" onchange="renderCards()" style="padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem">
                         <option value="">Todas prioridades</option>
@@ -604,7 +823,7 @@
             </div>
             <div class="content-body">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="🔍 Buscar por título, formato, categoria..." oninput="renderCards()">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar por título, formato, categoria, tags..." oninput="renderCards()">
                 </div>
                 <div class="cards-grid" id="cardsGrid">
                     <!-- Cards dinâmicos aqui -->
@@ -626,8 +845,17 @@
     <!-- TOAST -->
     <div class="toast" id="toast" style="display:none"></div>
 
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <span><span class="status-dot salvo" id="statusDot"></span><span id="statusText">Dados salvos no navegador</span></span>
+        <span>💡 Dica: Exporte o backup regularmente para não perder seus dados | Ctrl+N = Novo | ESC = Fechar</span>
+    </div>
+
     <script>
-        // ============ DADOS ============
+        // ============ CONSTANTES ============
+        const STORAGE_KEY = 'audiovisual_cards_v2';
+        const LOG_KEY = 'audiovisual_log';
+
         const STAGES = {
             ideia: { nome: '💡 Ideias', cor: 'ideia', badge: 'badge-ideia', stageClass: 'stage-ideia' },
             desenv: { nome: '📝 Desenvolvimento', cor: 'desenv', badge: 'badge-desenv', stageClass: 'stage-desenv' },
@@ -640,96 +868,223 @@
             result: { nome: '📊 Resultados', cor: 'result', badge: 'badge-result', stageClass: 'stage-result' }
         };
 
-        // Carregar dados do localStorage
+        // ============ PERSISTÊNCIA COM LOG ============
         function carregarDados() {
-            const dados = localStorage.getItem('audiovisual_cards');
-            return dados ? JSON.parse(dados) : [];
+            try {
+                const dados = localStorage.getItem(STORAGE_KEY);
+                if (dados) {
+                    const parsed = JSON.parse(dados);
+                    if (Array.isArray(parsed)) {
+                        // Migrar dados antigos (adicionar campos novos se não existirem)
+                        return parsed.map(card => ({
+                            id: card.id || Date.now(),
+                            titulo: card.titulo || '',
+                            formato: card.formato || 'Reels',
+                            categoria: card.categoria || 'Educativo',
+                            prioridade: card.prioridade || 'media',
+                            stage: card.stage || 'ideia',
+                            dataCriacao: card.dataCriacao || '',
+                            responsavel: card.responsavel || '',
+                            tags: card.tags || [],
+                            descricao: card.descricao || '',
+                            checklist: card.checklist || { sinopse: false, objetivo: false, estrutura: false,
+                                roteiro: false },
+                            metricas: card.metricas || {},
+                            // NOVOS CAMPOS
+                            dataGravacao: card.dataGravacao || '',
+                            dataEdicao: card.dataEdicao || '',
+                            dataEntrega: card.dataEntrega || '',
+                            linkArmazenamento: card.linkArmazenamento || '',
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.error('Erro ao carregar dados:', e);
+                registrarLog('erro', 'Falha ao carregar dados do localStorage');
+            }
+            return [];
         }
 
-        function salvarDados(cards) {
-            localStorage.setItem('audiovisual_cards', JSON.stringify(cards));
+        function salvarDados(cardsData) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsData));
+                atualizarStatusBar(true);
+                // Backup automático no sessionStorage como redundância
+                sessionStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify(cardsData));
+            } catch (e) {
+                console.error('Erro ao salvar dados:', e);
+                registrarLog('erro', 'Falha ao salvar dados: ' + e.message);
+                atualizarStatusBar(false);
+                mostrarToast('⚠️ Erro ao salvar! Verifique o espaço do navegador.', 'danger');
+            }
         }
 
+        function registrarLog(tipo, mensagem) {
+            try {
+                const logs = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+                logs.push({
+                    timestamp: new Date().toISOString(),
+                    tipo: tipo,
+                    mensagem: mensagem
+                });
+                // Manter apenas os últimos 100 logs
+                if (logs.length > 100) logs.shift();
+                localStorage.setItem(LOG_KEY, JSON.stringify(logs));
+            } catch (e) {
+                // Silencioso
+            }
+        }
+
+        function atualizarStatusBar(salvo) {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            if (salvo) {
+                dot.className = 'status-dot salvo';
+                text.textContent = 'Dados salvos ' + new Date().toLocaleTimeString();
+                setTimeout(() => {
+                    text.textContent = 'Dados salvos no navegador';
+                }, 3000);
+            } else {
+                dot.className = 'status-dot pendente';
+                text.textContent = 'Alterações não salvas';
+            }
+        }
+
+        // Backup automático antes de sair da página
+        window.addEventListener('beforeunload', () => {
+            salvarDados(cards);
+            registrarLog('info', 'Backup automático ao sair da página. Total: ' + cards.length + ' cards');
+        });
+
+        // Backup periódico (a cada 30 segundos)
+        setInterval(() => {
+            salvarDados(cards);
+        }, 30000);
+
+        // Recuperar backup de sessão se localStorage falhar
+        function recuperarBackupSessao() {
+            try {
+                const backup = sessionStorage.getItem(STORAGE_KEY + '_backup');
+                if (backup && (!cards || cards.length === 0)) {
+                    const dados = JSON.parse(backup);
+                    if (Array.isArray(dados) && dados.length > 0) {
+                        cards = dados;
+                        salvarDados(cards);
+                        mostrarToast('🔄 Dados recuperados do backup de sessão!');
+                        registrarLog('info', 'Dados recuperados do backup de sessão');
+                    }
+                }
+            } catch (e) {
+                console.error('Erro ao recuperar backup:', e);
+            }
+        }
+
+        // ============ DADOS ============
         let cards = carregarDados();
         let stageFiltro = 'all';
         let cardEditando = null;
 
+        // Recuperar backup se necessário
+        recuperarBackupSessao();
+
+        // Registrar início da sessão
+        registrarLog('info', 'Sistema iniciado. Cards carregados: ' + cards.length);
+
         // ============ DADOS INICIAIS DEMO ============
         if (cards.length === 0) {
-            const dataAtual = new Date().toISOString().split('T')[0];
-            cards = [
-                {
-                    id: Date.now() + 1,
-                    titulo: 'Tutorial: Como usar o novo produto X',
-                    formato: 'Reels',
-                    categoria: 'Educativo',
-                    prioridade: 'alta',
-                    stage: 'ideia',
-                    dataCriacao: dataAtual,
-                    responsavel: 'Maria',
-                    tags: ['#tutorial', '#produtoX'],
-                    checklist: { sinopse: true, objetivo: false, estrutura: false, roteiro: false },
-                    metricas: {},
-                    descricao: 'Fazer um tutorial rápido mostrando as 3 principais funções do novo produto.'
-                },
-                {
-                    id: Date.now() + 2,
-                    titulo: 'Bastidores do evento anual',
-                    formato: 'YouTube',
-                    categoria: 'Bastidores',
-                    prioridade: 'media',
-                    stage: 'desenv',
-                    dataCriacao: dataAtual,
-                    responsavel: 'João',
-                    tags: ['#bastidores', '#evento'],
-                    checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: false },
-                    metricas: {},
-                    descricao: 'Mostrar os bastidores do evento, entrevistas rápidas com a equipe.'
-                },
-                {
-                    id: Date.now() + 3,
-                    titulo: 'Depoimento cliente satisfeito',
-                    formato: 'Reels',
-                    categoria: 'Vendas',
-                    prioridade: 'alta',
-                    stage: 'aprov',
-                    dataCriacao: '2026-06-20',
-                    responsavel: 'Ana',
-                    tags: ['#depoimento', '#cliente'],
-                    checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
-                    metricas: {},
-                    descricao: 'Cliente falando sobre como nosso serviço ajudou ele.'
-                },
-                {
-                    id: Date.now() + 4,
-                    titulo: 'Dicas rápidas de produtividade',
-                    formato: 'Stories',
-                    categoria: 'Educativo',
-                    prioridade: 'baixa',
-                    stage: 'gaveta',
-                    dataCriacao: '2026-05-15',
-                    responsavel: 'Carlos',
-                    tags: ['#dicas', '#produtividade'],
-                    checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
-                    metricas: {},
-                    descricao: '5 dicas rápidas em formato de stories, uma por slide.'
-                },
-                {
-                    id: Date.now() + 5,
-                    titulo: 'Lançamento coleção verão',
-                    formato: 'Carrossel',
-                    categoria: 'Vendas',
-                    prioridade: 'media',
-                    stage: 'pub',
-                    dataCriacao: '2026-06-25',
-                    responsavel: 'Maria',
-                    tags: ['#lançamento', '#verão'],
-                    checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
-                    metricas: { visualizacoes: 15200, curtidas: 2340, comentarios: 156, salvos: 890, compartilhamentos: 340, cliques: 1200 },
-                    descricao: 'Apresentar a nova coleção de verão com fotos e preços.'
-                }
-            ];
+            const hoje = new Date().toISOString().split('T')[0];
+            const proxSemana = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
+            const prox2Semanas = new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0];
+
+            cards = [{
+                id: Date.now() + 1,
+                titulo: 'Tutorial: Como usar o novo produto X',
+                formato: 'Reels',
+                categoria: 'Educativo',
+                prioridade: 'alta',
+                stage: 'ideia',
+                dataCriacao: hoje,
+                responsavel: 'Maria',
+                tags: ['#tutorial', '#produtoX'],
+                checklist: { sinopse: true, objetivo: false, estrutura: false, roteiro: false },
+                metricas: {},
+                descricao: 'Fazer um tutorial rápido mostrando as 3 principais funções do novo produto.',
+                dataGravacao: '',
+                dataEdicao: '',
+                dataEntrega: proxSemana,
+                linkArmazenamento: ''
+            }, {
+                id: Date.now() + 2,
+                titulo: 'Bastidores do evento anual',
+                formato: 'YouTube',
+                categoria: 'Bastidores',
+                prioridade: 'media',
+                stage: 'desenv',
+                dataCriacao: hoje,
+                responsavel: 'João',
+                tags: ['#bastidores', '#evento'],
+                checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: false },
+                metricas: {},
+                descricao: 'Mostrar os bastidores do evento, entrevistas rápidas com a equipe.',
+                dataGravacao: proxSemana,
+                dataEdicao: '',
+                dataEntrega: prox2Semanas,
+                linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo-bastidores'
+            }, {
+                id: Date.now() + 3,
+                titulo: 'Depoimento cliente satisfeito',
+                formato: 'Reels',
+                categoria: 'Vendas',
+                prioridade: 'alta',
+                stage: 'aprov',
+                dataCriacao: '2026-06-20',
+                responsavel: 'Ana',
+                tags: ['#depoimento', '#cliente'],
+                checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
+                metricas: {},
+                descricao: 'Cliente falando sobre como nosso serviço ajudou ele.',
+                dataGravacao: '2026-06-25',
+                dataEdicao: '2026-06-28',
+                dataEntrega: '2026-07-01',
+                linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos-clientes'
+            }, {
+                id: Date.now() + 4,
+                titulo: 'Dicas rápidas de produtividade',
+                formato: 'Stories',
+                categoria: 'Educativo',
+                prioridade: 'baixa',
+                stage: 'gaveta',
+                dataCriacao: '2026-05-15',
+                responsavel: 'Carlos',
+                tags: ['#dicas', '#produtividade'],
+                checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
+                metricas: {},
+                descricao: '5 dicas rápidas em formato de stories, uma por slide.',
+                dataGravacao: '2026-05-20',
+                dataEdicao: '2026-05-22',
+                dataEntrega: '2026-05-25',
+                linkArmazenamento: 'https://onedrive.live.com/exemplo-dicas'
+            }, {
+                id: Date.now() + 5,
+                titulo: 'Lançamento coleção verão',
+                formato: 'Carrossel',
+                categoria: 'Vendas',
+                prioridade: 'media',
+                stage: 'pub',
+                dataCriacao: '2026-06-25',
+                responsavel: 'Maria',
+                tags: ['#lançamento', '#verão'],
+                checklist: { sinopse: true, objetivo: true, estrutura: true, roteiro: true },
+                metricas: { visualizacoes: 15200, curtidas: 2340, comentarios: 156, salvos: 890,
+                    compartilhamentos: 340, cliques: 1200 },
+                descricao: 'Apresentar a nova coleção de verão com fotos e preços.',
+                dataGravacao: '2026-06-20',
+                dataEdicao: '2026-06-23',
+                dataEntrega: '2026-06-25',
+                linkArmazenamento: 'https://drive.google.com/drive/folders/colecao-verao'
+            }];
             salvarDados(cards);
+            registrarLog('info', 'Dados demo carregados. 5 cards iniciais criados.');
         }
 
         // ============ RENDER ============
@@ -744,7 +1099,9 @@
                     c.titulo.toLowerCase().includes(search) ||
                     c.formato.toLowerCase().includes(search) ||
                     c.categoria.toLowerCase().includes(search) ||
-                    (c.tags || []).some(t => t.toLowerCase().includes(search))
+                    (c.tags || []).some(t => t.toLowerCase().includes(search)) ||
+                    (c.responsavel || '').toLowerCase().includes(search) ||
+                    (c.linkArmazenamento || '').toLowerCase().includes(search)
                 );
             }
             const formato = document.getElementById('filtroFormato')?.value || '';
@@ -765,6 +1122,12 @@
             return Math.round((concluidos / items.length) * 100);
         }
 
+        function formatarData(data) {
+            if (!data) return '<span class="pendente">—</span>';
+            const d = new Date(data + 'T00:00:00');
+            return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+        }
+
         function renderCards() {
             const grid = document.getElementById('cardsGrid');
             const filtrados = getCardsFiltrados();
@@ -783,8 +1146,8 @@
                     const progresso = getProgressoChecklist(card);
                     const prioridadeClass = card.prioridade === 'alta' ? 'priority-alta' : card
                         .prioridade === 'media' ? 'priority-media' : 'priority-baixa';
-                    const prioridadeEmoji = card.prioridade === 'alta' ? '🔴' : card.prioridade === 'media' ?
-                        '🟡' : '🟢';
+                    const prioridadeEmoji = card.prioridade === 'alta' ? '🔴' : card.prioridade ===
+                        'media' ? '🟡' : '🟢';
 
                     return `
                     <div class="card ${stage.stageClass}" onclick="abrirModalEditar(${card.id})">
@@ -798,6 +1161,29 @@
                             <span><span class="priority-dot ${prioridadeClass}"></span> ${prioridadeEmoji} ${card.prioridade}</span>
                         </div>
                         ${card.descricao ? `<p style="font-size:0.8rem;color:var(--text2);margin-bottom:8px;line-height:1.4">${card.descricao.substring(0, 100)}${card.descricao.length > 100 ? '...' : ''}</p>` : ''}
+
+                        <!-- DATAS -->
+                        <div class="card-datas">
+                            <div class="card-data-item">
+                                <div class="data-label">🎥 Gravação</div>
+                                <div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div>
+                            </div>
+                            <div class="card-data-item">
+                                <div class="data-label">🎞 Edição</div>
+                                <div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div>
+                            </div>
+                            <div class="card-data-item">
+                                <div class="data-label">📅 Entrega</div>
+                                <div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div>
+                            </div>
+                        </div>
+
+                        <!-- LINK ARMAZENAMENTO -->
+                        ${card.linkArmazenamento ? `
+                        <div class="card-link">
+                            🔗 <a href="${card.linkArmazenamento}" target="_blank" onclick="event.stopPropagation()" title="Abrir link de armazenamento">${card.linkArmazenamento.length > 50 ? card.linkArmazenamento.substring(0, 50) + '...' : card.linkArmazenamento}</a>
+                        </div>` : ''}
+
                         ${card.tags && card.tags.length > 0 ? `
                         <div class="card-tags">${card.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : ''}
                         <div class="card-progress">
@@ -808,7 +1194,7 @@
                         </div>
                         <div class="card-meta" style="margin-top:8px">
                             <span>👤 ${card.responsavel || '—'}</span>
-                            <span>📅 ${card.dataCriacao || '—'}</span>
+                            <span>📅 ${card.dataCriacao ? new Date(card.dataCriacao + 'T00:00:00').toLocaleDateString('pt-BR') : '—'}</span>
                         </div>
                         <div class="card-actions" onclick="event.stopPropagation()">
                             ${getProximoStageBtn(card)}
@@ -819,6 +1205,7 @@
                 }).join('');
             }
             atualizarContadores();
+            atualizarStatusBar(true);
         }
 
         function getProximoStageBtn(card) {
@@ -828,15 +1215,20 @@
                 const next = ordem[idx + 1];
                 return `<button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();moverStage(${card.id},'${next}')">➡ ${STAGES[next].nome}</button>`;
             }
+            if (card.stage === 'result') {
+                return '<span style="font-size:0.7rem;color:var(--success)">✅ Finalizado</span>';
+            }
             return '';
         }
 
         function moverStage(id, novoStage) {
             const card = cards.find(c => c.id === id);
             if (card) {
+                const stageAntigo = card.stage;
                 card.stage = novoStage;
                 salvarDados(cards);
                 renderCards();
+                registrarLog('info', `Card "${card.titulo}" movido de "${stageAntigo}" para "${novoStage}"`);
                 mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
             }
         }
@@ -844,19 +1236,37 @@
         function moverParaGaveta(id) {
             const card = cards.find(c => c.id === id);
             if (card && card.stage !== 'gaveta') {
+                const stageAntigo = card.stage;
                 card.stage = 'gaveta';
                 salvarDados(cards);
                 renderCards();
+                registrarLog('info', `Card "${card.titulo}" arquivado na gaveta (estava em: ${stageAntigo})`);
                 mostrarToast('📚 Conteúdo movido para a Gaveta!');
             }
         }
 
         function excluirCard(id) {
-            if (confirm('Tem certeza que deseja excluir este conteúdo? Esta ação não pode ser desfeita.')) {
+            const card = cards.find(c => c.id === id);
+            if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?\n\nEsta ação não pode ser desfeita.`)) {
                 cards = cards.filter(c => c.id !== id);
                 salvarDados(cards);
                 renderCards();
+                registrarLog('warning', `Card "${card.titulo}" (ID: ${id}) excluído`);
                 mostrarToast('🗑 Conteúdo excluído!');
+            }
+        }
+
+        function limparTudo() {
+            if (confirm(
+                    '⚠️ ATENÇÃO!\n\nTem certeza que deseja EXCLUIR TODOS os conteúdos?\n\nRecomendamos exportar um backup antes de limpar.\n\nEsta ação não pode ser desfeita.'
+                    )) {
+                if (confirm('Confirme novamente: deseja realmente LIMPAR TUDO?')) {
+                    cards = [];
+                    salvarDados(cards);
+                    renderCards();
+                    registrarLog('warning', 'TODOS os cards foram excluídos pelo usuário');
+                    mostrarToast('🗑 Todos os conteúdos foram excluídos!');
+                }
             }
         }
 
@@ -873,6 +1283,7 @@
             });
             document.getElementById('aprovCount').textContent = counts.aprov;
             document.getElementById('pubCount').textContent = counts.pub;
+            document.getElementById('gavetaCount').textContent = counts.gaveta;
         }
 
         // ============ FILTRO ============
@@ -880,8 +1291,10 @@
             stageFiltro = stage;
             document.querySelectorAll('.stage-item').forEach(item => item.classList.remove('active'));
             if (el) el.classList.add('active');
-            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos os Conteúdos' : STAGES[stage]
-                .nome + ' (' + cards.filter(c => c.stage === stage).length + ')';
+            const count = stage === 'all' ? cards.length : cards.filter(c => c.stage === stage).length;
+            document.getElementById('contentTitle').textContent = stage === 'all' ?
+                '📌 Todos os Conteúdos' :
+                STAGES[stage].nome + ' (' + count + ')';
             renderCards();
         }
 
@@ -895,6 +1308,7 @@
         function abrirModalEditar(id) {
             cardEditando = id;
             const card = cards.find(c => c.id === id);
+            if (!card) return;
             document.getElementById('modalInner').innerHTML = getFormHTML(card);
             document.getElementById('modalOverlay').style.display = 'flex';
         }
@@ -918,31 +1332,35 @@
             const descricao = card ? card.descricao : '';
             const tags = card && card.tags ? card.tags.join(', ') : '';
             const checklist = card ? card.checklist : { sinopse: false, objetivo: false, estrutura: false,
-                roteiro: false };
+            roteiro: false };
             const metricas = card ? card.metricas : {};
+            const dataGravacao = card ? card.dataGravacao : '';
+            const dataEdicao = card ? card.dataEdicao : '';
+            const dataEntrega = card ? card.dataEntrega : '';
+            const linkArmazenamento = card ? card.linkArmazenamento : '';
 
             return `
             <h2>${isEdit ? '✏️ Editar Conteúdo' : '➕ Novo Conteúdo'}</h2>
             <form onsubmit="salvarCard(event, ${isEdit ? card.id : 'null'})">
+                <div class="form-group">
+                    <label>Título *</label>
+                    <input type="text" id="formTitulo" value="${escapeHTML(titulo)}" required placeholder="Nome do conteúdo">
+                </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Título *</label>
-                        <input type="text" id="formTitulo" value="${titulo}" required placeholder="Nome do conteúdo">
-                    </div>
                     <div class="form-group">
                         <label>Formato</label>
                         <select id="formFormato">
                             ${['Reels','Stories','YouTube','TikTok','Carrossel','IGTV','Feed','LinkedIn'].map(f => `<option value="${f}" ${f === formato ? 'selected' : ''}>${f}</option>`).join('')}
                         </select>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
                         <label>Categoria</label>
                         <select id="formCategoria">
-                            ${['Educativo','Entretenimento','Bastidores','Vendas','Institucional','Tendência','Depoimento'].map(c => `<option value="${c}" ${c === categoria ? 'selected' : ''}>${c}</option>`).join('')}
+                            ${['Educativo','Entretenimento','Bastidores','Vendas','Institucional','Tendência','Depoimento','Tutorial'].map(c => `<option value="${c}" ${c === categoria ? 'selected' : ''}>${c}</option>`).join('')}
                         </select>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
                         <label>Prioridade</label>
                         <select id="formPrioridade">
@@ -951,35 +1369,58 @@
                             <option value="baixa" ${prioridade === 'baixa' ? 'selected' : ''}>🟢 Baixa</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
                         <label>Etapa Atual</label>
                         <select id="formStage">
                             ${Object.entries(STAGES).map(([k,v]) => `<option value="${k}" ${k === stage ? 'selected' : ''}>${v.nome}</option>`).join('')}
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Responsável</label>
-                        <input type="text" id="formResponsavel" value="${responsavel}" placeholder="Nome do responsável">
-                    </div>
                 </div>
                 <div class="form-row">
+                    <div class="form-group">
+                        <label>Responsável</label>
+                        <input type="text" id="formResponsavel" value="${escapeHTML(responsavel)}" placeholder="Nome do responsável">
+                    </div>
                     <div class="form-group">
                         <label>Data de Criação</label>
                         <input type="date" id="formDataCriacao" value="${dataCriacao}">
                     </div>
+                </div>
+
+                <!-- NOVOS CAMPOS: DATAS -->
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📅 CRONOGRAMA DE PRODUÇÃO</h3>
+                <div class="form-row-3">
                     <div class="form-group">
-                        <label>Tags (separadas por vírgula)</label>
-                        <input type="text" id="formTags" value="${tags}" placeholder="#tutorial, #produtoX">
+                        <label>🎥 Data de Gravação</label>
+                        <input type="date" id="formDataGravacao" value="${dataGravacao}">
                     </div>
+                    <div class="form-group">
+                        <label>🎞 Data de Edição</label>
+                        <input type="date" id="formDataEdicao" value="${dataEdicao}">
+                    </div>
+                    <div class="form-group">
+                        <label>📅 Data de Entrega</label>
+                        <input type="date" id="formDataEntrega" value="${dataEntrega}">
+                    </div>
+                </div>
+
+                <!-- NOVO CAMPO: LINK ARMAZENAMENTO -->
+                <div class="form-group">
+                    <label>🔗 Link de Armazenamento (Google Drive, OneDrive, etc.)</label>
+                    <input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://drive.google.com/drive/folders/...">
+                    <small style="color:var(--text2);font-size:0.7rem">Cole aqui o link da pasta onde os arquivos estão armazenados</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Tags (separadas por vírgula)</label>
+                    <input type="text" id="formTags" value="${escapeHTML(tags)}" placeholder="#tutorial, #produtoX">
                 </div>
                 <div class="form-group">
                     <label>Descrição / Sinopse</label>
-                    <textarea id="formDescricao" rows="3" placeholder="Descreva a ideia, objetivo e estrutura...">${descricao}</textarea>
+                    <textarea id="formDescricao" rows="3" placeholder="Descreva a ideia, objetivo e estrutura...">${escapeHTML(descricao)}</textarea>
                 </div>
 
-                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.9rem;color:var(--text2)">📋 CHECKLIST DA ETAPA</h3>
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📋 CHECKLIST</h3>
                 <div class="checkbox-list">
                     <label class="checkbox-item"><input type="checkbox" id="chkSinopse" ${checklist.sinopse ? 'checked' : ''}> Sinopse / Resumo (3-5 linhas)</label>
                     <label class="checkbox-item"><input type="checkbox" id="chkObjetivo" ${checklist.objetivo ? 'checked' : ''}> Objetivo definido</label>
@@ -987,8 +1428,8 @@
                     <label class="checkbox-item"><input type="checkbox" id="chkRoteiro" ${checklist.roteiro ? 'checked' : ''}> Roteiro finalizado</label>
                 </div>
 
-                ${card && card.stage === 'pub' ? `
-                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.9rem;color:var(--text2)">📊 MÉTRICAS</h3>
+                ${card && (card.stage === 'pub' || card.stage === 'result') ? `
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📊 MÉTRICAS</h3>
                 <div class="form-row">
                     <div class="form-group"><label>Visualizações</label><input type="number" id="metVisualizacoes" value="${metricas.visualizacoes || 0}"></div>
                     <div class="form-group"><label>Curtidas</label><input type="number" id="metCurtidas" value="${metricas.curtidas || 0}"></div>
@@ -1010,6 +1451,12 @@
             </form>`;
         }
 
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         function salvarCard(event, id) {
             event.preventDefault();
             const dados = {
@@ -1028,7 +1475,12 @@
                     estrutura: document.getElementById('chkEstrutura').checked,
                     roteiro: document.getElementById('chkRoteiro').checked,
                 },
-                metricas: {}
+                metricas: {},
+                // NOVOS CAMPOS
+                dataGravacao: document.getElementById('formDataGravacao').value,
+                dataEdicao: document.getElementById('formDataEdicao').value,
+                dataEntrega: document.getElementById('formDataEntrega').value,
+                linkArmazenamento: document.getElementById('formLinkArmazenamento').value,
             };
 
             // Coletar métricas se existirem
@@ -1049,9 +1501,12 @@
                 if (idx >= 0) {
                     cards[idx] = { ...cards[idx], ...dados };
                 }
+                registrarLog('info', `Card "${dados.titulo}" (ID: ${id}) atualizado`);
                 mostrarToast('✅ Conteúdo atualizado com sucesso!');
             } else {
-                cards.push({ ...dados, id: Date.now() });
+                const novoCard = { ...dados, id: Date.now() };
+                cards.push(novoCard);
+                registrarLog('info', `Novo card criado: "${dados.titulo}" (ID: ${novoCard.id})`);
                 mostrarToast('🎉 Novo conteúdo criado!');
             }
 
@@ -1061,28 +1516,79 @@
             renderCards();
         }
 
-        // ============ TOAST ============
-        function mostrarToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.style.display = 'block';
-            toast.style.animation = 'none';
-            toast.offsetHeight;
-            toast.style.animation = 'slideIn 0.3s, fadeOut 0.3s 2.5s forwards';
-            setTimeout(() => { toast.style.display = 'none'; }, 2800);
-        }
-
-        // ============ EXPORTAR ============
+        // ============ EXPORTAR / IMPORTAR ============
         function exportarDados() {
             const dados = JSON.stringify(cards, null, 2);
             const blob = new Blob([dados], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `backup_audiovisual_${new Date().toISOString().split('T')[0]}.json`;
+            const timestamp = new Date().toISOString().split('T')[0];
+            a.download = `backup_audiovisual_${timestamp}.json`;
             a.click();
             URL.revokeObjectURL(url);
-            mostrarToast('📥 Dados exportados com sucesso!');
+            registrarLog('info', `Backup exportado: ${cards.length} cards`);
+            mostrarToast('📥 Backup exportado com sucesso!');
+        }
+
+        function importarDados(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const dados = JSON.parse(e.target.result);
+                    if (!Array.isArray(dados)) {
+                        throw new Error('Formato inválido');
+                    }
+                    if (confirm(
+                            `📤 Importar ${dados.length} conteúdos?\n\n⚠️ Isso vai SUBSTITUIR todos os dados atuais.\n\nRecomendamos exportar um backup antes de continuar.\n\nDeseja continuar?`
+                            )) {
+                        // Migrar dados importados para garantir campos novos
+                        cards = dados.map(card => ({
+                            id: card.id || Date.now(),
+                            titulo: card.titulo || '',
+                            formato: card.formato || 'Reels',
+                            categoria: card.categoria || 'Educativo',
+                            prioridade: card.prioridade || 'media',
+                            stage: card.stage || 'ideia',
+                            dataCriacao: card.dataCriacao || '',
+                            responsavel: card.responsavel || '',
+                            tags: card.tags || [],
+                            descricao: card.descricao || '',
+                            checklist: card.checklist || { sinopse: false, objetivo: false,
+                                estrutura: false, roteiro: false },
+                            metricas: card.metricas || {},
+                            dataGravacao: card.dataGravacao || '',
+                            dataEdicao: card.dataEdicao || '',
+                            dataEntrega: card.dataEntrega || '',
+                            linkArmazenamento: card.linkArmazenamento || '',
+                        }));
+                        salvarDados(cards);
+                        renderCards();
+                        registrarLog('info', `Backup importado: ${cards.length} cards`);
+                        mostrarToast(`📤 ${cards.length} conteúdos importados com sucesso!`);
+                    }
+                } catch (err) {
+                    alert('❌ Arquivo inválido! Por favor, selecione um arquivo JSON válido.');
+                    registrarLog('erro', 'Falha ao importar arquivo: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // ============ TOAST ============
+        function mostrarToast(msg, tipo = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.style.background = tipo === 'danger' ? 'var(--danger)' : 'var(--success)';
+            toast.style.display = 'block';
+            toast.style.animation = 'none';
+            toast.offsetHeight;
+            toast.style.animation = 'slideIn 0.3s, fadeOutToast 0.3s 2.5s forwards';
+            setTimeout(() => { toast.style.display = 'none'; }, 2800);
         }
 
         // ============ TECLAS ============
@@ -1095,19 +1601,27 @@
                 e.preventDefault();
                 abrirModalNovo();
             }
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                salvarDados(cards);
+                mostrarToast('💾 Dados salvos manualmente!');
+            }
         });
 
         // ============ INIT ============
         renderCards();
 
-        console.log('🎬 Sistema de Gestão Audiovisual carregado!');
+        console.log('🎬 Sistema de Gestão Audiovisual v2.0 carregado!');
         console.log('📋 ' + cards.length + ' conteúdos no sistema');
-        console.log('💡 Dicas:');
-        console.log('  - Clique em "+ Novo Conteúdo" ou Ctrl+N para criar');
-        console.log('  - Clique em qualquer card para editar');
-        console.log('  - Use os botões "➡" para avançar etapas');
-        console.log('  - Use "📚 Gaveta" para arquivar');
-        console.log('  - Os dados salvam automaticamente no navegador');
+        console.log('🆕 Novidades:');
+        console.log('  - Log automático de alterações');
+        console.log('  - Backup automático ao sair da página');
+        console.log('  - Backup periódico a cada 30 segundos');
+        console.log('  - Campos de data: Gravação, Edição e Entrega');
+        console.log('  - Campo de link de armazenamento (Drive, OneDrive)');
+        console.log('  - Exportar/Importar backup JSON');
+        console.log('  - Ctrl+S para salvar manualmente');
+        console.log('💡 Dica: Exporte o backup regularmente!');
     </script>
 </body>
 </html>
