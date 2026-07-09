@@ -22,5 +22,29 @@
     "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
     "version": 3
+  },
+  {
+    "titulo": "Gravação Manutenção",
+    "formato": "Reels",
+    "categoria": "Institucional",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-09",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783611082399,
+    "version": 1
   }
 ]
