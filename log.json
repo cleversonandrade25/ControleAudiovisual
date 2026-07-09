@@ -22,5 +22,29 @@
     "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
     "version": 3
+  },
+  {
+    "titulo": "Teste 2",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-09",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783610917827,
+    "version": 1
   }
 ]
