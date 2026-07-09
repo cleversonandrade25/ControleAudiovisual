@@ -923,26 +923,21 @@
 
     <script>
         // ============ CONFIGURAÇÃO GITHUB ============
-        // ⚠️ ALTERE ESTAS VARIÁVEIS COM SEUS DADOS:
-        const GITHUB_USERNAME = 'cleversonandrade25'; // <-- Coloque seu usuário do GitHub
-        const GITHUB_REPO = 'ControleAudiovisual'; // <-- Coloque o nome do repositório
-        const GITHUB_FILE_PATH = 'log.json'; // Arquivo que será lido/escrito
-        const GITHUB_BRANCH = 'main'; // ou 'master'
+        const GITHUB_USERNAME = 'cleversonandrade25';
+        const GITHUB_REPO = 'ControleAudiovisual';
+        const GITHUB_FILE_PATH = 'log.json';
+        const GITHUB_BRANCH = 'main';
 
         const STORAGE_KEY = 'audiovisual_cards_v3';
         const TOKEN_KEY = 'github_token_v2';
-        const SETTINGS_KEY = 'audiovisual_settings';
 
         // ============ ESTÁGIOS ============
         const STAGES = {
             ideia: { nome: '💡 Ideias', cor: 'ideia', badge: 'badge-ideia', stageClass: 'stage-ideia' },
-            desenv: { nome: '📝 Desenvolvimento', cor: 'desenv', badge: 'badge-desenv',
-            stageClass: 'stage-desenv' },
-            preprod: { nome: '🎬 Pré-produção', cor: 'preprod', badge: 'badge-preprod',
-            stageClass: 'stage-preprod' },
+            desenv: { nome: '📝 Desenvolvimento', cor: 'desenv', badge: 'badge-desenv', stageClass: 'stage-desenv' },
+            preprod: { nome: '🎬 Pré-produção', cor: 'preprod', badge: 'badge-preprod', stageClass: 'stage-preprod' },
             prod: { nome: '🎥 Produção', cor: 'prod', badge: 'badge-prod', stageClass: 'stage-prod' },
-            posprod: { nome: '🎞 Pós-produção', cor: 'posprod', badge: 'badge-posprod',
-            stageClass: 'stage-posprod' },
+            posprod: { nome: '🎞 Pós-produção', cor: 'posprod', badge: 'badge-posprod', stageClass: 'stage-posprod' },
             aprov: { nome: '✅ Aprovação', cor: 'aprov', badge: 'badge-aprov', stageClass: 'stage-aprov' },
             pub: { nome: '📲 Publicação', cor: 'pub', badge: 'badge-pub', stageClass: 'stage-pub' },
             gaveta: { nome: '📚 Gaveta', cor: 'gaveta', badge: 'badge-gaveta', stageClass: 'stage-gaveta' },
@@ -954,6 +949,7 @@
         let syncInterval = null;
         let isSyncing = false;
         let lastSyncData = null;
+        let syncTimeout = null;
 
         function getApiUrl() {
             return `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
@@ -971,7 +967,7 @@
                 if (!response.ok) {
                     if (response.status === 404) {
                         console.log('📄 Arquivo log.json não encontrado no GitHub. Será criado no primeiro salvamento.');
-                        return [];
+                        return { cards: [], sha: null };
                     }
                     throw new Error(`GitHub API error: ${response.status}`);
                 }
@@ -989,6 +985,11 @@
         async function salvarNoGitHub(cards, sha = null) {
             if (!githubToken) return false;
             if (isSyncing) return false;
+            if (!cards || cards.length === 0) {
+                console.warn('⚠️ Tentativa de salvar array vazio, ignorando.');
+                return false;
+            }
+
             isSyncing = true;
             atualizarSyncIndicator('syncing');
 
@@ -1036,6 +1037,17 @@
             } finally {
                 isSyncing = false;
             }
+        }
+
+        function agendarSincronizacao() {
+            if (!githubToken) return;
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(async () => {
+                if (cards.length > 0) {
+                    await salvarNoGitHub(cards, lastSyncData);
+                }
+                syncTimeout = null;
+            }, 5000);
         }
 
         function atualizarSyncIndicator(status) {
@@ -1096,6 +1108,7 @@
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsData));
                 sessionStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify(cardsData));
+                agendarSincronizacao();
             } catch (e) {
                 console.error('Erro ao salvar localmente:', e);
             }
@@ -1105,10 +1118,8 @@
         async function sincronizar() {
             if (!githubToken) return;
 
-            // Se tem dados do GitHub, usa eles; senão, envia os locais
             const dadosGitHub = await lerDoGitHub();
             if (dadosGitHub && dadosGitHub.cards) {
-                // GitHub tem dados, usar como fonte principal
                 if (JSON.stringify(dadosGitHub.cards) !== JSON.stringify(cards)) {
                     cards = dadosGitHub.cards;
                     salvarDadosLocais(cards);
@@ -1119,7 +1130,6 @@
                 atualizarSyncIndicator('online');
                 atualizarStatusBar('☁️ Sincronizado com GitHub');
             } else if (cards.length > 0) {
-                // GitHub vazio, enviar dados locais
                 await salvarNoGitHub(cards);
             }
         }
@@ -1171,29 +1181,32 @@
 
             if (githubToken) {
                 atualizarSyncIndicator('syncing');
-                const dadosGitHub = await lerDoGitHub();
-                if (dadosGitHub && dadosGitHub.cards && dadosGitHub.cards.length > 0) {
-                    // GitHub tem dados - usar como fonte principal
-                    cards = dadosGitHub.cards;
-                    salvarDadosLocais(cards);
-                    lastSyncData = dadosGitHub.sha;
-                    atualizarSyncIndicator('online');
-                    atualizarStatusBar('☁️ Dados carregados do GitHub (' + cards.length + ' cards)');
-                } else if (cards.length > 0) {
-                    // GitHub vazio, enviar dados locais
-                    await salvarNoGitHub(cards);
-                    atualizarSyncIndicator('online');
-                } else {
-                    // Ambos vazios - dados demo
-                    carregarDadosDemo();
-                    await salvarNoGitHub(cards);
-                    atualizarSyncIndicator('online');
+                try {
+                    const dadosGitHub = await lerDoGitHub();
+                    if (dadosGitHub && dadosGitHub.cards && dadosGitHub.cards.length > 0) {
+                        cards = dadosGitHub.cards;
+                        salvarDadosLocais(cards);
+                        lastSyncData = dadosGitHub.sha;
+                        atualizarSyncIndicator('online');
+                        atualizarStatusBar('☁️ Dados carregados do GitHub (' + cards.length + ' cards)');
+                    } else if (cards.length > 0) {
+                        await salvarNoGitHub(cards);
+                        atualizarSyncIndicator('online');
+                    } else {
+                        carregarDadosDemo();
+                        await salvarNoGitHub(cards);
+                        atualizarSyncIndicator('online');
+                    }
+                } catch (e) {
+                    console.error('Erro na inicialização:', e);
+                    atualizarSyncIndicator('offline');
                 }
 
-                // Iniciar sincronização periódica
                 if (syncInterval) clearInterval(syncInterval);
                 syncInterval = setInterval(async () => {
-                    await salvarNoGitHub(cards, lastSyncData);
+                    if (cards.length > 0) {
+                        await salvarNoGitHub(cards, lastSyncData);
+                    }
                 }, 30000);
             } else {
                 atualizarSyncIndicator('offline');
@@ -1206,19 +1219,32 @@
             renderCards();
             document.getElementById('loginOverlay').style.display = 'none';
 
-            // Salvar ao sair
-            window.addEventListener('beforeunload', async () => {
+            window.addEventListener('beforeunload', async (e) => {
                 salvarDadosLocais(cards);
-                if (githubToken) {
-                    // Usar sendBeacon para garantir envio ao sair
-                    const content = btoa(unescape(encodeURIComponent(JSON.stringify(cards, null, 2))));
-                    const body = JSON.stringify({
-                        message: `🔄 Backup ao sair - ${new Date().toLocaleString('pt-BR')}`,
-                        content: content,
-                        branch: GITHUB_BRANCH,
-                        sha: lastSyncData
-                    });
-                    navigator.sendBeacon(getApiUrl(), new Blob([body], { type: 'application/json' }));
+                if (githubToken && cards.length > 0) {
+                    try {
+                        const content = btoa(unescape(encodeURIComponent(JSON.stringify(cards, null, 2))));
+                        const body = {
+                            message: `🔄 Backup ao sair - ${new Date().toLocaleString('pt-BR')}`,
+                            content: content,
+                            branch: GITHUB_BRANCH
+                        };
+                        if (lastSyncData) body.sha = lastSyncData;
+
+                        await fetch(getApiUrl(), {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(body),
+                            keepalive: true
+                        });
+                        console.log('✅ Dados salvos ao sair');
+                    } catch (err) {
+                        console.error('❌ Erro ao salvar ao sair:', err);
+                    }
                 }
             });
         }
@@ -1395,7 +1421,6 @@
             if (card) {
                 card.stage = novoStage;
                 salvarDadosLocais(cards);
-                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 renderCards();
                 mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
             }
@@ -1406,7 +1431,6 @@
             if (card && card.stage !== 'gaveta') {
                 card.stage = 'gaveta';
                 salvarDadosLocais(cards);
-                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 renderCards();
                 mostrarToast('📚 Conteúdo movido para a Gaveta!');
             }
@@ -1417,7 +1441,6 @@
             if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?`)) {
                 cards = cards.filter(c => c.id !== id);
                 salvarDadosLocais(cards);
-                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 renderCards();
                 mostrarToast('🗑 Conteúdo excluído!');
             }
@@ -1588,7 +1611,6 @@
             }
 
             salvarDadosLocais(cards);
-            if (githubToken) await salvarNoGitHub(cards, lastSyncData);
             document.getElementById('modalOverlay').style.display = 'none';
             cardEditando = null;
             renderCards();
@@ -1636,7 +1658,6 @@
                             linkArmazenamento: card.linkArmazenamento || '',
                         }));
                         salvarDadosLocais(cards);
-                        if (githubToken) await salvarNoGitHub(cards, lastSyncData);
                         renderCards();
                         mostrarToast(`📤 ${cards.length} conteúdos importados!`);
                     }
@@ -1675,20 +1696,16 @@
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
                 salvarDadosLocais(cards);
-                if (githubToken) salvarNoGitHub(cards, lastSyncData);
                 mostrarToast('💾 Dados salvos!');
             }
         });
 
         // ============ INIT ============
-        // Verificar se token já existe
         if (githubToken) {
             document.getElementById('tokenInput').value = githubToken;
             document.getElementById('loginOverlay').style.display = 'none';
             inicializarSistema();
         }
-        // Se não tem token, mostrar tela de login
-        // (o overlay já está visível por padrão)
     </script>
 </body>
 </html>
