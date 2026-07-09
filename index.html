@@ -6,27 +6,29 @@
     <title>🎬 Sistema de Gestão Audiovisual</title>
     <style>
         :root {
-            --bg: #0a0a0a;
-            --surface: #1a1a2e;
-            --surface2: #16213e;
-            --primary: #e94560;
-            --secondary: #0f3460;
-            --text: #eee;
-            --text2: #aaa;
-            --border: #2a2a4a;
-            --success: #00c853;
+            --bg: #f5f5f5;
+            --surface: #ffffff;
+            --surface2: #f0f0f0;
+            --primary: #001489;
+            --primary2: #171796;
+            --primary-light: #e8ebf5;
+            --text: #1a1a1a;
+            --text2: #666666;
+            --border: #d0d0d0;
+            --success: #007A5E;
             --warning: #ffd600;
-            --danger: #ff1744;
-            --info: #448aff;
+            --danger: #ff2c2c;
+            --info: #001489;
             --ideia: #9b59b6;
             --desenv: #3498db;
             --preprod: #1abc9c;
             --prod: #e67e22;
             --posprod: #e74c3c;
-            --aprov: #2ecc71;
-            --pub: #f39c12;
+            --aprov: #007A5E;
+            --pub: #001489;
             --gaveta: #7f8c8d;
-            --result: #2980b9;
+            --result: #171796;
+            --shadow: rgba(0, 20, 137, 0.1);
         }
 
         * {
@@ -51,7 +53,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 20, 137, 0.95);
             z-index: 999;
             display: flex;
             align-items: center;
@@ -60,16 +62,17 @@
         }
         .login-box {
             background: var(--surface);
-            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 30px;
             max-width: 500px;
             width: 100%;
             text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
         .login-box h2 {
             margin-bottom: 10px;
             font-size: 1.3rem;
+            color: var(--primary);
         }
         .login-box p {
             color: var(--text2);
@@ -81,7 +84,7 @@
             width: 100%;
             padding: 12px 16px;
             background: var(--surface2);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
             border-radius: 8px;
             color: var(--text);
             font-size: 0.9rem;
@@ -102,32 +105,30 @@
             margin-top: 12px;
         }
         .login-box .help-text a {
-            color: var(--info);
+            color: var(--primary);
         }
 
         /* HEADER */
         .header {
             background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 16px;
+            border-bottom: 2px solid var(--border);
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(10px);
             flex-wrap: wrap;
             gap: 8px;
+            box-shadow: 0 2px 8px var(--shadow);
         }
         .header h1 {
             font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .header h1 span {
-            display: none;
+            color: var(--primary);
         }
         .header-stats {
             display: flex;
@@ -136,14 +137,15 @@
             flex-wrap: wrap;
         }
         .header-stats span {
-            background: var(--surface2);
-            padding: 4px 10px;
+            background: var(--primary-light);
+            padding: 4px 12px;
             border-radius: 20px;
             color: var(--text2);
             white-space: nowrap;
+            border: 1px solid var(--border);
         }
         .header-stats span strong {
-            color: var(--text);
+            color: var(--primary);
         }
         .header-actions {
             display: flex;
@@ -152,30 +154,34 @@
             align-items: center;
         }
         .sync-indicator {
-            font-size: 0.6rem;
-            padding: 3px 8px;
+            font-size: 0.65rem;
+            padding: 4px 10px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 4px;
+            font-weight: 600;
         }
         .sync-online {
-            background: rgba(0, 200, 83, 0.2);
+            background: rgba(0, 122, 94, 0.15);
             color: var(--success);
+            border: 1px solid var(--success);
         }
         .sync-offline {
-            background: rgba(255, 23, 68, 0.2);
+            background: rgba(255, 44, 44, 0.15);
             color: var(--danger);
+            border: 1px solid var(--danger);
         }
         .sync-syncing {
             background: rgba(255, 214, 0, 0.2);
-            color: var(--warning);
+            color: #b7950b;
+            border: 1px solid var(--warning);
             animation: pulse 1s infinite;
         }
 
         /* BOTÕES */
         .btn {
-            padding: 8px 14px;
+            padding: 8px 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -184,7 +190,7 @@
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             white-space: nowrap;
         }
         .btn-primary {
@@ -192,12 +198,17 @@
             color: #fff;
         }
         .btn-primary:hover {
-            background: #ff5a7a;
+            background: var(--primary2);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 20, 137, 0.3);
         }
         .btn-secondary {
-            background: var(--secondary);
+            background: var(--primary2);
             color: #fff;
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-1px);
         }
         .btn-sm {
             padding: 4px 10px;
@@ -206,16 +217,27 @@
         }
         .btn-outline {
             background: transparent;
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
             color: var(--text);
         }
         .btn-outline:hover {
             border-color: var(--primary);
             color: var(--primary);
+            background: var(--primary-light);
         }
         .btn-success {
             background: var(--success);
-            color: #000;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #006b52;
+        }
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #e02525;
         }
 
         /* LAYOUT PRINCIPAL */
@@ -226,10 +248,10 @@
 
         /* SIDEBAR */
         .sidebar {
-            width: 220px;
+            width: 240px;
             background: var(--surface);
-            border-right: 1px solid var(--border);
-            padding: 12px;
+            border-right: 2px solid var(--border);
+            padding: 16px 12px;
             display: flex;
             flex-direction: column;
             gap: 4px;
@@ -240,43 +262,48 @@
             margin-bottom: 12px;
         }
         .sidebar-section h3 {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text2);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
         .stage-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
-            border-radius: 6px;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.8rem;
-            border: 1px solid transparent;
+            font-size: 0.85rem;
+            border: 2px solid transparent;
+            color: var(--text);
         }
         .stage-item:hover {
-            background: var(--surface2);
+            background: var(--primary-light);
         }
         .stage-item.active {
-            background: var(--surface2);
+            background: var(--primary-light);
             border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
         }
         .stage-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             flex-shrink: 0;
         }
         .stage-count {
             margin-left: auto;
-            background: var(--bg);
-            padding: 2px 8px;
+            background: var(--primary-light);
+            padding: 2px 10px;
             border-radius: 12px;
-            font-size: 0.65rem;
-            color: var(--text2);
+            font-size: 0.7rem;
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* CONTENT AREA */
@@ -286,48 +313,52 @@
             flex-direction: column;
             overflow: hidden;
             min-width: 0;
+            background: var(--bg);
         }
         .content-header {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            border-bottom: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-shrink: 0;
             flex-wrap: wrap;
             gap: 8px;
+            background: var(--surface);
         }
         .content-header h2 {
             font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--primary);
         }
         .content-body {
             flex: 1;
             overflow-y: auto;
-            padding: 12px 16px;
+            padding: 16px 20px;
         }
 
         /* CARDS */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
         }
         .card {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
             transition: all 0.2s;
             cursor: pointer;
             position: relative;
+            box-shadow: 0 2px 4px var(--shadow);
         }
         .card:hover {
             border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(233, 68, 96, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px var(--shadow);
         }
         .card-header {
             display: flex;
@@ -338,24 +369,27 @@
         }
         .card-title {
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.3;
             flex: 1;
+            color: var(--text);
         }
         .card-badge {
             font-size: 0.6rem;
-            padding: 3px 8px;
+            padding: 3px 10px;
             border-radius: 20px;
             font-weight: 600;
             white-space: nowrap;
             flex-shrink: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .card-meta {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--text2);
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 8px;
         }
         .card-datas {
@@ -364,9 +398,9 @@
             gap: 6px;
             margin: 8px 0;
             font-size: 0.65rem;
-            background: var(--surface2);
+            background: var(--primary-light);
             padding: 8px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
         .card-data-item {
             text-align: center;
@@ -376,6 +410,7 @@
             font-size: 0.55rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
         }
         .card-data-item .data-value {
             color: var(--text);
@@ -384,11 +419,11 @@
             margin-top: 2px;
         }
         .card-data-item .data-value.pendente {
-            color: var(--warning);
+            color: var(--danger);
         }
         .card-link {
             font-size: 0.7rem;
-            color: var(--info);
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 4px;
@@ -396,7 +431,7 @@
             word-break: break-all;
         }
         .card-link a {
-            color: var(--info);
+            color: var(--primary);
             text-decoration: none;
         }
         .card-link a:hover {
@@ -406,27 +441,30 @@
             margin-top: 8px;
         }
         .card-progress-bar {
-            height: 4px;
+            height: 6px;
             background: var(--border);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
             margin-bottom: 3px;
         }
         .card-progress-fill {
             height: 100%;
-            border-radius: 2px;
+            border-radius: 3px;
             transition: width 0.3s;
         }
         .card-progress-text {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: var(--text2);
             text-align: right;
+            font-weight: 600;
         }
         .card-actions {
             display: flex;
-            gap: 4px;
-            margin-top: 8px;
+            gap: 6px;
+            margin-top: 10px;
             flex-wrap: wrap;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
         }
         .card-tags {
             display: flex;
@@ -436,14 +474,15 @@
         }
         .tag {
             font-size: 0.6rem;
-            padding: 2px 6px;
+            padding: 2px 8px;
             border-radius: 4px;
-            background: var(--surface2);
-            color: var(--text2);
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 500;
         }
         .priority-dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             display: inline-block;
         }
@@ -464,13 +503,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.2s;
             padding: 16px;
+            backdrop-filter: blur(4px);
         }
         @keyframes fadeIn {
             from {
@@ -482,14 +522,14 @@
         }
         .modal {
             background: var(--surface);
-            border: 1px solid var(--border);
             border-radius: 16px;
             width: 100%;
             max-width: 800px;
             max-height: 85vh;
             overflow-y: auto;
-            padding: 20px;
+            padding: 24px;
             animation: slideUp 0.3s;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
         @keyframes slideUp {
             from {
@@ -503,8 +543,9 @@
         }
         .modal h2 {
             margin-bottom: 16px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             padding-right: 40px;
+            color: var(--primary);
         }
         .modal-close {
             position: sticky;
@@ -518,29 +559,33 @@
             padding: 5px;
             z-index: 1;
         }
+        .modal-close:hover {
+            color: var(--danger);
+        }
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .form-group label {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
             margin-bottom: 4px;
             color: var(--text2);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
             color: var(--text);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-family: inherit;
+            transition: border-color 0.2s;
         }
         .form-group textarea {
             resize: vertical;
@@ -555,28 +600,34 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 14px;
         }
         .form-row-3 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
+            gap: 14px;
         }
         .checkbox-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
+            gap: 8px;
+            font-size: 0.85rem;
             cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .checkbox-item:hover {
+            background: var(--primary-light);
         }
         .checkbox-item input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             accent-color: var(--primary);
             cursor: pointer;
         }
@@ -584,37 +635,50 @@
         /* EMPTY STATE */
         .empty-state {
             text-align: center;
-            padding: 40px 16px;
+            padding: 60px 20px;
             color: var(--text2);
         }
         .empty-state .icon {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 16px;
         }
         .empty-state h3 {
-            font-size: 1rem;
-            margin-bottom: 6px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
             color: var(--text);
         }
 
         /* SEARCH */
         .search-bar {
             display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
         }
         .search-bar input {
             flex: 1;
-            min-width: 150px;
-            padding: 8px 14px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            min-width: 200px;
+            padding: 10px 16px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
             color: var(--text);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .search-bar select {
+            padding: 10px 14px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.85rem;
+            min-width: 120px;
+        }
+        .search-bar select:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -622,17 +686,21 @@
         /* TOAST */
         .toast {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 24px;
+            right: 24px;
             background: var(--success);
-            color: #000;
-            padding: 12px 20px;
-            border-radius: 8px;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 10px;
             font-weight: 600;
             z-index: 999;
             animation: slideIn 0.3s, fadeOutToast 0.3s 2.5s forwards;
             max-width: 90%;
             font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .toast.danger {
+            background: var(--danger);
         }
         @keyframes slideIn {
             from {
@@ -667,9 +735,9 @@
             left: 0;
             right: 0;
             background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 6px 16px;
-            font-size: 0.6rem;
+            border-top: 2px solid var(--border);
+            padding: 6px 20px;
+            font-size: 0.65rem;
             color: var(--text2);
             display: flex;
             justify-content: space-between;
@@ -682,8 +750,8 @@
         /* RESPONSIVO */
         @media (max-width: 768px) {
             .sidebar {
-                width: 50px;
-                padding: 6px;
+                width: 60px;
+                padding: 8px 4px;
             }
             .sidebar .stage-item span:not(.stage-dot) {
                 display: none;
@@ -692,12 +760,16 @@
                 display: none;
             }
             .sidebar .stage-item {
-                padding: 6px;
+                padding: 8px;
                 justify-content: center;
             }
             .sidebar .stage-dot {
-                width: 10px;
-                height: 10px;
+                width: 12px;
+                height: 12px;
+            }
+            .sidebar-section h3 {
+                text-align: center;
+                font-size: 0.5rem;
             }
             .cards-grid {
                 grid-template-columns: 1fr;
@@ -715,41 +787,50 @@
             .header h1 {
                 font-size: 1rem;
             }
-            .header h1 span {
-                display: inline;
-            }
             .content-header h2 {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
             .modal {
                 padding: 16px;
                 margin: 8px;
             }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 8px 10px;
-            }
-            .header h1 {
-                font-size: 0.85rem;
+            .header-actions .btn span {
+                display: none;
             }
             .btn {
                 font-size: 0.7rem;
                 padding: 6px 10px;
             }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 8px 12px;
+            }
+            .header h1 {
+                font-size: 0.85rem;
+            }
             .content-body {
-                padding: 8px 10px;
+                padding: 10px 12px;
             }
             .card {
-                padding: 10px;
+                padding: 12px;
             }
             .card-datas {
                 grid-template-columns: 1fr 1fr;
             }
             .search-bar input {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .search-bar select {
                 font-size: 0.75rem;
-                padding: 6px 10px;
+                padding: 8px 10px;
+                min-width: 80px;
+            }
+            .status-bar {
+                font-size: 0.55rem;
+                padding: 4px 12px;
             }
         }
 
@@ -783,40 +864,40 @@
         }
 
         .badge-ideia {
-            background: rgba(155, 89, 182, 0.2);
-            color: #c39bdb;
+            background: rgba(155, 89, 182, 0.15);
+            color: #8e44ad;
         }
         .badge-desenv {
-            background: rgba(52, 152, 219, 0.2);
-            color: #7db9e8;
+            background: rgba(52, 152, 219, 0.15);
+            color: #2471a3;
         }
         .badge-preprod {
-            background: rgba(26, 188, 156, 0.2);
-            color: #5ee0c8;
+            background: rgba(26, 188, 156, 0.15);
+            color: #1a7a6e;
         }
         .badge-prod {
-            background: rgba(230, 126, 34, 0.2);
-            color: #f0a860;
+            background: rgba(230, 126, 34, 0.15);
+            color: #b9770e;
         }
         .badge-posprod {
-            background: rgba(231, 76, 60, 0.2);
-            color: #f08080;
+            background: rgba(231, 76, 60, 0.15);
+            color: #c0392b;
         }
         .badge-aprov {
-            background: rgba(46, 204, 113, 0.2);
-            color: #6ee8a0;
+            background: rgba(0, 122, 94, 0.15);
+            color: var(--success);
         }
         .badge-pub {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f7c060;
+            background: rgba(0, 20, 137, 0.15);
+            color: var(--primary);
         }
         .badge-gaveta {
-            background: rgba(127, 140, 141, 0.2);
-            color: #b0b8b9;
+            background: rgba(127, 140, 141, 0.15);
+            color: #5d6d7e;
         }
         .badge-result {
-            background: rgba(41, 128, 185, 0.2);
-            color: #6aaed9;
+            background: rgba(23, 23, 150, 0.15);
+            color: var(--primary2);
         }
 
         .import-wrapper {
@@ -852,12 +933,20 @@
             font-family: 'Segoe UI', sans-serif;
         }
         .btn-roteiro {
-            background: rgba(68, 138, 255, 0.2);
-            color: var(--info);
-            border: 1px solid var(--info);
+            background: rgba(0, 20, 137, 0.1);
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
         .btn-roteiro:hover {
-            background: rgba(68, 138, 255, 0.3);
+            background: rgba(0, 20, 137, 0.2);
+        }
+        .btn-gaveta {
+            background: rgba(127, 140, 141, 0.1);
+            color: #5d6d7e;
+            border: 2px solid #5d6d7e;
+        }
+        .btn-gaveta:hover {
+            background: rgba(127, 140, 141, 0.2);
         }
     </style>
 </head>
@@ -874,30 +963,30 @@
                 Não tem token? <a href="https://github.com/settings/tokens" target="_blank">Clique aqui para criar</a><br>
                 Marque apenas a permissão <strong>repo</strong> (ou public_repo)<br><br>
                 <small>O token fica salvo apenas no seu navegador.</small><br>
-                <button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="usarOffline()">📴 Usar offline (sem sincronizar)</button>
+                <button class="btn btn-outline btn-sm" style="margin-top:10px" onclick="usarOffline()">📴 Usar offline (sem sincronizar)</button>
             </p>
         </div>
     </div>
 
     <!-- HEADER -->
     <div class="header">
-        <h1>🎬 <span>Gestão</span> Audiovisual</h1>
+        <h1>🎬 Gestão Audiovisual</h1>
         <div class="header-stats">
-            <span>📋 <strong id="totalCount">0</strong></span>
-            <span>✅ <strong id="aprovCount">0</strong></span>
-            <span>📲 <strong id="pubCount">0</strong></span>
-            <span>📚 <strong id="gavetaCount">0</strong></span>
+            <span>📋 Total: <strong id="totalCount">0</strong></span>
+            <span>✅ Aprovados: <strong id="aprovCount">0</strong></span>
+            <span>📲 Publicados: <strong id="pubCount">0</strong></span>
+            <span>📚 Gaveta: <strong id="gavetaCount">0</strong></span>
         </div>
         <div class="header-actions">
             <span class="sync-indicator sync-offline" id="syncIndicator">🔴 Offline</span>
-            <button class="btn btn-primary" onclick="abrirModalNovo()">+ Novo</button>
-            <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥</button>
+            <button class="btn btn-primary" onclick="abrirModalNovo()">➕ <span>Novo</span></button>
+            <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥 <span>Exportar</span></button>
             <span class="import-wrapper">
-                <button class="btn btn-outline btn-sm">📤</button>
+                <button class="btn btn-outline btn-sm">📤 <span>Importar</span></button>
                 <input type="file" accept=".json" onchange="importarDados(event)">
             </span>
-            <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄</button>
-            <button class="btn btn-sm btn-outline" onclick="document.getElementById('loginOverlay').style.display='flex'" style="font-size:0.6rem">⚙️</button>
+            <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄 <span>Sincronizar</span></button>
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('loginOverlay').style.display='flex'">⚙️ <span>Token</span></button>
         </div>
     </div>
 
@@ -906,45 +995,55 @@
         <!-- SIDEBAR -->
         <div class="sidebar">
             <div class="sidebar-section">
-                <h3>📋</h3>
+                <h3>📋 Etapas</h3>
                 <div class="stage-item active" data-stage="all" onclick="filtrarStage('all', this)">
                     <span>📌</span>
+                    <span>Todos</span>
                     <span class="stage-count" id="countAll">0</span>
                 </div>
                 <div class="stage-item" data-stage="ideia" onclick="filtrarStage('ideia', this)">
                     <span class="stage-dot" style="background:var(--ideia)"></span>
+                    <span>Ideias</span>
                     <span class="stage-count" id="countIdeia">0</span>
                 </div>
                 <div class="stage-item" data-stage="desenv" onclick="filtrarStage('desenv', this)">
                     <span class="stage-dot" style="background:var(--desenv)"></span>
+                    <span>Desenvolvimento</span>
                     <span class="stage-count" id="countDesenv">0</span>
                 </div>
                 <div class="stage-item" data-stage="preprod" onclick="filtrarStage('preprod', this)">
                     <span class="stage-dot" style="background:var(--preprod)"></span>
+                    <span>Pré-produção</span>
                     <span class="stage-count" id="countPreprod">0</span>
                 </div>
                 <div class="stage-item" data-stage="prod" onclick="filtrarStage('prod', this)">
                     <span class="stage-dot" style="background:var(--prod)"></span>
+                    <span>Produção</span>
                     <span class="stage-count" id="countProd">0</span>
                 </div>
                 <div class="stage-item" data-stage="posprod" onclick="filtrarStage('posprod', this)">
                     <span class="stage-dot" style="background:var(--posprod)"></span>
+                    <span>Pós-produção</span>
                     <span class="stage-count" id="countPosprod">0</span>
                 </div>
                 <div class="stage-item" data-stage="aprov" onclick="filtrarStage('aprov', this)">
                     <span class="stage-dot" style="background:var(--aprov)"></span>
+                    <span>Aprovação</span>
                     <span class="stage-count" id="countAprov">0</span>
                 </div>
                 <div class="stage-item" data-stage="pub" onclick="filtrarStage('pub', this)">
                     <span class="stage-dot" style="background:var(--pub)"></span>
+                    <span>Publicação</span>
                     <span class="stage-count" id="countPub">0</span>
                 </div>
                 <div class="stage-item" data-stage="gaveta" onclick="filtrarStage('gaveta', this)">
                     <span class="stage-dot" style="background:var(--gaveta)"></span>
+                    <span>Gaveta</span>
                     <span class="stage-count" id="countGaveta">0</span>
                 </div>
                 <div class="stage-item" data-stage="result" onclick="filtrarStage('result', this)">
                     <span class="stage-dot" style="background:var(--result)"></span>
+                    <span>Resultados</span>
                     <span class="stage-count" id="countResult">0</span>
                 </div>
             </div>
@@ -953,10 +1052,10 @@
         <!-- CONTENT -->
         <div class="content">
             <div class="content-header">
-                <h2 id="contentTitle">📌 Todos</h2>
-                <div style="display:flex;gap:6px;flex-wrap:wrap">
-                    <select id="filtroFormato" onchange="renderCards()" style="padding:6px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.75rem">
-                        <option value="">Formatos</option>
+                <h2 id="contentTitle">📌 Todos os Conteúdos</h2>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <select id="filtroFormato" onchange="renderCards()" style="padding:8px 12px;background:var(--surface);border:2px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem">
+                        <option value="">Todos os formatos</option>
                         <option value="Reels">Reels</option>
                         <option value="Stories">Stories</option>
                         <option value="YouTube">YouTube</option>
@@ -966,8 +1065,8 @@
                         <option value="Feed">Feed</option>
                         <option value="LinkedIn">LinkedIn</option>
                     </select>
-                    <select id="filtroPrioridade" onchange="renderCards()" style="padding:6px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.75rem">
-                        <option value="">Prioridade</option>
+                    <select id="filtroPrioridade" onchange="renderCards()" style="padding:8px 12px;background:var(--surface);border:2px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem">
+                        <option value="">Todas prioridades</option>
                         <option value="alta">🔴 Alta</option>
                         <option value="media">🟡 Média</option>
                         <option value="baixa">🟢 Baixa</option>
@@ -976,7 +1075,7 @@
             </div>
             <div class="content-body">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="🔍 Buscar..." oninput="renderCards()">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar por título, formato, categoria, tags..." oninput="renderCards()">
                 </div>
                 <div class="cards-grid" id="cardsGrid"></div>
             </div>
@@ -1005,7 +1104,7 @@
     <!-- STATUS BAR -->
     <div class="status-bar">
         <span id="statusText">💾 Carregando...</span>
-        <span>Ctrl+N | Ctrl+S | ESC</span>
+        <span>💡 Ctrl+N = Novo | Ctrl+S = Salvar | ESC = Fechar</span>
     </div>
 
     <script>
@@ -1019,7 +1118,6 @@
         const STORAGE_KEY = 'audiovisual_cards_v4';
         const ROTEIROS_KEY = 'audiovisual_roteiros_v1';
         const TOKEN_KEY = 'github_token_v2';
-        const LAST_SYNC_KEY = 'audiovisual_last_sync';
 
         // ============ ESTÁGIOS ============
         const STAGES = {
@@ -1082,7 +1180,6 @@
             if (!githubToken) return false;
             if (isSyncing) return false;
 
-            // Verifica se os dados estão vazios
             if (filePath === GITHUB_FILE_PATH && (!data || data.length === 0)) {
                 console.warn('⚠️ Tentativa de salvar array vazio, ignorando.');
                 return false;
@@ -1093,11 +1190,7 @@
             }
 
             isSyncing = true;
-            const indicator = document.getElementById('syncIndicator');
-            if (indicator) {
-                indicator.className = 'sync-indicator sync-syncing';
-                indicator.textContent = '🟡 Sincronizando...';
-            }
+            atualizarSyncIndicator('syncing');
 
             try {
                 if (!sha) {
@@ -1135,19 +1228,12 @@
                     lastSyncRoteiros = result.content.sha;
                 }
                 console.log(`📤 Dados salvos em ${filePath} com sucesso!`);
-                
-                if (indicator) {
-                    indicator.className = 'sync-indicator sync-online';
-                    indicator.textContent = '🟢 Online';
-                }
+                atualizarSyncIndicator('online');
                 atualizarStatusBar(`☁️ Sincronizado ${new Date().toLocaleTimeString()}`);
                 return true;
             } catch (error) {
                 console.error(`❌ Erro ao salvar ${filePath}:`, error);
-                if (indicator) {
-                    indicator.className = 'sync-indicator sync-offline';
-                    indicator.textContent = '🔴 Offline';
-                }
+                atualizarSyncIndicator('offline');
                 atualizarStatusBar(`⚠️ Falha: ${error.message}`);
                 return false;
             } finally {
@@ -1259,14 +1345,9 @@
         async function sincronizarComGitHub() {
             if (!githubToken) return;
 
-            const indicator = document.getElementById('syncIndicator');
-            if (indicator) {
-                indicator.className = 'sync-indicator sync-syncing';
-                indicator.textContent = '🟡 Sincronizando...';
-            }
+            atualizarSyncIndicator('syncing');
 
             try {
-                // Buscar dados do GitHub
                 const [dadosCards, dadosRoteiros] = await Promise.all([
                     lerDoGitHub(GITHUB_FILE_PATH),
                     lerDoGitHub(GITHUB_ROTEIROS_PATH)
@@ -1275,34 +1356,22 @@
                 let cardsAtualizados = false;
                 let roteirosAtualizados = false;
 
-                // Verificar e mesclar cards (usando versão para conflitos)
                 if (dadosCards && dadosCards.data) {
                     const gitHubCards = dadosCards.data;
                     if (Array.isArray(gitHubCards) && gitHubCards.length > 0) {
-                        // Merge baseado em ID e versão
                         const mergedCards = [...cards];
                         let mudou = false;
 
                         gitHubCards.forEach(gc => {
                             const localIdx = mergedCards.findIndex(lc => lc.id === gc.id);
                             if (localIdx >= 0) {
-                                // Se a versão do GitHub é maior, atualiza
                                 if ((gc.version || 0) > (mergedCards[localIdx].version || 0)) {
                                     mergedCards[localIdx] = gc;
                                     mudou = true;
                                 }
                             } else {
-                                // Card novo
                                 mergedCards.push(gc);
                                 mudou = true;
-                            }
-                        });
-
-                        // Verificar cards locais que não estão no GitHub
-                        cards.forEach(lc => {
-                            if (!gitHubCards.some(gc => gc.id === lc.id)) {
-                                // Card local não existe no GitHub, manter
-                                // (pode ser um card novo que ainda não foi sincronizado)
                             }
                         });
 
@@ -1315,16 +1384,13 @@
                             lastSyncData = dadosCards.sha;
                         }
                     } else if (cards.length > 0) {
-                        // GitHub vazio, enviar dados locais
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards);
                     }
                 }
 
-                // Verificar e mesclar roteiros
                 if (dadosRoteiros && dadosRoteiros.data) {
                     const gitHubRoteiros = dadosRoteiros.data;
                     if (typeof gitHubRoteiros === 'object' && Object.keys(gitHubRoteiros).length > 0) {
-                        // Merge simples: GitHub tem prioridade
                         const mergedRoteiros = { ...roteiros };
                         let mudou = false;
 
@@ -1344,7 +1410,6 @@
                             lastSyncRoteiros = dadosRoteiros.sha;
                         }
                     } else if (Object.keys(roteiros).length > 0) {
-                        // GitHub vazio, enviar roteiros locais
                         await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros);
                     }
                 }
@@ -1363,14 +1428,13 @@
             }
         }
 
-        // ============ SINCRONIZAÇÃO PERIÓDICA ============
         function iniciarSincronizacaoPeriodica() {
             if (syncInterval) clearInterval(syncInterval);
             syncInterval = setInterval(async () => {
                 if (githubToken) {
                     await sincronizarComGitHub();
                 }
-            }, 15000); // 15 segundos para melhor sincronização
+            }, 15000);
         }
 
         // ============ TOKEN ============
@@ -1432,7 +1496,6 @@
             renderCards();
             document.getElementById('loginOverlay').style.display = 'none';
 
-            // Salvar ao sair
             window.addEventListener('beforeunload', async (e) => {
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
@@ -1558,7 +1621,7 @@
                         <div class="icon">📭</div>
                         <h3>Nenhum conteúdo encontrado</h3>
                         <p>Crie um novo conteúdo ou ajuste os filtros.</p>
-                        <button class="btn btn-primary" style="margin-top:12px" onclick="abrirModalNovo()">+ Criar Conteúdo</button>
+                        <button class="btn btn-primary" style="margin-top:16px" onclick="abrirModalNovo()">➕ Novo Conteúdo</button>
                     </div>`;
             } else {
                 grid.innerHTML = filtrados.map(card => {
@@ -1579,28 +1642,29 @@
                         <div class="card-meta">
                             <span>📹 ${card.formato}</span>
                             <span>📂 ${card.categoria}</span>
-                            <span><span class="priority-dot ${prioridadeClass}"></span> ${prioridadeEmoji}</span>
+                            <span><span class="priority-dot ${prioridadeClass}"></span> ${prioridadeEmoji} ${card.prioridade}</span>
                         </div>
-                        ${card.descricao ? `<p style="font-size:0.75rem;color:var(--text2);margin-bottom:6px;line-height:1.3">${escapeHTML(card.descricao.substring(0, 80))}${card.descricao.length > 80 ? '...' : ''}</p>` : ''}
+                        ${card.descricao ? `<p style="font-size:0.8rem;color:var(--text2);margin-bottom:8px;line-height:1.4">${escapeHTML(card.descricao.substring(0, 100))}${card.descricao.length > 100 ? '...' : ''}</p>` : ''}
                         <div class="card-datas">
-                            <div class="card-data-item"><div class="data-label">🎥</div><div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div></div>
-                            <div class="card-data-item"><div class="data-label">🎞</div><div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div></div>
-                            <div class="card-data-item"><div class="data-label">📅</div><div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div></div>
+                            <div class="card-data-item"><div class="data-label">🎥 Gravação</div><div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div></div>
+                            <div class="card-data-item"><div class="data-label">🎞 Edição</div><div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div></div>
+                            <div class="card-data-item"><div class="data-label">📅 Entrega</div><div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div></div>
                         </div>
+                        ${card.linkArmazenamento ? `<div class="card-link">🔗 <a href="${escapeHTML(card.linkArmazenamento)}" target="_blank" onclick="event.stopPropagation()">${escapeHTML(card.linkArmazenamento.length > 50 ? card.linkArmazenamento.substring(0, 50) + '...' : card.linkArmazenamento)}</a></div>` : ''}
                         ${card.tags && card.tags.length > 0 ? `<div class="card-tags">${card.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>` : ''}
                         <div class="card-progress">
                             <div class="card-progress-bar"><div class="card-progress-fill" style="width:${progresso}%;background:var(--${stage.cor})"></div></div>
-                            <div class="card-progress-text">${progresso}%</div>
+                            <div class="card-progress-text">📋 ${progresso}% concluído</div>
                         </div>
-                        <div class="card-meta" style="margin-top:4px;font-size:0.65rem">
+                        <div class="card-meta" style="margin-top:8px">
                             <span>👤 ${escapeHTML(card.responsavel || '—')}</span>
-                            ${temRoteiro ? '<span style="color:var(--info)">📝 Roteiro</span>' : ''}
+                            ${temRoteiro ? '<span style="color:var(--primary)">📝 Tem roteiro</span>' : ''}
                         </div>
                         <div class="card-actions" onclick="event.stopPropagation()">
                             ${getProximoStageBtn(card)}
-                            <button class="btn btn-sm btn-roteiro" onclick="event.stopPropagation();abrirRoteiro(${card.id})">📝</button>
-                            <button class="btn btn-sm btn-outline" onclick="event.stopPropagation();moverParaGaveta(${card.id})">📚</button>
-                            <button class="btn btn-sm btn-outline" style="color:var(--danger);border-color:var(--danger)" onclick="event.stopPropagation();excluirCard(${card.id})">🗑</button>
+                            <button class="btn btn-sm btn-roteiro" onclick="event.stopPropagation();abrirRoteiro(${card.id})" title="Roteiro">📝 Roteiro</button>
+                            <button class="btn btn-sm btn-gaveta" onclick="event.stopPropagation();moverParaGaveta(${card.id})" title="Mover para Gaveta">📚 Gaveta</button>
+                            <button class="btn btn-sm btn-danger" onclick="event.stopPropagation();excluirCard(${card.id})" title="Excluir">🗑 Excluir</button>
                         </div>
                     </div>`;
                 }).join('');
@@ -1613,9 +1677,9 @@
             const idx = ordem.indexOf(card.stage);
             if (idx >= 0 && idx < ordem.length - 1) {
                 const next = ordem[idx + 1];
-                return `<button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();moverStage(${card.id},'${next}')">➡</button>`;
+                return `<button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();moverStage(${card.id},'${next}')" title="Avançar para ${STAGES[next].nome}">➡ ${STAGES[next].nome}</button>`;
             }
-            if (card.stage === 'result') return '<span style="font-size:0.6rem;color:var(--success)">✅</span>';
+            if (card.stage === 'result') return '<span style="font-size:0.7rem;color:var(--success);font-weight:600">✅ Finalizado</span>';
             return '';
         }
 
@@ -1626,7 +1690,7 @@
                 card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
-                mostrarToast(`✅ ${STAGES[novoStage].nome}`);
+                mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
             }
         }
 
@@ -1637,7 +1701,7 @@
                 card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
-                mostrarToast('📚 Gaveta!');
+                mostrarToast('📚 Conteúdo movido para a Gaveta!');
             }
         }
 
@@ -1649,7 +1713,7 @@
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
                 renderCards();
-                mostrarToast('🗑 Excluído!');
+                mostrarToast('🗑 Conteúdo excluído!');
             }
         }
 
@@ -1674,8 +1738,8 @@
             document.querySelectorAll('.stage-item').forEach(item => item.classList.remove('active'));
             if (el) el.classList.add('active');
             const count = stage === 'all' ? cards.length : cards.filter(c => c.stage === stage).length;
-            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos' : STAGES[stage].nome + ' (' +
-                count + ')';
+            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos os Conteúdos' : STAGES[
+                stage].nome + ' (' + count + ')';
             renderCards();
         }
 
@@ -1721,7 +1785,7 @@
             const linkArmazenamento = card ? card.linkArmazenamento : '';
 
             return `
-            <h2>${isEdit ? '✏️ Editar' : '➕ Novo'}</h2>
+            <h2>${isEdit ? '✏️ Editar Conteúdo' : '➕ Novo Conteúdo'}</h2>
             <form onsubmit="salvarCard(event, ${isEdit ? card.id : 'null'})">
                 <div class="form-group"><label>Título *</label><input type="text" id="formTitulo" value="${escapeHTML(titulo)}" required></div>
                 <div class="form-row">
@@ -1734,18 +1798,18 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label>Responsável</label><input type="text" id="formResponsavel" value="${escapeHTML(responsavel)}"></div>
-                    <div class="form-group"><label>Criação</label><input type="date" id="formDataCriacao" value="${dataCriacao}"></div>
+                    <div class="form-group"><label>Data de Criação</label><input type="date" id="formDataCriacao" value="${dataCriacao}"></div>
                 </div>
-                <h3 style="margin-top:12px;margin-bottom:8px;font-size:0.75rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:6px">📅 CRONOGRAMA</h3>
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:2px solid var(--border);padding-bottom:8px">📅 CRONOGRAMA</h3>
                 <div class="form-row-3">
                     <div class="form-group"><label>🎥 Gravação</label><input type="date" id="formDataGravacao" value="${dataGravacao}"></div>
                     <div class="form-group"><label>🎞 Edição</label><input type="date" id="formDataEdicao" value="${dataEdicao}"></div>
                     <div class="form-group"><label>📅 Entrega</label><input type="date" id="formDataEntrega" value="${dataEntrega}"></div>
                 </div>
-                <div class="form-group"><label>🔗 Link</label><input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://..."></div>
-                <div class="form-group"><label>Tags</label><input type="text" id="formTags" value="${escapeHTML(tags)}" placeholder="tag1, tag2"></div>
+                <div class="form-group"><label>🔗 Link Armazenamento</label><input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://drive.google.com/..."></div>
+                <div class="form-group"><label>Tags (vírgula)</label><input type="text" id="formTags" value="${escapeHTML(tags)}"></div>
                 <div class="form-group"><label>Descrição</label><textarea id="formDescricao" rows="3">${escapeHTML(descricao)}</textarea></div>
-                <h3 style="margin-top:12px;margin-bottom:8px;font-size:0.75rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:6px">📋 CHECKLIST</h3>
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:2px solid var(--border);padding-bottom:8px">📋 CHECKLIST</h3>
                 <div class="checkbox-list">
                     <label class="checkbox-item"><input type="checkbox" id="chkSinopse" ${checklist.sinopse?'checked':''}> Sinopse</label>
                     <label class="checkbox-item"><input type="checkbox" id="chkObjetivo" ${checklist.objetivo?'checked':''}> Objetivo</label>
@@ -1753,11 +1817,11 @@
                     <label class="checkbox-item"><input type="checkbox" id="chkRoteiro" ${checklist.roteiro?'checked':''}> Roteiro</label>
                 </div>
                 ${card && (card.stage==='pub'||card.stage==='result') ? `
-                <h3 style="margin-top:12px;margin-bottom:8px;font-size:0.75rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:6px">📊 MÉTRICAS</h3>
+                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:2px solid var(--border);padding-bottom:8px">📊 MÉTRICAS</h3>
                 <div class="form-row"><div class="form-group"><label>Visualizações</label><input type="number" id="metVisualizacoes" value="${metricas.visualizacoes||0}"></div><div class="form-group"><label>Curtidas</label><input type="number" id="metCurtidas" value="${metricas.curtidas||0}"></div></div>
                 <div class="form-row"><div class="form-group"><label>Comentários</label><input type="number" id="metComentarios" value="${metricas.comentarios||0}"></div><div class="form-group"><label>Salvos</label><input type="number" id="metSalvos" value="${metricas.salvos||0}"></div></div>
                 <div class="form-row"><div class="form-group"><label>Compartilhamentos</label><input type="number" id="metCompartilhamentos" value="${metricas.compartilhamentos||0}"></div><div class="form-group"><label>Cliques</label><input type="number" id="metCliques" value="${metricas.cliques||0}"></div></div>`:''}
-                <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">
+                <div style="display:flex;gap:10px;margin-top:24px;justify-content:flex-end">
                     <button type="button" class="btn btn-outline" onclick="fecharModal()">Cancelar</button>
                     <button type="submit" class="btn btn-primary">💾 Salvar</button>
                 </div>
@@ -1813,11 +1877,11 @@
                 if (idx >= 0) {
                     cards[idx] = { ...cards[idx], ...dados, version: (cards[idx].version || 0) + 1 };
                 }
-                mostrarToast('✅ Atualizado!');
+                mostrarToast('✅ Conteúdo atualizado!');
             } else {
                 const newCard = { ...dados, id: Date.now(), version: 1 };
                 cards.push(newCard);
-                mostrarToast('🎉 Criado!');
+                mostrarToast('🎉 Novo conteúdo criado!');
             }
 
             salvarDadosLocais(cards);
@@ -1838,9 +1902,9 @@
                 <h2>📝 Roteiro - ${escapeHTML(card.titulo)}</h2>
                 <div class="form-group">
                     <label>Roteiro</label>
-                    <textarea id="roteiroTexto" rows="12" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;font-size:0.85rem;resize:vertical">${escapeHTML(conteudo)}</textarea>
+                    <textarea id="roteiroTexto" rows="12" style="width:100%;padding:12px;background:var(--surface2);border:2px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;font-size:0.9rem;resize:vertical">${escapeHTML(conteudo)}</textarea>
                 </div>
-                <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+                <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end">
                     <button type="button" class="btn btn-outline" onclick="fecharRoteiro()">Fechar</button>
                     <button type="button" class="btn btn-primary" onclick="salvarRoteiro()">💾 Salvar Roteiro</button>
                 </div>
@@ -1917,7 +1981,10 @@
         function mostrarToast(msg, tipo = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
-            toast.style.background = tipo === 'danger' ? 'var(--danger)' : 'var(--success)';
+            toast.className = 'toast';
+            if (tipo === 'danger') {
+                toast.classList.add('danger');
+            }
             toast.style.display = 'block';
             toast.style.animation = 'none';
             toast.offsetHeight;
