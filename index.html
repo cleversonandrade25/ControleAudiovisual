@@ -151,6 +151,16 @@
             display: none;
             border: 1px solid var(--danger);
         }
+        .login-success {
+            background: rgba(0, 122, 94, 0.1);
+            color: var(--success);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+            border: 1px solid var(--success);
+        }
         .login-loading {
             display: none;
             margin: 10px 0;
@@ -1129,13 +1139,17 @@
                 ❌ Usuário ou senha inválidos!
             </div>
             
+            <div class="login-success" id="loginSuccess">
+                ✅ Login realizado com sucesso!
+            </div>
+            
             <div class="form-group">
                 <label>👤 Usuário</label>
-                <input type="text" id="loginUsuario" placeholder="Digite seu nome de usuário" autocomplete="username">
+                <input type="text" id="loginUsuario" placeholder="Digite seu nome de usuário" autocomplete="username" value="Cleverson Andrade">
             </div>
             <div class="form-group">
                 <label>🔒 Senha</label>
-                <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') fazerLogin()">
+                <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" value="123456789" onkeydown="if(event.key==='Enter') fazerLogin()">
             </div>
             
             <div class="login-loading" id="loginLoading">
@@ -1145,7 +1159,7 @@
             <button class="btn btn-primary" onclick="fazerLogin()">🔑 Entrar</button>
             
             <p class="help-text">
-                <small>Este sistema é restrito a usuários autorizados.</small>
+                <small>Usuários: Cleverson Andrade / Gilson Siqueira</small>
             </p>
         </div>
     </div>
@@ -1304,6 +1318,12 @@
         const ROTEIROS_KEY = 'audiovisual_roteiros_v1';
         const SESSION_KEY = 'audiovisual_session';
 
+        // ============ USUÁRIOS PADRÃO (fallback) ============
+        const USUARIOS_PADRAO = [
+            { id: 1, nome: 'Cleverson Andrade', senha: '123456789', email: 'cleverson@exemplo.com', ativo: true },
+            { id: 2, nome: 'Gilson Siqueira', senha: '987654321', email: 'gilson@exemplo.com', ativo: true }
+        ];
+
         // ============ ESTÁGIOS ============
         const STAGES = {
             ideia: { nome: '💡 Ideias', cor: 'ideia', badge: 'badge-ideia', stageClass: 'stage-ideia' },
@@ -1331,6 +1351,7 @@
         let cardRoteiroAtual = null;
         let isInitialized = false;
         let usuarioLogado = null;
+        let usuariosCadastrados = [];
 
         // ============ FUNÇÕES DE API ============
         function getApiUrl(filePath) {
@@ -1354,7 +1375,7 @@
                 if (!response.ok) {
                     if (response.status === 404) {
                         console.log(`📄 Arquivo ${filePath} não encontrado.`);
-                        return { data: filePath === GITHUB_FILE_PATH ? [] : filePath === GITHUB_ROTEIROS_PATH ? {} : { usuarios: [] }, sha: null };
+                        return { data: filePath === GITHUB_FILE_PATH ? [] : filePath === GITHUB_ROTEIROS_PATH ? {} : null, sha: null };
                     }
                     throw new Error(`GitHub API error: ${response.status}`);
                 }
@@ -1452,6 +1473,36 @@
         }
 
         // ============ SISTEMA DE LOGIN ============
+        async function carregarUsuarios() {
+            try {
+                const dadosSenhas = await lerDoGitHub(GITHUB_SENHAS_PATH);
+                
+                if (dadosSenhas && dadosSenhas.data && dadosSenhas.data.usuarios) {
+                    usuariosCadastrados = dadosSenhas.data.usuarios;
+                    console.log(`📥 Carregados ${usuariosCadastrados.length} usuários do GitHub`);
+                    return true;
+                } else {
+                    // Fallback: usar usuários padrão
+                    usuariosCadastrados = USUARIOS_PADRAO;
+                    console.log('📋 Usando usuários padrão (fallback)');
+                    
+                    // Tenta criar o arquivo Snhs.json no GitHub
+                    try {
+                        await salvarNoGitHub(GITHUB_SENHAS_PATH, { usuarios: USUARIOS_PADRAO });
+                        console.log('📤 Arquivo Snhs.json criado no GitHub com usuários padrão');
+                    } catch (e) {
+                        console.warn('⚠️ Não foi possível criar Snhs.json:', e);
+                    }
+                    return true;
+                }
+            } catch (error) {
+                console.error('❌ Erro ao carregar usuários:', error);
+                // Fallback: usar usuários padrão
+                usuariosCadastrados = USUARIOS_PADRAO;
+                return true;
+            }
+        }
+
         async function fazerLogin() {
             const usuario = document.getElementById('loginUsuario').value.trim();
             const senha = document.getElementById('loginSenha').value.trim();
@@ -1462,24 +1513,20 @@
             }
 
             const errorDiv = document.getElementById('loginError');
+            const successDiv = document.getElementById('loginSuccess');
             const loadingDiv = document.getElementById('loginLoading');
             
             errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
             loadingDiv.style.display = 'block';
 
             try {
-                // Buscar arquivo de senhas do GitHub
-                const dadosSenhas = await lerDoGitHub(GITHUB_SENHAS_PATH);
+                // Carregar usuários do GitHub
+                await carregarUsuarios();
                 
                 loadingDiv.style.display = 'none';
 
-                if (!dadosSenhas || !dadosSenhas.data || !dadosSenhas.data.usuarios) {
-                    mostrarErroLogin('Erro ao carregar dados de autenticação!');
-                    return;
-                }
-
-                const usuarios = dadosSenhas.data.usuarios;
-                const usuarioEncontrado = usuarios.find(u => 
+                const usuarioEncontrado = usuariosCadastrados.find(u => 
                     u.nome.toLowerCase() === usuario.toLowerCase() && 
                     u.senha === senha &&
                     u.ativo === true
@@ -1493,6 +1540,11 @@
                         nome: usuarioEncontrado.nome,
                         email: usuarioEncontrado.email
                     }));
+                    
+                    successDiv.style.display = 'block';
+                    setTimeout(() => {
+                        successDiv.style.display = 'none';
+                    }, 2000);
                     
                     document.getElementById('loginOverlay').style.display = 'none';
                     document.getElementById('mainHeader').style.display = 'flex';
@@ -1510,7 +1562,33 @@
             } catch (error) {
                 loadingDiv.style.display = 'none';
                 console.error('Erro no login:', error);
-                mostrarErroLogin('Erro ao conectar com o GitHub. Verifique sua conexão.');
+                
+                // Tentar login com usuários padrão mesmo com erro
+                const usuarioPadrao = USUARIOS_PADRAO.find(u => 
+                    u.nome.toLowerCase() === usuario.toLowerCase() && 
+                    u.senha === senha &&
+                    u.ativo === true
+                );
+                
+                if (usuarioPadrao) {
+                    usuarioLogado = usuarioPadrao;
+                    localStorage.setItem(SESSION_KEY, JSON.stringify({
+                        id: usuarioPadrao.id,
+                        nome: usuarioPadrao.nome,
+                        email: usuarioPadrao.email
+                    }));
+                    
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('mainHeader').style.display = 'flex';
+                    document.getElementById('mainContainer').style.display = 'flex';
+                    document.getElementById('statusBar').style.display = 'flex';
+                    document.getElementById('usuarioNome').textContent = usuarioPadrao.nome;
+                    
+                    mostrarToast(`👋 Bem-vindo, ${usuarioPadrao.nome}! (modo offline)`);
+                    inicializarSistema();
+                } else {
+                    mostrarErroLogin('Erro ao conectar. Tente novamente.');
+                }
             }
         }
 
@@ -1528,17 +1606,14 @@
                 localStorage.removeItem(SESSION_KEY);
                 usuarioLogado = null;
                 
-                // Esconder interface
                 document.getElementById('mainHeader').style.display = 'none';
                 document.getElementById('mainContainer').style.display = 'none';
                 document.getElementById('statusBar').style.display = 'none';
                 
-                // Mostrar login
                 document.getElementById('loginOverlay').style.display = 'flex';
                 document.getElementById('loginUsuario').value = '';
                 document.getElementById('loginSenha').value = '';
                 
-                // Limpar dados
                 if (syncInterval) clearInterval(syncInterval);
                 cards = [];
                 roteiros = {};
@@ -1560,7 +1635,6 @@
                     document.getElementById('statusBar').style.display = 'flex';
                     document.getElementById('usuarioNome').textContent = dados.nome;
                     
-                    // Inicializar o sistema automaticamente
                     setTimeout(() => inicializarSistema(), 100);
                     return true;
                 } catch (e) {
@@ -1734,7 +1808,6 @@
             isInitialized = true;
             renderCards();
 
-            // Salvar ao sair
             window.addEventListener('beforeunload', async (e) => {
                 if (githubToken) {
                     try {
