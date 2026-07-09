@@ -1,0 +1,18 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Cleverson Andrade",
+      "senha": "123456789",
+      "email": "cleverson@exemplo.com",
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "nome": "Gilson Siqueira",
+      "senha": "987654321",
+      "email": "gilson@exemplo.com",
+      "ativo": true
+    }
+  ]
+}
