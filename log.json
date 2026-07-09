@@ -26,5 +26,29 @@
     "linkArmazenamento": "https://onedrive.live.com/exemplo-dicas",
     "id": 1783615596097,
     "version": 2
+  },
+  {
+    "titulo": "teste2",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-09",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783615689329,
+    "version": 1
   }
 ]
