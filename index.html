@@ -151,16 +151,6 @@
             display: none;
             border: 1px solid var(--danger);
         }
-        .login-success {
-            background: rgba(0, 122, 94, 0.1);
-            color: var(--success);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-bottom: 16px;
-            display: none;
-            border: 1px solid var(--success);
-        }
         .login-loading {
             display: none;
             margin: 10px 0;
@@ -1139,17 +1129,13 @@
                 ❌ Usuário ou senha inválidos!
             </div>
             
-            <div class="login-success" id="loginSuccess">
-                ✅ Login realizado com sucesso!
-            </div>
-            
             <div class="form-group">
                 <label>👤 Usuário</label>
-                <input type="text" id="loginUsuario" placeholder="Digite seu nome de usuário" autocomplete="username" value="Cleverson Andrade">
+                <input type="text" id="loginUsuario" placeholder="Digite seu nome de usuário" autocomplete="username">
             </div>
             <div class="form-group">
                 <label>🔒 Senha</label>
-                <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" value="123456789" onkeydown="if(event.key==='Enter') fazerLogin()">
+                <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') fazerLogin()">
             </div>
             
             <div class="login-loading" id="loginLoading">
@@ -1159,7 +1145,7 @@
             <button class="btn btn-primary" onclick="fazerLogin()">🔑 Entrar</button>
             
             <p class="help-text">
-                <small>Usuários: Cleverson Andrade / Gilson Siqueira</small>
+                <small>Digite suas credenciais para acessar o sistema.</small>
             </p>
         </div>
     </div>
@@ -1375,7 +1361,14 @@
                 if (!response.ok) {
                     if (response.status === 404) {
                         console.log(`📄 Arquivo ${filePath} não encontrado.`);
-                        return { data: filePath === GITHUB_FILE_PATH ? [] : filePath === GITHUB_ROTEIROS_PATH ? {} : null, sha: null };
+                        if (filePath === GITHUB_FILE_PATH) {
+                            return { data: [], sha: null };
+                        } else if (filePath === GITHUB_ROTEIROS_PATH) {
+                            return { data: {}, sha: null };
+                        } else if (filePath === GITHUB_SENHAS_PATH) {
+                            return { data: { usuarios: [] }, sha: null };
+                        }
+                        return { data: null, sha: null };
                     }
                     throw new Error(`GitHub API error: ${response.status}`);
                 }
@@ -1477,7 +1470,7 @@
             try {
                 const dadosSenhas = await lerDoGitHub(GITHUB_SENHAS_PATH);
                 
-                if (dadosSenhas && dadosSenhas.data && dadosSenhas.data.usuarios) {
+                if (dadosSenhas && dadosSenhas.data && dadosSenhas.data.usuarios && dadosSenhas.data.usuarios.length > 0) {
                     usuariosCadastrados = dadosSenhas.data.usuarios;
                     console.log(`📥 Carregados ${usuariosCadastrados.length} usuários do GitHub`);
                     return true;
@@ -1497,7 +1490,6 @@
                 }
             } catch (error) {
                 console.error('❌ Erro ao carregar usuários:', error);
-                // Fallback: usar usuários padrão
                 usuariosCadastrados = USUARIOS_PADRAO;
                 return true;
             }
@@ -1513,11 +1505,9 @@
             }
 
             const errorDiv = document.getElementById('loginError');
-            const successDiv = document.getElementById('loginSuccess');
             const loadingDiv = document.getElementById('loginLoading');
             
             errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
             loadingDiv.style.display = 'block';
 
             try {
@@ -1541,11 +1531,6 @@
                         email: usuarioEncontrado.email
                     }));
                     
-                    successDiv.style.display = 'block';
-                    setTimeout(() => {
-                        successDiv.style.display = 'none';
-                    }, 2000);
-                    
                     document.getElementById('loginOverlay').style.display = 'none';
                     document.getElementById('mainHeader').style.display = 'flex';
                     document.getElementById('mainContainer').style.display = 'flex';
@@ -1555,7 +1540,7 @@
                     mostrarToast(`👋 Bem-vindo, ${usuarioEncontrado.nome}!`);
                     
                     // Inicializar o sistema
-                    inicializarSistema();
+                    await inicializarSistema();
                 } else {
                     mostrarErroLogin('Usuário ou senha inválidos!');
                 }
@@ -1585,7 +1570,7 @@
                     document.getElementById('usuarioNome').textContent = usuarioPadrao.nome;
                     
                     mostrarToast(`👋 Bem-vindo, ${usuarioPadrao.nome}! (modo offline)`);
-                    inicializarSistema();
+                    await inicializarSistema();
                 } else {
                     mostrarErroLogin('Erro ao conectar. Tente novamente.');
                 }
@@ -1635,7 +1620,7 @@
                     document.getElementById('statusBar').style.display = 'flex';
                     document.getElementById('usuarioNome').textContent = dados.nome;
                     
-                    setTimeout(() => inicializarSistema(), 100);
+                    setTimeout(async () => await inicializarSistema(), 100);
                     return true;
                 } catch (e) {
                     console.error('Erro ao verificar sessão:', e);
@@ -1716,6 +1701,7 @@
             atualizarSyncIndicator('syncing');
 
             try {
+                // Buscar dados do GitHub
                 const [dadosCards, dadosRoteiros] = await Promise.all([
                     lerDoGitHub(GITHUB_FILE_PATH),
                     lerDoGitHub(GITHUB_ROTEIROS_PATH)
@@ -1724,33 +1710,55 @@
                 let cardsAtualizados = false;
                 let roteirosAtualizados = false;
 
+                // Processar cards
                 if (dadosCards && dadosCards.data !== undefined) {
                     const gitHubCards = dadosCards.data;
-                    if (Array.isArray(gitHubCards) && (forceLoad || gitHubCards.length > 0 || cards.length === 0)) {
-                        cards = gitHubCards.map(card => ({
-                            ...card,
-                            version: card.version || 1
-                        }));
-                        salvarDadosLocais(cards);
-                        cardsAtualizados = true;
-                        lastSyncData = dadosCards.sha;
-                        console.log(`📥 Carregados ${cards.length} cards do GitHub`);
-                    } else if (cards.length > 0) {
-                        await salvarNoGitHub(GITHUB_FILE_PATH, cards);
+                    if (Array.isArray(gitHubCards)) {
+                        if (gitHubCards.length > 0 && (forceLoad || JSON.stringify(gitHubCards) !== JSON.stringify(cards))) {
+                            cards = gitHubCards.map(card => ({
+                                ...card,
+                                version: card.version || 1
+                            }));
+                            salvarDadosLocais(cards);
+                            cardsAtualizados = true;
+                            console.log(`📥 Carregados ${cards.length} cards do GitHub`);
+                        } else if (gitHubCards.length === 0 && cards.length > 0) {
+                            // GitHub vazio, manter cards locais
+                            console.log('📋 GitHub vazio, mantendo cards locais');
+                        }
+                        if (dadosCards.sha) lastSyncData = dadosCards.sha;
                     }
                 }
 
+                // Processar roteiros
                 if (dadosRoteiros && dadosRoteiros.data !== undefined) {
                     const gitHubRoteiros = dadosRoteiros.data;
-                    if (typeof gitHubRoteiros === 'object' && (forceLoad || Object.keys(gitHubRoteiros).length > 0 || Object.keys(roteiros).length === 0)) {
-                        roteiros = gitHubRoteiros;
-                        salvarRoteirosLocais(roteiros);
-                        roteirosAtualizados = true;
-                        lastSyncRoteiros = dadosRoteiros.sha;
-                        console.log(`📥 Carregados ${Object.keys(roteiros).length} roteiros do GitHub`);
-                    } else if (Object.keys(roteiros).length > 0) {
-                        await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros);
+                    if (typeof gitHubRoteiros === 'object') {
+                        const gitHubKeys = Object.keys(gitHubRoteiros);
+                        if (gitHubKeys.length > 0 && (forceLoad || JSON.stringify(gitHubRoteiros) !== JSON.stringify(roteiros))) {
+                            roteiros = gitHubRoteiros;
+                            salvarRoteirosLocais(roteiros);
+                            roteirosAtualizados = true;
+                            console.log(`📥 Carregados ${Object.keys(roteiros).length} roteiros do GitHub`);
+                        } else if (gitHubKeys.length === 0 && Object.keys(roteiros).length > 0) {
+                            console.log('📋 GitHub roteiros vazio, mantendo roteiros locais');
+                        }
+                        if (dadosRoteiros.sha) lastSyncRoteiros = dadosRoteiros.sha;
                     }
+                }
+
+                // Se não tem dados em lugar nenhum, criar dados demo
+                if (cards.length === 0) {
+                    carregarDadosDemo();
+                    cardsAtualizados = true;
+                }
+
+                // Salvar no GitHub se houver dados locais novos
+                if (cardsAtualizados && cards.length > 0) {
+                    await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
+                }
+                if (roteirosAtualizados && Object.keys(roteiros).length > 0) {
+                    await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
                 }
 
                 if (cardsAtualizados || roteirosAtualizados) {
@@ -1796,6 +1804,9 @@
                 } catch (e) {
                     console.error('Erro na inicialização:', e);
                     atualizarSyncIndicator('offline');
+                    if (cards.length === 0) {
+                        carregarDadosDemo();
+                    }
                 }
             } else {
                 atualizarSyncIndicator('offline');
