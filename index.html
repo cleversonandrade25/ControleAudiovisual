@@ -63,49 +63,107 @@
         .login-box {
             background: var(--surface);
             border-radius: 16px;
-            padding: 30px;
-            max-width: 500px;
+            padding: 40px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .login-box .logo {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
         }
         .login-box h2 {
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
             color: var(--primary);
         }
         .login-box p {
             color: var(--text2);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
             line-height: 1.6;
         }
-        .login-box input {
+        .login-box .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .login-box .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .login-box .form-group input {
             width: 100%;
             padding: 12px 16px;
             background: var(--surface2);
             border: 2px solid var(--border);
             border-radius: 8px;
             color: var(--text);
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            font-family: monospace;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
         }
-        .login-box input:focus {
+        .login-box .form-group input:focus {
             outline: none;
             border-color: var(--primary);
         }
         .login-box .btn {
             width: 100%;
             justify-content: center;
+            padding: 14px;
+            font-size: 1rem;
+            margin-top: 8px;
         }
         .login-box .help-text {
             font-size: 0.7rem;
             color: var(--text2);
-            margin-top: 12px;
+            margin-top: 16px;
         }
         .login-box .help-text a {
             color: var(--primary);
+            text-decoration: none;
+        }
+        .login-box .help-text a:hover {
+            text-decoration: underline;
+        }
+        .login-error {
+            background: rgba(255, 44, 44, 0.1);
+            color: var(--danger);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+            border: 1px solid var(--danger);
+        }
+        .login-loading {
+            display: none;
+            margin: 10px 0;
+            color: var(--text2);
+            font-size: 0.85rem;
+        }
+        .login-loading .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* HEADER */
@@ -153,6 +211,20 @@
             flex-wrap: wrap;
             align-items: center;
         }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text2);
+            background: var(--primary-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .user-info strong {
+            color: var(--primary);
+        }
         .sync-indicator {
             font-size: 0.65rem;
             padding: 4px 10px;
@@ -177,6 +249,20 @@
             color: #b7950b;
             border: 1px solid var(--warning);
             animation: pulse 1s infinite;
+        }
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover {
+            border-color: var(--danger);
+            color: var(--danger);
         }
 
         /* BOTÕES */
@@ -531,16 +617,6 @@
             animation: slideUp 0.3s;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
         .modal h2 {
             margin-bottom: 16px;
             font-size: 1.2rem;
@@ -813,6 +889,9 @@
             .card-actions {
                 gap: 4px;
             }
+            .login-box {
+                padding: 30px 20px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -882,6 +961,10 @@
             .card-actions {
                 gap: 3px;
             }
+            .user-info {
+                font-size: 0.6rem;
+                padding: 2px 8px;
+            }
         }
 
         @media (max-width: 400px) {
@@ -911,6 +994,9 @@
             }
             .header h1 {
                 font-size: 0.75rem;
+            }
+            .user-info {
+                display: none;
             }
         }
 
@@ -1035,21 +1121,37 @@
     <!-- LOGIN MODAL -->
     <div class="login-overlay" id="loginOverlay">
         <div class="login-box">
-            <h2>🔐 Configurar Sincronização</h2>
-            <p>Para salvar os dados automaticamente no GitHub, cole seu <strong>Token de Acesso Pessoal</strong> abaixo.</p>
-            <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-            <button class="btn btn-primary" onclick="configurarToken()">💾 Salvar e Sincronizar</button>
+            <div class="logo">🎬</div>
+            <h2>Gestão Audiovisual</h2>
+            <p>Faça login para acessar o sistema</p>
+            
+            <div class="login-error" id="loginError">
+                ❌ Usuário ou senha inválidos!
+            </div>
+            
+            <div class="form-group">
+                <label>👤 Usuário</label>
+                <input type="text" id="loginUsuario" placeholder="Digite seu nome de usuário" autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label>🔒 Senha</label>
+                <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') fazerLogin()">
+            </div>
+            
+            <div class="login-loading" id="loginLoading">
+                <span class="spinner">⏳</span> Verificando credenciais...
+            </div>
+            
+            <button class="btn btn-primary" onclick="fazerLogin()">🔑 Entrar</button>
+            
             <p class="help-text">
-                Não tem token? <a href="https://github.com/settings/tokens" target="_blank">Clique aqui para criar</a><br>
-                Marque apenas a permissão <strong>repo</strong> (ou public_repo)<br><br>
-                <small>O token fica salvo apenas no seu navegador.</small><br>
-                <button class="btn btn-outline btn-sm" style="margin-top:10px" onclick="usarOffline()">📴 Usar offline (sem sincronizar)</button>
+                <small>Este sistema é restrito a usuários autorizados.</small>
             </p>
         </div>
     </div>
 
-    <!-- HEADER -->
-    <div class="header">
+    <!-- HEADER (escondido inicialmente) -->
+    <div class="header" id="mainHeader" style="display:none">
         <h1>🎬 Gestão Audiovisual</h1>
         <div class="header-stats">
             <span>📋 Total: <strong id="totalCount">0</strong></span>
@@ -1058,6 +1160,7 @@
             <span>📚 Gaveta: <strong id="gavetaCount">0</strong></span>
         </div>
         <div class="header-actions">
+            <span class="user-info" id="userInfo">👤 <strong id="usuarioNome">Usuário</strong></span>
             <span class="sync-indicator sync-offline" id="syncIndicator">🔴 Offline</span>
             <button class="btn btn-primary" onclick="abrirModalNovo()">➕ <span>Novo</span></button>
             <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥 <span>Exportar</span></button>
@@ -1066,12 +1169,12 @@
                 <input type="file" accept=".json" onchange="importarDados(event)">
             </span>
             <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄 <span>Sincronizar</span></button>
-            <button class="btn btn-outline btn-sm" onclick="document.getElementById('loginOverlay').style.display='flex'">⚙️ <span>Token</span></button>
+            <button class="btn btn-outline btn-sm" onclick="fazerLogout()" style="color:var(--danger);border-color:var(--danger)">🚪 <span>Sair</span></button>
         </div>
     </div>
 
     <!-- MAIN -->
-    <div class="main-container">
+    <div class="main-container" id="mainContainer" style="display:none">
         <!-- SIDEBAR -->
         <div class="sidebar">
             <div class="sidebar-section">
@@ -1182,23 +1285,24 @@
     <div class="toast" id="toast" style="display:none"></div>
 
     <!-- STATUS BAR -->
-    <div class="status-bar">
+    <div class="status-bar" id="statusBar" style="display:none">
         <span id="statusText">💾 Carregando...</span>
         <span>💡 Ctrl+N = Novo | Ctrl+S = Salvar | ESC = Fechar</span>
     </div>
 
     <script>
         // ============ CONFIGURAÇÃO GITHUB ============
+        const GITHUB_TOKEN = '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';
         const GITHUB_USERNAME = 'cleversonandrade25';
         const GITHUB_REPO = 'ControleAudiovisual';
         const GITHUB_FILE_PATH = 'log.json';
         const GITHUB_ROTEIROS_PATH = 'Roteiros.json';
+        const GITHUB_SENHAS_PATH = 'Snhs.json';
         const GITHUB_BRANCH = 'main';
 
         const STORAGE_KEY = 'audiovisual_cards_v4';
         const ROTEIROS_KEY = 'audiovisual_roteiros_v1';
-        const TOKEN_KEY = 'github_token_v2';
-        const SYNC_HASH_KEY = 'audiovisual_sync_hash';
+        const SESSION_KEY = 'audiovisual_session';
 
         // ============ ESTÁGIOS ============
         const STAGES = {
@@ -1213,8 +1317,8 @@
             result: { nome: '📊 Resultados', cor: 'result', badge: 'badge-result', stageClass: 'stage-result' }
         };
 
-        // ============ GITHUB API ============
-        let githubToken = localStorage.getItem(TOKEN_KEY) || '';
+        // ============ VARIÁVEIS GLOBAIS ============
+        let githubToken = GITHUB_TOKEN;
         let syncInterval = null;
         let isSyncing = false;
         let lastSyncData = null;
@@ -1226,29 +1330,31 @@
         let cardEditando = null;
         let cardRoteiroAtual = null;
         let isInitialized = false;
+        let usuarioLogado = null;
 
+        // ============ FUNÇÕES DE API ============
         function getApiUrl(filePath) {
             return `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${filePath}`;
         }
 
-        // Função para gerar hash dos dados para comparar
-        function gerarHash(dados) {
-            return btoa(JSON.stringify(dados));
+        function getHeaders() {
+            return {
+                'Authorization': `token ${githubToken}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
         }
 
         async function lerDoGitHub(filePath) {
             if (!githubToken) return null;
             try {
                 const response = await fetch(getApiUrl(filePath), {
-                    headers: {
-                        'Authorization': `token ${githubToken}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
+                    headers: getHeaders()
                 });
                 if (!response.ok) {
                     if (response.status === 404) {
                         console.log(`📄 Arquivo ${filePath} não encontrado.`);
-                        return { data: filePath === GITHUB_FILE_PATH ? [] : {}, sha: null };
+                        return { data: filePath === GITHUB_FILE_PATH ? [] : filePath === GITHUB_ROTEIROS_PATH ? {} : { usuarios: [] }, sha: null };
                     }
                     throw new Error(`GitHub API error: ${response.status}`);
                 }
@@ -1286,11 +1392,7 @@
 
                 const response = await fetch(getApiUrl(filePath), {
                     method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${githubToken}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
+                    headers: getHeaders(),
                     body: JSON.stringify(body)
                 });
 
@@ -1302,9 +1404,7 @@
                 const result = await response.json();
                 if (filePath === GITHUB_FILE_PATH) {
                     lastSyncData = result.content.sha;
-                    // Salva o hash no localStorage para referência
-                    localStorage.setItem(SYNC_HASH_KEY, gerarHash(data));
-                } else {
+                } else if (filePath === GITHUB_ROTEIROS_PATH) {
                     lastSyncRoteiros = result.content.sha;
                 }
                 console.log(`📤 Dados salvos em ${filePath} com sucesso!`);
@@ -1351,7 +1451,127 @@
             }
         }
 
-        // ============ PERSISTÊNCIA LOCAL ============
+        // ============ SISTEMA DE LOGIN ============
+        async function fazerLogin() {
+            const usuario = document.getElementById('loginUsuario').value.trim();
+            const senha = document.getElementById('loginSenha').value.trim();
+            
+            if (!usuario || !senha) {
+                mostrarErroLogin('Preencha usuário e senha!');
+                return;
+            }
+
+            const errorDiv = document.getElementById('loginError');
+            const loadingDiv = document.getElementById('loginLoading');
+            
+            errorDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+
+            try {
+                // Buscar arquivo de senhas do GitHub
+                const dadosSenhas = await lerDoGitHub(GITHUB_SENHAS_PATH);
+                
+                loadingDiv.style.display = 'none';
+
+                if (!dadosSenhas || !dadosSenhas.data || !dadosSenhas.data.usuarios) {
+                    mostrarErroLogin('Erro ao carregar dados de autenticação!');
+                    return;
+                }
+
+                const usuarios = dadosSenhas.data.usuarios;
+                const usuarioEncontrado = usuarios.find(u => 
+                    u.nome.toLowerCase() === usuario.toLowerCase() && 
+                    u.senha === senha &&
+                    u.ativo === true
+                );
+
+                if (usuarioEncontrado) {
+                    // Login bem-sucedido
+                    usuarioLogado = usuarioEncontrado;
+                    localStorage.setItem(SESSION_KEY, JSON.stringify({
+                        id: usuarioEncontrado.id,
+                        nome: usuarioEncontrado.nome,
+                        email: usuarioEncontrado.email
+                    }));
+                    
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('mainHeader').style.display = 'flex';
+                    document.getElementById('mainContainer').style.display = 'flex';
+                    document.getElementById('statusBar').style.display = 'flex';
+                    document.getElementById('usuarioNome').textContent = usuarioEncontrado.nome;
+                    
+                    mostrarToast(`👋 Bem-vindo, ${usuarioEncontrado.nome}!`);
+                    
+                    // Inicializar o sistema
+                    inicializarSistema();
+                } else {
+                    mostrarErroLogin('Usuário ou senha inválidos!');
+                }
+            } catch (error) {
+                loadingDiv.style.display = 'none';
+                console.error('Erro no login:', error);
+                mostrarErroLogin('Erro ao conectar com o GitHub. Verifique sua conexão.');
+            }
+        }
+
+        function mostrarErroLogin(mensagem) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = '❌ ' + mensagem;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function fazerLogout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem(SESSION_KEY);
+                usuarioLogado = null;
+                
+                // Esconder interface
+                document.getElementById('mainHeader').style.display = 'none';
+                document.getElementById('mainContainer').style.display = 'none';
+                document.getElementById('statusBar').style.display = 'none';
+                
+                // Mostrar login
+                document.getElementById('loginOverlay').style.display = 'flex';
+                document.getElementById('loginUsuario').value = '';
+                document.getElementById('loginSenha').value = '';
+                
+                // Limpar dados
+                if (syncInterval) clearInterval(syncInterval);
+                cards = [];
+                roteiros = {};
+                renderCards();
+                
+                mostrarToast('👋 Até logo!');
+            }
+        }
+
+        function verificarSessao() {
+            const sessao = localStorage.getItem(SESSION_KEY);
+            if (sessao) {
+                try {
+                    const dados = JSON.parse(sessao);
+                    usuarioLogado = dados;
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('mainHeader').style.display = 'flex';
+                    document.getElementById('mainContainer').style.display = 'flex';
+                    document.getElementById('statusBar').style.display = 'flex';
+                    document.getElementById('usuarioNome').textContent = dados.nome;
+                    
+                    // Inicializar o sistema automaticamente
+                    setTimeout(() => inicializarSistema(), 100);
+                    return true;
+                } catch (e) {
+                    console.error('Erro ao verificar sessão:', e);
+                    localStorage.removeItem(SESSION_KEY);
+                }
+            }
+            return false;
+        }
+
+        // ============ SISTEMA PRINCIPAL ============
         function carregarDadosLocais() {
             try {
                 const dados = localStorage.getItem(STORAGE_KEY);
@@ -1416,15 +1636,6 @@
             }
         }
 
-        function limparDadosLocais() {
-            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem(ROTEIROS_KEY);
-            localStorage.removeItem(SYNC_HASH_KEY);
-            sessionStorage.removeItem(STORAGE_KEY + '_backup');
-            console.log('🧹 Dados locais limpos');
-        }
-
-        // ============ SINCRONIZAÇÃO ============
         async function sincronizarComGitHub(forceLoad = false) {
             if (!githubToken) return;
 
@@ -1439,47 +1650,31 @@
                 let cardsAtualizados = false;
                 let roteirosAtualizados = false;
 
-                // Sincronizar cards - SEMPRE usar os dados do GitHub como fonte primária
                 if (dadosCards && dadosCards.data !== undefined) {
                     const gitHubCards = dadosCards.data;
-                    if (Array.isArray(gitHubCards)) {
-                        // Verifica se os dados do GitHub são diferentes dos locais
-                        const hashGitHub = gerarHash(gitHubCards);
-                        const hashLocal = localStorage.getItem(SYNC_HASH_KEY);
-                        
-                        // Se for força de carga ou se os dados do GitHub são diferentes
-                        if (forceLoad || hashGitHub !== hashLocal || cards.length === 0) {
-                            // Usa os dados do GitHub como fonte primária
-                            cards = gitHubCards.map(card => ({
-                                ...card,
-                                version: card.version || 1
-                            }));
-                            salvarDadosLocais(cards);
-                            cardsAtualizados = true;
-                            lastSyncData = dadosCards.sha;
-                            localStorage.setItem(SYNC_HASH_KEY, hashGitHub);
-                            console.log(`📥 Carregados ${cards.length} cards do GitHub (hash: ${hashGitHub.substring(0, 10)})`);
-                        } else {
-                            lastSyncData = dadosCards.sha;
-                            console.log(`📋 Dados locais já estão sincronizados com GitHub`);
-                        }
-                    } else if (cards.length > 0 && forceLoad) {
-                        // GitHub vazio, enviar dados locais
+                    if (Array.isArray(gitHubCards) && (forceLoad || gitHubCards.length > 0 || cards.length === 0)) {
+                        cards = gitHubCards.map(card => ({
+                            ...card,
+                            version: card.version || 1
+                        }));
+                        salvarDadosLocais(cards);
+                        cardsAtualizados = true;
+                        lastSyncData = dadosCards.sha;
+                        console.log(`📥 Carregados ${cards.length} cards do GitHub`);
+                    } else if (cards.length > 0) {
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards);
                     }
                 }
 
-                // Sincronizar roteiros
                 if (dadosRoteiros && dadosRoteiros.data !== undefined) {
                     const gitHubRoteiros = dadosRoteiros.data;
-                    if (typeof gitHubRoteiros === 'object' && Object.keys(gitHubRoteiros).length > 0) {
-                        // Usa roteiros do GitHub
+                    if (typeof gitHubRoteiros === 'object' && (forceLoad || Object.keys(gitHubRoteiros).length > 0 || Object.keys(roteiros).length === 0)) {
                         roteiros = gitHubRoteiros;
                         salvarRoteirosLocais(roteiros);
                         roteirosAtualizados = true;
                         lastSyncRoteiros = dadosRoteiros.sha;
                         console.log(`📥 Carregados ${Object.keys(roteiros).length} roteiros do GitHub`);
-                    } else if (Object.keys(roteiros).length > 0 && forceLoad) {
+                    } else if (Object.keys(roteiros).length > 0) {
                         await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros);
                     }
                 }
@@ -1507,35 +1702,7 @@
             }, 15000);
         }
 
-        // ============ TOKEN ============
-        function configurarToken() {
-            const token = document.getElementById('tokenInput').value.trim();
-            if (!token || !token.startsWith('ghp_')) {
-                alert('❌ Token inválido! Deve começar com "ghp_"');
-                return;
-            }
-            githubToken = token;
-            localStorage.setItem(TOKEN_KEY, token);
-            document.getElementById('loginOverlay').style.display = 'none';
-            mostrarToast('🔐 Token configurado! Sincronizando...');
-            inicializarSistema(true);
-        }
-
-        function usarOffline() {
-            githubToken = '';
-            localStorage.removeItem(TOKEN_KEY);
-            document.getElementById('loginOverlay').style.display = 'none';
-            atualizarSyncIndicator('offline');
-            atualizarStatusBar('📴 Modo offline');
-            inicializarSistema(false);
-        }
-
         async function sincronizarAgora() {
-            if (!githubToken) {
-                mostrarToast('⚠️ Configure o token do GitHub primeiro!', 'danger');
-                document.getElementById('loginOverlay').style.display = 'flex';
-                return;
-            }
             mostrarToast('🔄 Sincronizando com GitHub...');
             await sincronizarComGitHub(true);
             renderCards();
@@ -1543,26 +1710,21 @@
         }
 
         // ============ INICIALIZAÇÃO ============
-        async function inicializarSistema(comToken = null) {
-            const usarToken = comToken !== null ? comToken : !!githubToken;
+        async function inicializarSistema() {
+            cards = carregarDadosLocais();
+            roteiros = carregarRoteirosLocais();
 
-            if (usarToken && githubToken) {
+            if (githubToken) {
                 atualizarSyncIndicator('syncing');
                 try {
-                    // Força a carga dos dados do GitHub, ignorando o cache local
                     await sincronizarComGitHub(true);
                     iniciarSincronizacaoPeriodica();
                 } catch (e) {
                     console.error('Erro na inicialização:', e);
                     atualizarSyncIndicator('offline');
-                    // Fallback para dados locais
-                    cards = carregarDadosLocais();
-                    roteiros = carregarRoteirosLocais();
                 }
             } else {
                 atualizarSyncIndicator('offline');
-                cards = carregarDadosLocais();
-                roteiros = carregarRoteirosLocais();
                 if (cards.length === 0) {
                     carregarDadosDemo();
                 }
@@ -1571,7 +1733,6 @@
 
             isInitialized = true;
             renderCards();
-            document.getElementById('loginOverlay').style.display = 'none';
 
             // Salvar ao sair
             window.addEventListener('beforeunload', async (e) => {
@@ -1687,6 +1848,8 @@
 
         function renderCards() {
             const grid = document.getElementById('cardsGrid');
+            if (!grid) return;
+            
             const filtrados = getCardsFiltrados();
 
             if (filtrados.length === 0) {
@@ -1782,11 +1945,8 @@
         function excluirCard(id) {
             const card = cards.find(c => c.id === id);
             if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?`)) {
-                // Remove o card da lista
                 cards = cards.filter(c => c.id !== id);
-                // Remove o roteiro associado
                 delete roteiros[id];
-                // Salva localmente e sincroniza
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
                 renderCards();
@@ -1799,15 +1959,23 @@
             ['all', ...Object.keys(STAGES)].forEach(s => {
                 counts[s] = s === 'all' ? cards.length : cards.filter(c => c.stage === s).length;
             });
-            document.getElementById('countAll').textContent = counts.all;
-            document.getElementById('totalCount').textContent = counts.all;
+            
+            const countAll = document.getElementById('countAll');
+            const totalCount = document.getElementById('totalCount');
+            if (countAll) countAll.textContent = counts.all;
+            if (totalCount) totalCount.textContent = counts.all;
+            
             Object.keys(STAGES).forEach(s => {
                 const el = document.getElementById('count' + s.charAt(0).toUpperCase() + s.slice(1));
                 if (el) el.textContent = counts[s];
             });
-            document.getElementById('aprovCount').textContent = counts.aprov;
-            document.getElementById('pubCount').textContent = counts.pub;
-            document.getElementById('gavetaCount').textContent = counts.gaveta;
+            
+            const aprovCount = document.getElementById('aprovCount');
+            const pubCount = document.getElementById('pubCount');
+            const gavetaCount = document.getElementById('gavetaCount');
+            if (aprovCount) aprovCount.textContent = counts.aprov;
+            if (pubCount) pubCount.textContent = counts.pub;
+            if (gavetaCount) gavetaCount.textContent = counts.gaveta;
         }
 
         function filtrarStage(stage, el) {
@@ -1815,24 +1983,32 @@
             document.querySelectorAll('.stage-item').forEach(item => item.classList.remove('active'));
             if (el) el.classList.add('active');
             const count = stage === 'all' ? cards.length : cards.filter(c => c.stage === stage).length;
-            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos os Conteúdos' : STAGES[
-                stage].nome + ' (' + count + ')';
+            const title = document.getElementById('contentTitle');
+            if (title) {
+                title.textContent = stage === 'all' ? '📌 Todos os Conteúdos' : STAGES[stage].nome + ' (' + count + ')';
+            }
             renderCards();
         }
 
         // ============ MODAL CARD ============
         function abrirModalNovo() {
             cardEditando = null;
-            document.getElementById('modalInner').innerHTML = getFormHTML(null);
-            document.getElementById('modalOverlay').style.display = 'flex';
+            const modalInner = document.getElementById('modalInner');
+            if (modalInner) {
+                modalInner.innerHTML = getFormHTML(null);
+                document.getElementById('modalOverlay').style.display = 'flex';
+            }
         }
 
         function abrirModalEditar(id) {
             cardEditando = id;
             const card = cards.find(c => c.id === id);
             if (!card) return;
-            document.getElementById('modalInner').innerHTML = getFormHTML(card);
-            document.getElementById('modalOverlay').style.display = 'flex';
+            const modalInner = document.getElementById('modalInner');
+            if (modalInner) {
+                modalInner.innerHTML = getFormHTML(card);
+                document.getElementById('modalOverlay').style.display = 'flex';
+            }
         }
 
         function fecharModal(event) {
@@ -1975,19 +2151,22 @@
 
             const conteudo = roteiros[id] || '';
             
-            document.getElementById('roteiroInner').innerHTML = `
-                <h2>📝 Roteiro - ${escapeHTML(card.titulo)}</h2>
-                <div class="form-group">
-                    <label>Roteiro</label>
-                    <textarea id="roteiroTexto" rows="12" style="width:100%;padding:12px;background:var(--surface2);border:2px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;font-size:0.9rem;resize:vertical">${escapeHTML(conteudo)}</textarea>
-                </div>
-                <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end">
-                    <button type="button" class="btn btn-outline" onclick="fecharRoteiro()">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="salvarRoteiro()">💾 Salvar Roteiro</button>
-                </div>
-            `;
-            
-            document.getElementById('roteiroOverlay').style.display = 'flex';
+            const roteiroInner = document.getElementById('roteiroInner');
+            if (roteiroInner) {
+                roteiroInner.innerHTML = `
+                    <h2>📝 Roteiro - ${escapeHTML(card.titulo)}</h2>
+                    <div class="form-group">
+                        <label>Roteiro</label>
+                        <textarea id="roteiroTexto" rows="12" style="width:100%;padding:12px;background:var(--surface2);border:2px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;font-size:0.9rem;resize:vertical">${escapeHTML(conteudo)}</textarea>
+                    </div>
+                    <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end">
+                        <button type="button" class="btn btn-outline" onclick="fecharRoteiro()">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick="salvarRoteiro()">💾 Salvar Roteiro</button>
+                    </div>
+                `;
+                
+                document.getElementById('roteiroOverlay').style.display = 'flex';
+            }
         }
 
         function fecharRoteiro(event) {
@@ -2057,6 +2236,8 @@
         // ============ TOAST ============
         function mostrarToast(msg, tipo = 'success') {
             const toast = document.getElementById('toast');
+            if (!toast) return;
+            
             toast.textContent = msg;
             toast.className = 'toast';
             if (tipo === 'danger') {
@@ -2070,7 +2251,8 @@
         }
 
         function atualizarStatusBar(msg) {
-            document.getElementById('statusText').textContent = msg;
+            const statusText = document.getElementById('statusText');
+            if (statusText) statusText.textContent = msg;
         }
 
         // ============ TECLAS ============
@@ -2092,14 +2274,22 @@
         });
 
         // ============ INIT ============
-        if (githubToken) {
-            document.getElementById('tokenInput').value = githubToken;
-            document.getElementById('loginOverlay').style.display = 'none';
-            inicializarSistema(true);
-        } else {
-            // Mostra a tela de login
+        // Verifica se há sessão ativa
+        if (!verificarSessao()) {
             document.getElementById('loginOverlay').style.display = 'flex';
         }
+
+        // Enter para login
+        document.getElementById('loginSenha').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                fazerLogin();
+            }
+        });
+        document.getElementById('loginUsuario').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginSenha').focus();
+            }
+        });
     </script>
 </body>
 </html>
