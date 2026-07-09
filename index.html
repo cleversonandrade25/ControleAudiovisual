@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🎬 Sistema de Gestão Audiovisual</title>
     <style>
         :root {
@@ -41,6 +41,7 @@
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            padding-bottom: 40px;
         }
 
         /* LOGIN MODAL */
@@ -55,18 +56,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
         .login-box {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 40px;
+            padding: 30px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             text-align: center;
         }
         .login-box h2 {
             margin-bottom: 10px;
+            font-size: 1.3rem;
         }
         .login-box p {
             color: var(--text2);
@@ -106,7 +109,7 @@
         .header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            padding: 16px 24px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -115,23 +118,26 @@
             z-index: 100;
             backdrop-filter: blur(10px);
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
         .header h1 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+        }
+        .header h1 span {
+            display: none;
         }
         .header-stats {
             display: flex;
-            gap: 20px;
-            font-size: 0.85rem;
+            gap: 8px;
+            font-size: 0.7rem;
             flex-wrap: wrap;
         }
         .header-stats span {
             background: var(--surface2);
-            padding: 6px 14px;
+            padding: 4px 10px;
             border-radius: 20px;
             color: var(--text2);
             white-space: nowrap;
@@ -141,17 +147,17 @@
         }
         .header-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
             align-items: center;
         }
         .sync-indicator {
-            font-size: 0.7rem;
-            padding: 4px 10px;
+            font-size: 0.6rem;
+            padding: 3px 8px;
             border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .sync-online {
             background: rgba(0, 200, 83, 0.2);
@@ -169,16 +175,17 @@
 
         /* BOTÕES */
         .btn {
-            padding: 10px 20px;
+            padding: 8px 14px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            white-space: nowrap;
         }
         .btn-primary {
             background: var(--primary);
@@ -193,8 +200,8 @@
             color: #fff;
         }
         .btn-sm {
-            padding: 5px 12px;
-            font-size: 0.75rem;
+            padding: 4px 10px;
+            font-size: 0.7rem;
             border-radius: 6px;
         }
         .btn-outline {
@@ -214,40 +221,40 @@
         /* LAYOUT PRINCIPAL */
         .main-container {
             display: flex;
-            height: calc(100vh - 65px);
+            height: calc(100vh - 60px);
         }
 
         /* SIDEBAR */
         .sidebar {
-            width: 260px;
+            width: 220px;
             background: var(--surface);
             border-right: 1px solid var(--border);
-            padding: 20px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             overflow-y: auto;
             flex-shrink: 0;
         }
         .sidebar-section {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         .sidebar-section h3 {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text2);
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         .stage-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 14px;
-            border-radius: 8px;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border: 1px solid transparent;
         }
         .stage-item:hover {
@@ -258,17 +265,17 @@
             border-color: var(--primary);
         }
         .stage-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             flex-shrink: 0;
         }
         .stage-count {
             margin-left: auto;
             background: var(--bg);
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 12px;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--text2);
         }
 
@@ -278,40 +285,41 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            min-width: 0;
         }
         .content-header {
-            padding: 20px 30px;
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-shrink: 0;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
         .content-header h2 {
-            font-size: 1.3rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .content-body {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 30px;
+            padding: 12px 16px;
         }
 
         /* CARDS */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
         }
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 14px;
             transition: all 0.2s;
             cursor: pointer;
             position: relative;
@@ -325,66 +333,66 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            gap: 8px;
         }
         .card-title {
             font-weight: 600;
-            font-size: 1rem;
-            line-height: 1.4;
+            font-size: 0.9rem;
+            line-height: 1.3;
             flex: 1;
-            margin-right: 8px;
         }
         .card-badge {
-            font-size: 0.7rem;
-            padding: 4px 10px;
+            font-size: 0.6rem;
+            padding: 3px 8px;
             border-radius: 20px;
             font-weight: 600;
             white-space: nowrap;
             flex-shrink: 0;
         }
         .card-meta {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--text2);
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 8px;
         }
         .card-datas {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin: 10px 0;
-            font-size: 0.7rem;
+            gap: 6px;
+            margin: 8px 0;
+            font-size: 0.65rem;
             background: var(--surface2);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 6px;
         }
         .card-data-item {
             text-align: center;
         }
         .card-data-item .data-label {
             color: var(--text2);
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .card-data-item .data-value {
             color: var(--text);
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             margin-top: 2px;
         }
         .card-data-item .data-value.pendente {
             color: var(--warning);
         }
         .card-link {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--info);
             display: flex;
             align-items: center;
             gap: 4px;
-            margin: 8px 0;
+            margin: 6px 0;
             word-break: break-all;
         }
         .card-link a {
@@ -395,47 +403,47 @@
             text-decoration: underline;
         }
         .card-progress {
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .card-progress-bar {
-            height: 6px;
+            height: 4px;
             background: var(--border);
-            border-radius: 3px;
+            border-radius: 2px;
             overflow: hidden;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .card-progress-fill {
             height: 100%;
-            border-radius: 3px;
+            border-radius: 2px;
             transition: width 0.3s;
         }
         .card-progress-text {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text2);
             text-align: right;
         }
         .card-actions {
             display: flex;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 4px;
+            margin-top: 8px;
             flex-wrap: wrap;
         }
         .card-tags {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
-            margin-top: 8px;
+            margin-top: 6px;
         }
         .tag {
-            font-size: 0.65rem;
-            padding: 3px 8px;
+            font-size: 0.6rem;
+            padding: 2px 6px;
             border-radius: 4px;
             background: var(--surface2);
             color: var(--text2);
         }
         .priority-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             display: inline-block;
         }
@@ -462,6 +470,7 @@
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.2s;
+            padding: 16px;
         }
         @keyframes fadeIn {
             from {
@@ -475,11 +484,11 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
-            width: 90%;
+            width: 100%;
             max-width: 800px;
             max-height: 85vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: 20px;
             animation: slideUp 0.3s;
         }
         @keyframes slideUp {
@@ -493,8 +502,9 @@
             }
         }
         .modal h2 {
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            padding-right: 40px;
         }
         .modal-close {
             position: sticky;
@@ -509,13 +519,13 @@
             z-index: 1;
         }
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .form-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: var(--text2);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -524,17 +534,17 @@
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 10px 14px;
+            padding: 8px 12px;
             background: var(--surface2);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-family: inherit;
         }
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 60px;
         }
         .form-group input:focus,
         .form-group textarea:focus,
@@ -545,28 +555,28 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            gap: 10px;
         }
         .form-row-3 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 14px;
+            gap: 10px;
         }
         .checkbox-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
+            gap: 6px;
+            font-size: 0.8rem;
             cursor: pointer;
         }
         .checkbox-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             accent-color: var(--primary);
             cursor: pointer;
         }
@@ -574,33 +584,35 @@
         /* EMPTY STATE */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 16px;
             color: var(--text2);
         }
         .empty-state .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 16px;
         }
         .empty-state h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
+            font-size: 1rem;
+            margin-bottom: 6px;
             color: var(--text);
         }
 
         /* SEARCH */
         .search-bar {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
         }
         .search-bar input {
             flex: 1;
-            padding: 10px 16px;
+            min-width: 150px;
+            padding: 8px 14px;
             background: var(--surface2);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         .search-bar input:focus {
             outline: none;
@@ -610,15 +622,17 @@
         /* TOAST */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             background: var(--success);
             color: #000;
-            padding: 14px 24px;
-            border-radius: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-weight: 600;
             z-index: 999;
             animation: slideIn 0.3s, fadeOutToast 0.3s 2.5s forwards;
+            max-width: 90%;
+            font-size: 0.85rem;
         }
         @keyframes slideIn {
             from {
@@ -654,28 +668,36 @@
             right: 0;
             background: var(--surface);
             border-top: 1px solid var(--border);
-            padding: 8px 20px;
-            font-size: 0.7rem;
+            padding: 6px 16px;
+            font-size: 0.6rem;
             color: var(--text2);
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 50;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 4px;
         }
 
         /* RESPONSIVO */
         @media (max-width: 768px) {
             .sidebar {
-                width: 70px;
-                padding: 10px;
+                width: 50px;
+                padding: 6px;
             }
             .sidebar .stage-item span:not(.stage-dot) {
                 display: none;
             }
             .sidebar .stage-count {
                 display: none;
+            }
+            .sidebar .stage-item {
+                padding: 6px;
+                justify-content: center;
+            }
+            .sidebar .stage-dot {
+                width: 10px;
+                height: 10px;
             }
             .cards-grid {
                 grid-template-columns: 1fr;
@@ -689,6 +711,45 @@
             }
             .card-datas {
                 grid-template-columns: 1fr 1fr 1fr;
+            }
+            .header h1 {
+                font-size: 1rem;
+            }
+            .header h1 span {
+                display: inline;
+            }
+            .content-header h2 {
+                font-size: 0.85rem;
+            }
+            .modal {
+                padding: 16px;
+                margin: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 8px 10px;
+            }
+            .header h1 {
+                font-size: 0.85rem;
+            }
+            .btn {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+            .content-body {
+                padding: 8px 10px;
+            }
+            .card {
+                padding: 10px;
+            }
+            .card-datas {
+                grid-template-columns: 1fr 1fr;
+            }
+            .search-bar input {
+                font-size: 0.75rem;
+                padding: 6px 10px;
             }
         }
 
@@ -771,6 +832,33 @@
             top: 0;
             left: 0;
         }
+
+        /* ROTEIRO MODAL */
+        .roteiro-content {
+            background: var(--surface2);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .roteiro-content:empty::before {
+            content: '📝 Nenhum roteiro cadastrado ainda.';
+            color: var(--text2);
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .btn-roteiro {
+            background: rgba(68, 138, 255, 0.2);
+            color: var(--info);
+            border: 1px solid var(--info);
+        }
+        .btn-roteiro:hover {
+            background: rgba(68, 138, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -793,23 +881,23 @@
 
     <!-- HEADER -->
     <div class="header">
-        <h1>🎬 Gestão Audiovisual</h1>
+        <h1>🎬 <span>Gestão</span> Audiovisual</h1>
         <div class="header-stats">
-            <span>📋 Total: <strong id="totalCount">0</strong></span>
-            <span>✅ Aprovados: <strong id="aprovCount">0</strong></span>
-            <span>📲 Publicados: <strong id="pubCount">0</strong></span>
-            <span>📚 Gaveta: <strong id="gavetaCount">0</strong></span>
+            <span>📋 <strong id="totalCount">0</strong></span>
+            <span>✅ <strong id="aprovCount">0</strong></span>
+            <span>📲 <strong id="pubCount">0</strong></span>
+            <span>📚 <strong id="gavetaCount">0</strong></span>
         </div>
         <div class="header-actions">
             <span class="sync-indicator sync-offline" id="syncIndicator">🔴 Offline</span>
-            <button class="btn btn-primary" onclick="abrirModalNovo()">+ Novo Conteúdo</button>
-            <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥 Exportar</button>
+            <button class="btn btn-primary" onclick="abrirModalNovo()">+ Novo</button>
+            <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥</button>
             <span class="import-wrapper">
-                <button class="btn btn-outline btn-sm">📤 Importar</button>
+                <button class="btn btn-outline btn-sm">📤</button>
                 <input type="file" accept=".json" onchange="importarDados(event)">
             </span>
-            <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄 Sincronizar</button>
-            <button class="btn btn-sm btn-outline" onclick="document.getElementById('loginOverlay').style.display='flex'" style="font-size:0.7rem">⚙️ Token</button>
+            <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄</button>
+            <button class="btn btn-sm btn-outline" onclick="document.getElementById('loginOverlay').style.display='flex'" style="font-size:0.6rem">⚙️</button>
         </div>
     </div>
 
@@ -818,54 +906,45 @@
         <!-- SIDEBAR -->
         <div class="sidebar">
             <div class="sidebar-section">
-                <h3>📋 Etapas do Fluxo</h3>
+                <h3>📋</h3>
                 <div class="stage-item active" data-stage="all" onclick="filtrarStage('all', this)">
-                    📌 Todos os cards
+                    <span>📌</span>
                     <span class="stage-count" id="countAll">0</span>
                 </div>
                 <div class="stage-item" data-stage="ideia" onclick="filtrarStage('ideia', this)">
                     <span class="stage-dot" style="background:var(--ideia)"></span>
-                    💡 Ideias
                     <span class="stage-count" id="countIdeia">0</span>
                 </div>
                 <div class="stage-item" data-stage="desenv" onclick="filtrarStage('desenv', this)">
                     <span class="stage-dot" style="background:var(--desenv)"></span>
-                    📝 Desenvolvimento
                     <span class="stage-count" id="countDesenv">0</span>
                 </div>
                 <div class="stage-item" data-stage="preprod" onclick="filtrarStage('preprod', this)">
                     <span class="stage-dot" style="background:var(--preprod)"></span>
-                    🎬 Pré-produção
                     <span class="stage-count" id="countPreprod">0</span>
                 </div>
                 <div class="stage-item" data-stage="prod" onclick="filtrarStage('prod', this)">
                     <span class="stage-dot" style="background:var(--prod)"></span>
-                    🎥 Produção
                     <span class="stage-count" id="countProd">0</span>
                 </div>
                 <div class="stage-item" data-stage="posprod" onclick="filtrarStage('posprod', this)">
                     <span class="stage-dot" style="background:var(--posprod)"></span>
-                    🎞 Pós-produção
                     <span class="stage-count" id="countPosprod">0</span>
                 </div>
                 <div class="stage-item" data-stage="aprov" onclick="filtrarStage('aprov', this)">
                     <span class="stage-dot" style="background:var(--aprov)"></span>
-                    ✅ Aprovação
                     <span class="stage-count" id="countAprov">0</span>
                 </div>
                 <div class="stage-item" data-stage="pub" onclick="filtrarStage('pub', this)">
                     <span class="stage-dot" style="background:var(--pub)"></span>
-                    📲 Publicação
                     <span class="stage-count" id="countPub">0</span>
                 </div>
                 <div class="stage-item" data-stage="gaveta" onclick="filtrarStage('gaveta', this)">
                     <span class="stage-dot" style="background:var(--gaveta)"></span>
-                    📚 Gaveta
                     <span class="stage-count" id="countGaveta">0</span>
                 </div>
                 <div class="stage-item" data-stage="result" onclick="filtrarStage('result', this)">
                     <span class="stage-dot" style="background:var(--result)"></span>
-                    📊 Resultados
                     <span class="stage-count" id="countResult">0</span>
                 </div>
             </div>
@@ -874,10 +953,10 @@
         <!-- CONTENT -->
         <div class="content">
             <div class="content-header">
-                <h2 id="contentTitle">📌 Todos os Conteúdos</h2>
-                <div style="display:flex;gap:8px;flex-wrap:wrap">
-                    <select id="filtroFormato" onchange="renderCards()" style="padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem">
-                        <option value="">Todos os formatos</option>
+                <h2 id="contentTitle">📌 Todos</h2>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                    <select id="filtroFormato" onchange="renderCards()" style="padding:6px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.75rem">
+                        <option value="">Formatos</option>
                         <option value="Reels">Reels</option>
                         <option value="Stories">Stories</option>
                         <option value="YouTube">YouTube</option>
@@ -887,8 +966,8 @@
                         <option value="Feed">Feed</option>
                         <option value="LinkedIn">LinkedIn</option>
                     </select>
-                    <select id="filtroPrioridade" onchange="renderCards()" style="padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem">
-                        <option value="">Todas prioridades</option>
+                    <select id="filtroPrioridade" onchange="renderCards()" style="padding:6px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.75rem">
+                        <option value="">Prioridade</option>
                         <option value="alta">🔴 Alta</option>
                         <option value="media">🟡 Média</option>
                         <option value="baixa">🟢 Baixa</option>
@@ -897,7 +976,7 @@
             </div>
             <div class="content-body">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="🔍 Buscar por título, formato, categoria, tags..." oninput="renderCards()">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar..." oninput="renderCards()">
                 </div>
                 <div class="cards-grid" id="cardsGrid"></div>
             </div>
@@ -912,13 +991,21 @@
         </div>
     </div>
 
+    <!-- MODAL ROTEIRO -->
+    <div class="modal-overlay" id="roteiroOverlay" style="display:none" onclick="fecharRoteiro(event)">
+        <div class="modal" id="roteiroContent" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="fecharRoteiro()">✕</button>
+            <div id="roteiroInner"></div>
+        </div>
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast" style="display:none"></div>
 
     <!-- STATUS BAR -->
     <div class="status-bar">
         <span id="statusText">💾 Carregando...</span>
-        <span>💡 Ctrl+N = Novo | Ctrl+S = Salvar | ESC = Fechar</span>
+        <span>Ctrl+N | Ctrl+S | ESC</span>
     </div>
 
     <script>
@@ -926,10 +1013,13 @@
         const GITHUB_USERNAME = 'cleversonandrade25';
         const GITHUB_REPO = 'ControleAudiovisual';
         const GITHUB_FILE_PATH = 'log.json';
+        const GITHUB_ROTEIROS_PATH = 'Roteiros.json';
         const GITHUB_BRANCH = 'main';
 
-        const STORAGE_KEY = 'audiovisual_cards_v3';
+        const STORAGE_KEY = 'audiovisual_cards_v4';
+        const ROTEIROS_KEY = 'audiovisual_roteiros_v1';
         const TOKEN_KEY = 'github_token_v2';
+        const LAST_SYNC_KEY = 'audiovisual_last_sync';
 
         // ============ ESTÁGIOS ============
         const STAGES = {
@@ -949,16 +1039,22 @@
         let syncInterval = null;
         let isSyncing = false;
         let lastSyncData = null;
+        let lastSyncRoteiros = null;
         let syncTimeout = null;
+        let cards = [];
+        let roteiros = {};
+        let stageFiltro = 'all';
+        let cardEditando = null;
+        let cardRoteiroAtual = null;
 
-        function getApiUrl() {
-            return `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+        function getApiUrl(filePath) {
+            return `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${filePath}`;
         }
 
-        async function lerDoGitHub() {
+        async function lerDoGitHub(filePath) {
             if (!githubToken) return null;
             try {
-                const response = await fetch(getApiUrl(), {
+                const response = await fetch(getApiUrl(filePath), {
                     headers: {
                         'Authorization': `token ${githubToken}`,
                         'Accept': 'application/vnd.github.v3+json'
@@ -966,49 +1062,58 @@
                 });
                 if (!response.ok) {
                     if (response.status === 404) {
-                        console.log('📄 Arquivo log.json não encontrado no GitHub. Será criado no primeiro salvamento.');
-                        return { cards: [], sha: null };
+                        console.log(`📄 Arquivo ${filePath} não encontrado.`);
+                        return { data: filePath === GITHUB_FILE_PATH ? [] : {}, sha: null };
                     }
                     throw new Error(`GitHub API error: ${response.status}`);
                 }
-                const data = await response.json();
-                const content = atob(data.content);
-                const cards = JSON.parse(content);
-                console.log(`📥 Lidos ${cards.length} cards do GitHub`);
-                return { cards, sha: data.sha };
+                const result = await response.json();
+                const content = atob(result.content);
+                const data = JSON.parse(content);
+                console.log(`📥 Lidos dados de ${filePath}`);
+                return { data, sha: result.sha };
             } catch (error) {
-                console.error('❌ Erro ao ler do GitHub:', error);
+                console.error(`❌ Erro ao ler ${filePath}:`, error);
                 return null;
             }
         }
 
-        async function salvarNoGitHub(cards, sha = null) {
+        async function salvarNoGitHub(filePath, data, sha = null) {
             if (!githubToken) return false;
             if (isSyncing) return false;
-            if (!cards || cards.length === 0) {
+
+            // Verifica se os dados estão vazios
+            if (filePath === GITHUB_FILE_PATH && (!data || data.length === 0)) {
                 console.warn('⚠️ Tentativa de salvar array vazio, ignorando.');
+                return false;
+            }
+            if (filePath === GITHUB_ROTEIROS_PATH && (!data || Object.keys(data).length === 0)) {
+                console.warn('⚠️ Tentativa de salvar roteiros vazio, ignorando.');
                 return false;
             }
 
             isSyncing = true;
-            atualizarSyncIndicator('syncing');
+            const indicator = document.getElementById('syncIndicator');
+            if (indicator) {
+                indicator.className = 'sync-indicator sync-syncing';
+                indicator.textContent = '🟡 Sincronizando...';
+            }
 
             try {
-                // Se não temos o SHA, precisamos buscar primeiro
                 if (!sha) {
-                    const dadosExistentes = await lerDoGitHub();
+                    const dadosExistentes = await lerDoGitHub(filePath);
                     sha = dadosExistentes ? dadosExistentes.sha : null;
                 }
 
-                const content = btoa(unescape(encodeURIComponent(JSON.stringify(cards, null, 2))));
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
                 const body = {
-                    message: `🔄 Atualização automática - ${new Date().toLocaleString('pt-BR')}`,
+                    message: `🔄 Atualização - ${new Date().toLocaleString('pt-BR')}`,
                     content: content,
                     branch: GITHUB_BRANCH
                 };
                 if (sha) body.sha = sha;
 
-                const response = await fetch(getApiUrl(), {
+                const response = await fetch(getApiUrl(filePath), {
                     method: 'PUT',
                     headers: {
                         'Authorization': `token ${githubToken}`,
@@ -1023,16 +1128,27 @@
                     throw new Error(`Erro ao salvar: ${response.status} - ${errorData.message}`);
                 }
 
-                const data = await response.json();
-                lastSyncData = data.content.sha;
-                console.log('📤 Dados salvos no GitHub com sucesso!');
-                atualizarSyncIndicator('online');
-                atualizarStatusBar('☁️ Sincronizado com GitHub ' + new Date().toLocaleTimeString());
+                const result = await response.json();
+                if (filePath === GITHUB_FILE_PATH) {
+                    lastSyncData = result.content.sha;
+                } else {
+                    lastSyncRoteiros = result.content.sha;
+                }
+                console.log(`📤 Dados salvos em ${filePath} com sucesso!`);
+                
+                if (indicator) {
+                    indicator.className = 'sync-indicator sync-online';
+                    indicator.textContent = '🟢 Online';
+                }
+                atualizarStatusBar(`☁️ Sincronizado ${new Date().toLocaleTimeString()}`);
                 return true;
             } catch (error) {
-                console.error('❌ Erro ao salvar no GitHub:', error);
-                atualizarSyncIndicator('offline');
-                atualizarStatusBar('⚠️ Falha ao sincronizar: ' + error.message);
+                console.error(`❌ Erro ao salvar ${filePath}:`, error);
+                if (indicator) {
+                    indicator.className = 'sync-indicator sync-offline';
+                    indicator.textContent = '🔴 Offline';
+                }
+                atualizarStatusBar(`⚠️ Falha: ${error.message}`);
                 return false;
             } finally {
                 isSyncing = false;
@@ -1044,10 +1160,13 @@
             if (syncTimeout) clearTimeout(syncTimeout);
             syncTimeout = setTimeout(async () => {
                 if (cards.length > 0) {
-                    await salvarNoGitHub(cards, lastSyncData);
+                    await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
+                }
+                if (Object.keys(roteiros).length > 0) {
+                    await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
                 }
                 syncTimeout = null;
-            }, 5000);
+            }, 3000);
         }
 
         function atualizarSyncIndicator(status) {
@@ -1095,6 +1214,7 @@
                             dataEdicao: card.dataEdicao || '',
                             dataEntrega: card.dataEntrega || '',
                             linkArmazenamento: card.linkArmazenamento || '',
+                            version: card.version || 0
                         }));
                     }
                 }
@@ -1102,6 +1222,18 @@
                 console.error('Erro ao carregar dados locais:', e);
             }
             return [];
+        }
+
+        function carregarRoteirosLocais() {
+            try {
+                const dados = localStorage.getItem(ROTEIROS_KEY);
+                if (dados) {
+                    return JSON.parse(dados);
+                }
+            } catch (e) {
+                console.error('Erro ao carregar roteiros locais:', e);
+            }
+            return {};
         }
 
         function salvarDadosLocais(cardsData) {
@@ -1114,38 +1246,131 @@
             }
         }
 
-        // ============ SINCRONIZAÇÃO ============
-        async function sincronizar() {
-            if (!githubToken) return;
-
-            const dadosGitHub = await lerDoGitHub();
-            if (dadosGitHub && dadosGitHub.cards) {
-                if (JSON.stringify(dadosGitHub.cards) !== JSON.stringify(cards)) {
-                    cards = dadosGitHub.cards;
-                    salvarDadosLocais(cards);
-                    renderCards();
-                    console.log('📥 Dados atualizados do GitHub');
-                }
-                lastSyncData = dadosGitHub.sha;
-                atualizarSyncIndicator('online');
-                atualizarStatusBar('☁️ Sincronizado com GitHub');
-            } else if (cards.length > 0) {
-                await salvarNoGitHub(cards);
+        function salvarRoteirosLocais(roteirosData) {
+            try {
+                localStorage.setItem(ROTEIROS_KEY, JSON.stringify(roteirosData));
+                agendarSincronizacao();
+            } catch (e) {
+                console.error('Erro ao salvar roteiros:', e);
             }
         }
 
-        async function sincronizarAgora() {
-            if (!githubToken) {
-                mostrarToast('⚠️ Configure o token do GitHub primeiro!', 'danger');
-                document.getElementById('loginOverlay').style.display = 'flex';
-                return;
+        // ============ SINCRONIZAÇÃO COM CONFLITO ============
+        async function sincronizarComGitHub() {
+            if (!githubToken) return;
+
+            const indicator = document.getElementById('syncIndicator');
+            if (indicator) {
+                indicator.className = 'sync-indicator sync-syncing';
+                indicator.textContent = '🟡 Sincronizando...';
             }
-            mostrarToast('🔄 Sincronizando...');
-            await sincronizar();
-            if (cards.length > 0) {
-                await salvarNoGitHub(cards, lastSyncData);
+
+            try {
+                // Buscar dados do GitHub
+                const [dadosCards, dadosRoteiros] = await Promise.all([
+                    lerDoGitHub(GITHUB_FILE_PATH),
+                    lerDoGitHub(GITHUB_ROTEIROS_PATH)
+                ]);
+
+                let cardsAtualizados = false;
+                let roteirosAtualizados = false;
+
+                // Verificar e mesclar cards (usando versão para conflitos)
+                if (dadosCards && dadosCards.data) {
+                    const gitHubCards = dadosCards.data;
+                    if (Array.isArray(gitHubCards) && gitHubCards.length > 0) {
+                        // Merge baseado em ID e versão
+                        const mergedCards = [...cards];
+                        let mudou = false;
+
+                        gitHubCards.forEach(gc => {
+                            const localIdx = mergedCards.findIndex(lc => lc.id === gc.id);
+                            if (localIdx >= 0) {
+                                // Se a versão do GitHub é maior, atualiza
+                                if ((gc.version || 0) > (mergedCards[localIdx].version || 0)) {
+                                    mergedCards[localIdx] = gc;
+                                    mudou = true;
+                                }
+                            } else {
+                                // Card novo
+                                mergedCards.push(gc);
+                                mudou = true;
+                            }
+                        });
+
+                        // Verificar cards locais que não estão no GitHub
+                        cards.forEach(lc => {
+                            if (!gitHubCards.some(gc => gc.id === lc.id)) {
+                                // Card local não existe no GitHub, manter
+                                // (pode ser um card novo que ainda não foi sincronizado)
+                            }
+                        });
+
+                        if (mudou) {
+                            cards = mergedCards;
+                            salvarDadosLocais(cards);
+                            cardsAtualizados = true;
+                            lastSyncData = dadosCards.sha;
+                        } else {
+                            lastSyncData = dadosCards.sha;
+                        }
+                    } else if (cards.length > 0) {
+                        // GitHub vazio, enviar dados locais
+                        await salvarNoGitHub(GITHUB_FILE_PATH, cards);
+                    }
+                }
+
+                // Verificar e mesclar roteiros
+                if (dadosRoteiros && dadosRoteiros.data) {
+                    const gitHubRoteiros = dadosRoteiros.data;
+                    if (typeof gitHubRoteiros === 'object' && Object.keys(gitHubRoteiros).length > 0) {
+                        // Merge simples: GitHub tem prioridade
+                        const mergedRoteiros = { ...roteiros };
+                        let mudou = false;
+
+                        Object.keys(gitHubRoteiros).forEach(key => {
+                            if (!mergedRoteiros[key] || gitHubRoteiros[key].version > (mergedRoteiros[key] || {}).version) {
+                                mergedRoteiros[key] = gitHubRoteiros[key];
+                                mudou = true;
+                            }
+                        });
+
+                        if (mudou) {
+                            roteiros = mergedRoteiros;
+                            salvarRoteirosLocais(roteiros);
+                            roteirosAtualizados = true;
+                            lastSyncRoteiros = dadosRoteiros.sha;
+                        } else {
+                            lastSyncRoteiros = dadosRoteiros.sha;
+                        }
+                    } else if (Object.keys(roteiros).length > 0) {
+                        // GitHub vazio, enviar roteiros locais
+                        await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros);
+                    }
+                }
+
+                if (cardsAtualizados || roteirosAtualizados) {
+                    renderCards();
+                    mostrarToast('🔄 Dados sincronizados com GitHub!');
+                }
+
+                atualizarSyncIndicator('online');
+                atualizarStatusBar(`☁️ Sincronizado ${new Date().toLocaleTimeString()}`);
+            } catch (error) {
+                console.error('❌ Erro na sincronização:', error);
+                atualizarSyncIndicator('offline');
+                atualizarStatusBar(`⚠️ Erro na sincronização`);
             }
-            mostrarToast('✅ Sincronização concluída!');
+        }
+
+        // ============ SINCRONIZAÇÃO PERIÓDICA ============
+        function iniciarSincronizacaoPeriodica() {
+            if (syncInterval) clearInterval(syncInterval);
+            syncInterval = setInterval(async () => {
+                if (githubToken) {
+                    await sincronizarComGitHub();
+                }
+            }, 15000); // 15 segundos para melhor sincronização
         }
 
         // ============ TOKEN ============
@@ -1167,81 +1392,56 @@
             localStorage.removeItem(TOKEN_KEY);
             document.getElementById('loginOverlay').style.display = 'none';
             atualizarSyncIndicator('offline');
-            atualizarStatusBar('📴 Modo offline (dados salvos apenas no navegador)');
+            atualizarStatusBar('📴 Modo offline');
             inicializarSistema();
         }
 
-        // ============ DADOS ============
-        let cards = [];
-        let stageFiltro = 'all';
-        let cardEditando = null;
+        async function sincronizarAgora() {
+            if (!githubToken) {
+                mostrarToast('⚠️ Configure o token do GitHub primeiro!', 'danger');
+                document.getElementById('loginOverlay').style.display = 'flex';
+                return;
+            }
+            mostrarToast('🔄 Sincronizando...');
+            await sincronizarComGitHub();
+            mostrarToast('✅ Sincronização concluída!');
+        }
 
+        // ============ INICIALIZAÇÃO ============
         async function inicializarSistema() {
             cards = carregarDadosLocais();
+            roteiros = carregarRoteirosLocais();
 
             if (githubToken) {
                 atualizarSyncIndicator('syncing');
                 try {
-                    const dadosGitHub = await lerDoGitHub();
-                    if (dadosGitHub && dadosGitHub.cards && dadosGitHub.cards.length > 0) {
-                        cards = dadosGitHub.cards;
-                        salvarDadosLocais(cards);
-                        lastSyncData = dadosGitHub.sha;
-                        atualizarSyncIndicator('online');
-                        atualizarStatusBar('☁️ Dados carregados do GitHub (' + cards.length + ' cards)');
-                    } else if (cards.length > 0) {
-                        await salvarNoGitHub(cards);
-                        atualizarSyncIndicator('online');
-                    } else {
-                        carregarDadosDemo();
-                        await salvarNoGitHub(cards);
-                        atualizarSyncIndicator('online');
-                    }
+                    await sincronizarComGitHub();
+                    iniciarSincronizacaoPeriodica();
                 } catch (e) {
                     console.error('Erro na inicialização:', e);
                     atualizarSyncIndicator('offline');
                 }
-
-                if (syncInterval) clearInterval(syncInterval);
-                syncInterval = setInterval(async () => {
-                    if (cards.length > 0) {
-                        await salvarNoGitHub(cards, lastSyncData);
-                    }
-                }, 30000);
             } else {
                 atualizarSyncIndicator('offline');
                 if (cards.length === 0) {
                     carregarDadosDemo();
                 }
-                atualizarStatusBar('📴 Modo offline - Configure o token para sincronizar');
+                atualizarStatusBar('📴 Modo offline');
             }
 
             renderCards();
             document.getElementById('loginOverlay').style.display = 'none';
 
+            // Salvar ao sair
             window.addEventListener('beforeunload', async (e) => {
                 salvarDadosLocais(cards);
+                salvarRoteirosLocais(roteiros);
                 if (githubToken && cards.length > 0) {
                     try {
-                        const content = btoa(unescape(encodeURIComponent(JSON.stringify(cards, null, 2))));
-                        const body = {
-                            message: `🔄 Backup ao sair - ${new Date().toLocaleString('pt-BR')}`,
-                            content: content,
-                            branch: GITHUB_BRANCH
-                        };
-                        if (lastSyncData) body.sha = lastSyncData;
-
-                        await fetch(getApiUrl(), {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `token ${githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(body),
-                            keepalive: true
-                        });
-                        console.log('✅ Dados salvos ao sair');
+                        await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
+                        if (Object.keys(roteiros).length > 0) {
+                            await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
+                        }
                     } catch (err) {
                         console.error('❌ Erro ao salvar ao sair:', err);
                     }
@@ -1252,7 +1452,6 @@
         function carregarDadosDemo() {
             const hoje = new Date().toISOString().split('T')[0];
             const proxSemana = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
-            const prox2Semanas = new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0];
 
             cards = [{
                 id: Date.now() + 1,
@@ -1270,7 +1469,8 @@
                 dataGravacao: '',
                 dataEdicao: '',
                 dataEntrega: proxSemana,
-                linkArmazenamento: ''
+                linkArmazenamento: '',
+                version: 1
             }, {
                 id: Date.now() + 2,
                 titulo: 'Bastidores do evento anual',
@@ -1286,8 +1486,9 @@
                 descricao: 'Mostrar os bastidores do evento.',
                 dataGravacao: proxSemana,
                 dataEdicao: '',
-                dataEntrega: prox2Semanas,
-                linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo'
+                dataEntrega: '',
+                linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo',
+                version: 1
             }, {
                 id: Date.now() + 3,
                 titulo: 'Depoimento cliente satisfeito',
@@ -1304,7 +1505,8 @@
                 dataGravacao: '2026-06-25',
                 dataEdicao: '2026-06-28',
                 dataEntrega: '2026-07-01',
-                linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos'
+                linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos',
+                version: 1
             }];
             salvarDadosLocais(cards);
         }
@@ -1356,7 +1558,7 @@
                         <div class="icon">📭</div>
                         <h3>Nenhum conteúdo encontrado</h3>
                         <p>Crie um novo conteúdo ou ajuste os filtros.</p>
-                        <button class="btn btn-primary" style="margin-top:16px" onclick="abrirModalNovo()">+ Criar Conteúdo</button>
+                        <button class="btn btn-primary" style="margin-top:12px" onclick="abrirModalNovo()">+ Criar Conteúdo</button>
                     </div>`;
             } else {
                 grid.innerHTML = filtrados.map(card => {
@@ -1366,6 +1568,7 @@
                         .prioridade === 'media' ? 'priority-media' : 'priority-baixa';
                     const prioridadeEmoji = card.prioridade === 'alta' ? '🔴' : card.prioridade ===
                         'media' ? '🟡' : '🟢';
+                    const temRoteiro = roteiros[card.id] ? true : false;
 
                     return `
                     <div class="card ${stage.stageClass}" onclick="abrirModalEditar(${card.id})">
@@ -1376,27 +1579,27 @@
                         <div class="card-meta">
                             <span>📹 ${card.formato}</span>
                             <span>📂 ${card.categoria}</span>
-                            <span><span class="priority-dot ${prioridadeClass}"></span> ${prioridadeEmoji} ${card.prioridade}</span>
+                            <span><span class="priority-dot ${prioridadeClass}"></span> ${prioridadeEmoji}</span>
                         </div>
-                        ${card.descricao ? `<p style="font-size:0.8rem;color:var(--text2);margin-bottom:8px;line-height:1.4">${escapeHTML(card.descricao.substring(0, 100))}${card.descricao.length > 100 ? '...' : ''}</p>` : ''}
+                        ${card.descricao ? `<p style="font-size:0.75rem;color:var(--text2);margin-bottom:6px;line-height:1.3">${escapeHTML(card.descricao.substring(0, 80))}${card.descricao.length > 80 ? '...' : ''}</p>` : ''}
                         <div class="card-datas">
-                            <div class="card-data-item"><div class="data-label">🎥 Gravação</div><div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div></div>
-                            <div class="card-data-item"><div class="data-label">🎞 Edição</div><div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div></div>
-                            <div class="card-data-item"><div class="data-label">📅 Entrega</div><div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div></div>
+                            <div class="card-data-item"><div class="data-label">🎥</div><div class="data-value ${!card.dataGravacao ? 'pendente' : ''}">${formatarData(card.dataGravacao)}</div></div>
+                            <div class="card-data-item"><div class="data-label">🎞</div><div class="data-value ${!card.dataEdicao ? 'pendente' : ''}">${formatarData(card.dataEdicao)}</div></div>
+                            <div class="card-data-item"><div class="data-label">📅</div><div class="data-value ${!card.dataEntrega ? 'pendente' : ''}">${formatarData(card.dataEntrega)}</div></div>
                         </div>
-                        ${card.linkArmazenamento ? `<div class="card-link">🔗 <a href="${escapeHTML(card.linkArmazenamento)}" target="_blank" onclick="event.stopPropagation()">${escapeHTML(card.linkArmazenamento.length > 50 ? card.linkArmazenamento.substring(0, 50) + '...' : card.linkArmazenamento)}</a></div>` : ''}
                         ${card.tags && card.tags.length > 0 ? `<div class="card-tags">${card.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>` : ''}
                         <div class="card-progress">
                             <div class="card-progress-bar"><div class="card-progress-fill" style="width:${progresso}%;background:var(--${stage.cor})"></div></div>
-                            <div class="card-progress-text">📋 ${progresso}% concluído</div>
+                            <div class="card-progress-text">${progresso}%</div>
                         </div>
-                        <div class="card-meta" style="margin-top:8px">
+                        <div class="card-meta" style="margin-top:4px;font-size:0.65rem">
                             <span>👤 ${escapeHTML(card.responsavel || '—')}</span>
-                            <span>📅 ${card.dataCriacao ? new Date(card.dataCriacao + 'T00:00:00').toLocaleDateString('pt-BR') : '—'}</span>
+                            ${temRoteiro ? '<span style="color:var(--info)">📝 Roteiro</span>' : ''}
                         </div>
                         <div class="card-actions" onclick="event.stopPropagation()">
                             ${getProximoStageBtn(card)}
-                            <button class="btn btn-sm btn-outline" onclick="event.stopPropagation();moverParaGaveta(${card.id})">📚 Gaveta</button>
+                            <button class="btn btn-sm btn-roteiro" onclick="event.stopPropagation();abrirRoteiro(${card.id})">📝</button>
+                            <button class="btn btn-sm btn-outline" onclick="event.stopPropagation();moverParaGaveta(${card.id})">📚</button>
                             <button class="btn btn-sm btn-outline" style="color:var(--danger);border-color:var(--danger)" onclick="event.stopPropagation();excluirCard(${card.id})">🗑</button>
                         </div>
                     </div>`;
@@ -1410,9 +1613,9 @@
             const idx = ordem.indexOf(card.stage);
             if (idx >= 0 && idx < ordem.length - 1) {
                 const next = ordem[idx + 1];
-                return `<button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();moverStage(${card.id},'${next}')">➡ ${STAGES[next].nome}</button>`;
+                return `<button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();moverStage(${card.id},'${next}')">➡</button>`;
             }
-            if (card.stage === 'result') return '<span style="font-size:0.7rem;color:var(--success)">✅ Finalizado</span>';
+            if (card.stage === 'result') return '<span style="font-size:0.6rem;color:var(--success)">✅</span>';
             return '';
         }
 
@@ -1420,9 +1623,10 @@
             const card = cards.find(c => c.id === id);
             if (card) {
                 card.stage = novoStage;
+                card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
-                mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
+                mostrarToast(`✅ ${STAGES[novoStage].nome}`);
             }
         }
 
@@ -1430,9 +1634,10 @@
             const card = cards.find(c => c.id === id);
             if (card && card.stage !== 'gaveta') {
                 card.stage = 'gaveta';
+                card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
-                mostrarToast('📚 Conteúdo movido para a Gaveta!');
+                mostrarToast('📚 Gaveta!');
             }
         }
 
@@ -1440,9 +1645,11 @@
             const card = cards.find(c => c.id === id);
             if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?`)) {
                 cards = cards.filter(c => c.id !== id);
+                delete roteiros[id];
                 salvarDadosLocais(cards);
+                salvarRoteirosLocais(roteiros);
                 renderCards();
-                mostrarToast('🗑 Conteúdo excluído!');
+                mostrarToast('🗑 Excluído!');
             }
         }
 
@@ -1467,12 +1674,12 @@
             document.querySelectorAll('.stage-item').forEach(item => item.classList.remove('active'));
             if (el) el.classList.add('active');
             const count = stage === 'all' ? cards.length : cards.filter(c => c.stage === stage).length;
-            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos os Conteúdos' : STAGES[
-                stage].nome + ' (' + count + ')';
+            document.getElementById('contentTitle').textContent = stage === 'all' ? '📌 Todos' : STAGES[stage].nome + ' (' +
+                count + ')';
             renderCards();
         }
 
-        // ============ MODAL ============
+        // ============ MODAL CARD ============
         function abrirModalNovo() {
             cardEditando = null;
             document.getElementById('modalInner').innerHTML = getFormHTML(null);
@@ -1514,7 +1721,7 @@
             const linkArmazenamento = card ? card.linkArmazenamento : '';
 
             return `
-            <h2>${isEdit ? '✏️ Editar Conteúdo' : '➕ Novo Conteúdo'}</h2>
+            <h2>${isEdit ? '✏️ Editar' : '➕ Novo'}</h2>
             <form onsubmit="salvarCard(event, ${isEdit ? card.id : 'null'})">
                 <div class="form-group"><label>Título *</label><input type="text" id="formTitulo" value="${escapeHTML(titulo)}" required></div>
                 <div class="form-row">
@@ -1527,18 +1734,18 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group"><label>Responsável</label><input type="text" id="formResponsavel" value="${escapeHTML(responsavel)}"></div>
-                    <div class="form-group"><label>Data de Criação</label><input type="date" id="formDataCriacao" value="${dataCriacao}"></div>
+                    <div class="form-group"><label>Criação</label><input type="date" id="formDataCriacao" value="${dataCriacao}"></div>
                 </div>
-                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📅 CRONOGRAMA</h3>
+                <h3 style="margin-top:12px;margin-bottom:8px;font-size:0.75rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:6px">📅 CRONOGRAMA</h3>
                 <div class="form-row-3">
                     <div class="form-group"><label>🎥 Gravação</label><input type="date" id="formDataGravacao" value="${dataGravacao}"></div>
                     <div class="form-group"><label>🎞 Edição</label><input type="date" id="formDataEdicao" value="${dataEdicao}"></div>
                     <div class="form-group"><label>📅 Entrega</label><input type="date" id="formDataEntrega" value="${dataEntrega}"></div>
                 </div>
-                <div class="form-group"><label>🔗 Link Armazenamento</label><input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://drive.google.com/..."></div>
-                <div class="form-group"><label>Tags (vírgula)</label><input type="text" id="formTags" value="${escapeHTML(tags)}"></div>
+                <div class="form-group"><label>🔗 Link</label><input type="url" id="formLinkArmazenamento" value="${escapeHTML(linkArmazenamento)}" placeholder="https://..."></div>
+                <div class="form-group"><label>Tags</label><input type="text" id="formTags" value="${escapeHTML(tags)}" placeholder="tag1, tag2"></div>
                 <div class="form-group"><label>Descrição</label><textarea id="formDescricao" rows="3">${escapeHTML(descricao)}</textarea></div>
-                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📋 CHECKLIST</h3>
+                <h3 style="margin-top:12px;margin-bottom:8px;font-size:0.75rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:6px">📋 CHECKLIST</h3>
                 <div class="checkbox-list">
                     <label class="checkbox-item"><input type="checkbox" id="chkSinopse" ${checklist.sinopse?'checked':''}> Sinopse</label>
                     <label class="checkbox-item"><input type="checkbox" id="chkObjetivo" ${checklist.objetivo?'checked':''}> Objetivo</label>
@@ -1546,11 +1753,11 @@
                     <label class="checkbox-item"><input type="checkbox" id="chkRoteiro" ${checklist.roteiro?'checked':''}> Roteiro</label>
                 </div>
                 ${card && (card.stage==='pub'||card.stage==='result') ? `
-                <h3 style="margin-top:20px;margin-bottom:12px;font-size:0.85rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:8px">📊 MÉTRICAS</h3>
+                <h3 style="margin-top:12px;margin-bottom:8px;font-size:0.75rem;color:var(--text2);border-bottom:1px solid var(--border);padding-bottom:6px">📊 MÉTRICAS</h3>
                 <div class="form-row"><div class="form-group"><label>Visualizações</label><input type="number" id="metVisualizacoes" value="${metricas.visualizacoes||0}"></div><div class="form-group"><label>Curtidas</label><input type="number" id="metCurtidas" value="${metricas.curtidas||0}"></div></div>
                 <div class="form-row"><div class="form-group"><label>Comentários</label><input type="number" id="metComentarios" value="${metricas.comentarios||0}"></div><div class="form-group"><label>Salvos</label><input type="number" id="metSalvos" value="${metricas.salvos||0}"></div></div>
                 <div class="form-row"><div class="form-group"><label>Compartilhamentos</label><input type="number" id="metCompartilhamentos" value="${metricas.compartilhamentos||0}"></div><div class="form-group"><label>Cliques</label><input type="number" id="metCliques" value="${metricas.cliques||0}"></div></div>`:''}
-                <div style="display:flex;gap:10px;margin-top:24px;justify-content:flex-end">
+                <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">
                     <button type="button" class="btn btn-outline" onclick="fecharModal()">Cancelar</button>
                     <button type="submit" class="btn btn-primary">💾 Salvar</button>
                 </div>
@@ -1603,11 +1810,14 @@
 
             if (id) {
                 const idx = cards.findIndex(c => c.id === id);
-                if (idx >= 0) cards[idx] = { ...cards[idx], ...dados };
-                mostrarToast('✅ Conteúdo atualizado!');
+                if (idx >= 0) {
+                    cards[idx] = { ...cards[idx], ...dados, version: (cards[idx].version || 0) + 1 };
+                }
+                mostrarToast('✅ Atualizado!');
             } else {
-                cards.push({ ...dados, id: Date.now() });
-                mostrarToast('🎉 Novo conteúdo criado!');
+                const newCard = { ...dados, id: Date.now(), version: 1 };
+                cards.push(newCard);
+                mostrarToast('🎉 Criado!');
             }
 
             salvarDadosLocais(cards);
@@ -1616,9 +1826,56 @@
             renderCards();
         }
 
+        // ============ ROTEIRO ============
+        function abrirRoteiro(id) {
+            cardRoteiroAtual = id;
+            const card = cards.find(c => c.id === id);
+            if (!card) return;
+
+            const conteudo = roteiros[id] || '';
+            
+            document.getElementById('roteiroInner').innerHTML = `
+                <h2>📝 Roteiro - ${escapeHTML(card.titulo)}</h2>
+                <div class="form-group">
+                    <label>Roteiro</label>
+                    <textarea id="roteiroTexto" rows="12" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:monospace;font-size:0.85rem;resize:vertical">${escapeHTML(conteudo)}</textarea>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+                    <button type="button" class="btn btn-outline" onclick="fecharRoteiro()">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarRoteiro()">💾 Salvar Roteiro</button>
+                </div>
+            `;
+            
+            document.getElementById('roteiroOverlay').style.display = 'flex';
+        }
+
+        function fecharRoteiro(event) {
+            if (!event || event.target === document.getElementById('roteiroOverlay')) {
+                document.getElementById('roteiroOverlay').style.display = 'none';
+                cardRoteiroAtual = null;
+            }
+        }
+
+        function salvarRoteiro() {
+            if (cardRoteiroAtual === null) return;
+            const texto = document.getElementById('roteiroTexto').value;
+            
+            if (texto.trim()) {
+                roteiros[cardRoteiroAtual] = texto;
+            } else {
+                delete roteiros[cardRoteiroAtual];
+            }
+            
+            salvarRoteirosLocais(roteiros);
+            document.getElementById('roteiroOverlay').style.display = 'none';
+            renderCards();
+            mostrarToast('📝 Roteiro salvo!');
+            cardRoteiroAtual = null;
+        }
+
         // ============ EXPORTAR/IMPORTAR ============
         function exportarDados() {
-            const dados = JSON.stringify(cards, null, 2);
+            const dados = JSON.stringify({ cards, roteiros }, null, 2);
             const blob = new Blob([dados], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1636,28 +1893,15 @@
             reader.onload = async function(e) {
                 try {
                     const dados = JSON.parse(e.target.result);
-                    if (!Array.isArray(dados)) throw new Error('Formato inválido');
-                    if (confirm(`📤 Importar ${dados.length} conteúdos? Isso substituirá todos os dados atuais.`)) {
-                        cards = dados.map(card => ({
-                            id: card.id || Date.now(),
-                            titulo: card.titulo || '',
-                            formato: card.formato || 'Reels',
-                            categoria: card.categoria || 'Educativo',
-                            prioridade: card.prioridade || 'media',
-                            stage: card.stage || 'ideia',
-                            dataCriacao: card.dataCriacao || '',
-                            responsavel: card.responsavel || '',
-                            tags: card.tags || [],
-                            descricao: card.descricao || '',
-                            checklist: card.checklist || { sinopse: false, objetivo: false,
-                                estrutura: false, roteiro: false },
-                            metricas: card.metricas || {},
-                            dataGravacao: card.dataGravacao || '',
-                            dataEdicao: card.dataEdicao || '',
-                            dataEntrega: card.dataEntrega || '',
-                            linkArmazenamento: card.linkArmazenamento || '',
+                    if (!dados.cards || !Array.isArray(dados.cards)) throw new Error('Formato inválido');
+                    if (confirm(`📤 Importar ${dados.cards.length} conteúdos? Isso substituirá todos os dados atuais.`)) {
+                        cards = dados.cards.map(card => ({
+                            ...card,
+                            version: card.version || 1
                         }));
+                        roteiros = dados.roteiros || {};
                         salvarDadosLocais(cards);
+                        salvarRoteirosLocais(roteiros);
                         renderCards();
                         mostrarToast(`📤 ${cards.length} conteúdos importados!`);
                     }
@@ -1689,13 +1933,16 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.getElementById('modalOverlay').style.display = 'none';
+                document.getElementById('roteiroOverlay').style.display = 'none';
                 cardEditando = null;
+                cardRoteiroAtual = null;
             }
             if (e.ctrlKey && e.key === 'n') { e.preventDefault();
                 abrirModalNovo(); }
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
                 salvarDadosLocais(cards);
+                salvarRoteirosLocais(roteiros);
                 mostrarToast('💾 Dados salvos!');
             }
         });
