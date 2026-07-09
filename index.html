@@ -1198,6 +1198,7 @@
         const STORAGE_KEY = 'audiovisual_cards_v4';
         const ROTEIROS_KEY = 'audiovisual_roteiros_v1';
         const TOKEN_KEY = 'github_token_v2';
+        const SYNC_HASH_KEY = 'audiovisual_sync_hash';
 
         // ============ ESTÁGIOS ============
         const STAGES = {
@@ -1224,9 +1225,15 @@
         let stageFiltro = 'all';
         let cardEditando = null;
         let cardRoteiroAtual = null;
+        let isInitialized = false;
 
         function getApiUrl(filePath) {
             return `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${filePath}`;
+        }
+
+        // Função para gerar hash dos dados para comparar
+        function gerarHash(dados) {
+            return btoa(JSON.stringify(dados));
         }
 
         async function lerDoGitHub(filePath) {
@@ -1259,14 +1266,6 @@
         async function salvarNoGitHub(filePath, data, sha = null) {
             if (!githubToken) return false;
             if (isSyncing) return false;
-
-            // Permite salvar array vazio para o log (exclusão de todos os cards)
-            if (filePath === GITHUB_FILE_PATH && (!data || data.length === 0)) {
-                console.log('⚠️ Salvando array vazio no GitHub (exclusão em massa)');
-            }
-            if (filePath === GITHUB_ROTEIROS_PATH && (!data || Object.keys(data).length === 0)) {
-                console.log('⚠️ Salvando roteiros vazio no GitHub');
-            }
 
             isSyncing = true;
             atualizarSyncIndicator('syncing');
@@ -1303,6 +1302,8 @@
                 const result = await response.json();
                 if (filePath === GITHUB_FILE_PATH) {
                     lastSyncData = result.content.sha;
+                    // Salva o hash no localStorage para referência
+                    localStorage.setItem(SYNC_HASH_KEY, gerarHash(data));
                 } else {
                     lastSyncRoteiros = result.content.sha;
                 }
@@ -1324,14 +1325,8 @@
             if (!githubToken) return;
             if (syncTimeout) clearTimeout(syncTimeout);
             syncTimeout = setTimeout(async () => {
-                // Salva cards (mesmo que vazio para refletir exclusões)
                 await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
-                if (Object.keys(roteiros).length > 0) {
-                    await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
-                } else {
-                    // Se não tem roteiros, salva vazio
-                    await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
-                }
+                await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
                 syncTimeout = null;
             }, 3000);
         }
@@ -1381,8 +1376,7 @@
                             dataEdicao: card.dataEdicao || '',
                             dataEntrega: card.dataEntrega || '',
                             linkArmazenamento: card.linkArmazenamento || '',
-                            version: card.version || 0,
-                            deleted: card.deleted || false
+                            version: card.version || 0
                         }));
                     }
                 }
@@ -1407,7 +1401,6 @@
         function salvarDadosLocais(cardsData) {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsData));
-                sessionStorage.setItem(STORAGE_KEY + '_backup', JSON.stringify(cardsData));
                 agendarSincronizacao();
             } catch (e) {
                 console.error('Erro ao salvar localmente:', e);
@@ -1423,8 +1416,16 @@
             }
         }
 
-        // ============ SINCRONIZAÇÃO COM CONFLITO ============
-        async function sincronizarComGitHub() {
+        function limparDadosLocais() {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(ROTEIROS_KEY);
+            localStorage.removeItem(SYNC_HASH_KEY);
+            sessionStorage.removeItem(STORAGE_KEY + '_backup');
+            console.log('🧹 Dados locais limpos');
+        }
+
+        // ============ SINCRONIZAÇÃO ============
+        async function sincronizarComGitHub(forceLoad = false) {
             if (!githubToken) return;
 
             atualizarSyncIndicator('syncing');
@@ -1438,52 +1439,31 @@
                 let cardsAtualizados = false;
                 let roteirosAtualizados = false;
 
-                // Sincronizar cards
+                // Sincronizar cards - SEMPRE usar os dados do GitHub como fonte primária
                 if (dadosCards && dadosCards.data !== undefined) {
                     const gitHubCards = dadosCards.data;
                     if (Array.isArray(gitHubCards)) {
-                        // Merge: GitHub tem prioridade, mas mantém cards locais não sincronizados
-                        const mergedCards = [...cards];
-                        let mudou = false;
-
-                        // Atualiza com cards do GitHub
-                        gitHubCards.forEach(gc => {
-                            const localIdx = mergedCards.findIndex(lc => lc.id === gc.id);
-                            if (localIdx >= 0) {
-                                // Se a versão do GitHub é maior, atualiza
-                                if ((gc.version || 0) > (mergedCards[localIdx].version || 0)) {
-                                    mergedCards[localIdx] = gc;
-                                    mudou = true;
-                                }
-                            } else {
-                                // Card novo do GitHub
-                                mergedCards.push(gc);
-                                mudou = true;
-                            }
-                        });
-
-                        // Remove cards locais que foram deletados no GitHub
-                        const cardsToRemove = [];
-                        mergedCards.forEach((lc, idx) => {
-                            if (!gitHubCards.some(gc => gc.id === lc.id) && lc.deleted) {
-                                cardsToRemove.push(idx);
-                            }
-                        });
-                        if (cardsToRemove.length > 0) {
-                            cardsToRemove.sort((a, b) => b - a);
-                            cardsToRemove.forEach(idx => mergedCards.splice(idx, 1));
-                            mudou = true;
-                        }
-
-                        if (mudou) {
-                            cards = mergedCards;
+                        // Verifica se os dados do GitHub são diferentes dos locais
+                        const hashGitHub = gerarHash(gitHubCards);
+                        const hashLocal = localStorage.getItem(SYNC_HASH_KEY);
+                        
+                        // Se for força de carga ou se os dados do GitHub são diferentes
+                        if (forceLoad || hashGitHub !== hashLocal || cards.length === 0) {
+                            // Usa os dados do GitHub como fonte primária
+                            cards = gitHubCards.map(card => ({
+                                ...card,
+                                version: card.version || 1
+                            }));
                             salvarDadosLocais(cards);
                             cardsAtualizados = true;
                             lastSyncData = dadosCards.sha;
+                            localStorage.setItem(SYNC_HASH_KEY, hashGitHub);
+                            console.log(`📥 Carregados ${cards.length} cards do GitHub (hash: ${hashGitHub.substring(0, 10)})`);
                         } else {
                             lastSyncData = dadosCards.sha;
+                            console.log(`📋 Dados locais já estão sincronizados com GitHub`);
                         }
-                    } else if (cards.length > 0) {
+                    } else if (cards.length > 0 && forceLoad) {
                         // GitHub vazio, enviar dados locais
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards);
                     }
@@ -1492,34 +1472,14 @@
                 // Sincronizar roteiros
                 if (dadosRoteiros && dadosRoteiros.data !== undefined) {
                     const gitHubRoteiros = dadosRoteiros.data;
-                    if (typeof gitHubRoteiros === 'object') {
-                        const mergedRoteiros = { ...roteiros };
-                        let mudou = false;
-
-                        Object.keys(gitHubRoteiros).forEach(key => {
-                            if (!mergedRoteiros[key] || gitHubRoteiros[key].version > (mergedRoteiros[key] || {}).version) {
-                                mergedRoteiros[key] = gitHubRoteiros[key];
-                                mudou = true;
-                            }
-                        });
-
-                        // Remove roteiros que não existem mais no GitHub
-                        Object.keys(mergedRoteiros).forEach(key => {
-                            if (!gitHubRoteiros[key] && !roteiros[key]) {
-                                delete mergedRoteiros[key];
-                                mudou = true;
-                            }
-                        });
-
-                        if (mudou) {
-                            roteiros = mergedRoteiros;
-                            salvarRoteirosLocais(roteiros);
-                            roteirosAtualizados = true;
-                            lastSyncRoteiros = dadosRoteiros.sha;
-                        } else {
-                            lastSyncRoteiros = dadosRoteiros.sha;
-                        }
-                    } else if (Object.keys(roteiros).length > 0) {
+                    if (typeof gitHubRoteiros === 'object' && Object.keys(gitHubRoteiros).length > 0) {
+                        // Usa roteiros do GitHub
+                        roteiros = gitHubRoteiros;
+                        salvarRoteirosLocais(roteiros);
+                        roteirosAtualizados = true;
+                        lastSyncRoteiros = dadosRoteiros.sha;
+                        console.log(`📥 Carregados ${Object.keys(roteiros).length} roteiros do GitHub`);
+                    } else if (Object.keys(roteiros).length > 0 && forceLoad) {
                         await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros);
                     }
                 }
@@ -1541,8 +1501,8 @@
         function iniciarSincronizacaoPeriodica() {
             if (syncInterval) clearInterval(syncInterval);
             syncInterval = setInterval(async () => {
-                if (githubToken) {
-                    await sincronizarComGitHub();
+                if (githubToken && isInitialized) {
+                    await sincronizarComGitHub(false);
                 }
             }, 15000);
         }
@@ -1558,7 +1518,7 @@
             localStorage.setItem(TOKEN_KEY, token);
             document.getElementById('loginOverlay').style.display = 'none';
             mostrarToast('🔐 Token configurado! Sincronizando...');
-            inicializarSistema();
+            inicializarSistema(true);
         }
 
         function usarOffline() {
@@ -1567,7 +1527,7 @@
             document.getElementById('loginOverlay').style.display = 'none';
             atualizarSyncIndicator('offline');
             atualizarStatusBar('📴 Modo offline');
-            inicializarSistema();
+            inicializarSistema(false);
         }
 
         async function sincronizarAgora() {
@@ -1576,39 +1536,45 @@
                 document.getElementById('loginOverlay').style.display = 'flex';
                 return;
             }
-            mostrarToast('🔄 Sincronizando...');
-            await sincronizarComGitHub();
+            mostrarToast('🔄 Sincronizando com GitHub...');
+            await sincronizarComGitHub(true);
+            renderCards();
             mostrarToast('✅ Sincronização concluída!');
         }
 
         // ============ INICIALIZAÇÃO ============
-        async function inicializarSistema() {
-            cards = carregarDadosLocais();
-            roteiros = carregarRoteirosLocais();
+        async function inicializarSistema(comToken = null) {
+            const usarToken = comToken !== null ? comToken : !!githubToken;
 
-            if (githubToken) {
+            if (usarToken && githubToken) {
                 atualizarSyncIndicator('syncing');
                 try {
-                    await sincronizarComGitHub();
+                    // Força a carga dos dados do GitHub, ignorando o cache local
+                    await sincronizarComGitHub(true);
                     iniciarSincronizacaoPeriodica();
                 } catch (e) {
                     console.error('Erro na inicialização:', e);
                     atualizarSyncIndicator('offline');
+                    // Fallback para dados locais
+                    cards = carregarDadosLocais();
+                    roteiros = carregarRoteirosLocais();
                 }
             } else {
                 atualizarSyncIndicator('offline');
+                cards = carregarDadosLocais();
+                roteiros = carregarRoteirosLocais();
                 if (cards.length === 0) {
                     carregarDadosDemo();
                 }
                 atualizarStatusBar('📴 Modo offline');
             }
 
+            isInitialized = true;
             renderCards();
             document.getElementById('loginOverlay').style.display = 'none';
 
+            // Salvar ao sair
             window.addEventListener('beforeunload', async (e) => {
-                salvarDadosLocais(cards);
-                salvarRoteirosLocais(roteiros);
                 if (githubToken) {
                     try {
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
@@ -1641,8 +1607,7 @@
                 dataEdicao: '',
                 dataEntrega: proxSemana,
                 linkArmazenamento: '',
-                version: 1,
-                deleted: false
+                version: 1
             }, {
                 id: Date.now() + 2,
                 titulo: 'Bastidores do evento anual',
@@ -1660,8 +1625,7 @@
                 dataEdicao: '',
                 dataEntrega: '',
                 linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo',
-                version: 1,
-                deleted: false
+                version: 1
             }, {
                 id: Date.now() + 3,
                 titulo: 'Depoimento cliente satisfeito',
@@ -1679,8 +1643,7 @@
                 dataEdicao: '2026-06-28',
                 dataEntrega: '2026-07-01',
                 linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos',
-                version: 1,
-                deleted: false
+                version: 1
             }];
             salvarDadosLocais(cards);
         }
@@ -2132,7 +2095,10 @@
         if (githubToken) {
             document.getElementById('tokenInput').value = githubToken;
             document.getElementById('loginOverlay').style.display = 'none';
-            inicializarSistema();
+            inicializarSistema(true);
+        } else {
+            // Mostra a tela de login
+            document.getElementById('loginOverlay').style.display = 'flex';
         }
     </script>
 </body>
