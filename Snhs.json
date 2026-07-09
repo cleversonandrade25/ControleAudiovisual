@@ -3,7 +3,7 @@
     {
       "id": 1,
       "nome": "Cleverson Andrade",
-      "senha": "123456789",
+      "senha": "123",
       "email": "cleverson@exemplo.com",
       "ativo": true
     },
