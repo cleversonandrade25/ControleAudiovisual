@@ -8,7 +8,11 @@
     "stage": "ideia",
     "dataCriacao": "2026-07-09",
     "responsavel": "Cleverson/Jr",
-    "tags": [],
+    "tags": [
+      "achados",
+      "perdidos",
+      "ope"
+    ],
     "descricao": "",
     "checklist": {
       "sinopse": true,
@@ -21,7 +25,7 @@
     "dataEdicao": "2026-07-14",
     "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
-    "version": 3
+    "version": 4
   },
   {
     "titulo": "Gravação Manutenção",
