@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "titulo": "teste1",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "desenv",
+    "responsavel": "Cleverson",
+    "dataCriacao": "2026-07-09",
+    "tags": [
+      "achados",
+      "perdidos",
+      "ope"
+    ],
+    "descricao": "criação de conteudo audio visual de teste",
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-09",
+    "dataEdicao": "2026-07-10",
+    "dataEntrega": "2026-07-11",
+    "linkArmazenamento": "https://onedrive.live.com/exemplo-dicas",
+    "id": 1783615596097,
+    "version": 1
+  }
+]
