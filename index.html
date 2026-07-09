@@ -748,31 +748,39 @@
         }
 
         /* RESPONSIVO */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .sidebar {
-                width: 60px;
-                padding: 8px 4px;
-            }
-            .sidebar .stage-item span:not(.stage-dot) {
-                display: none;
-            }
-            .sidebar .stage-count {
-                display: none;
+                width: 200px;
             }
             .sidebar .stage-item {
-                padding: 8px;
-                justify-content: center;
+                font-size: 0.75rem;
+                padding: 8px 10px;
             }
-            .sidebar .stage-dot {
-                width: 12px;
-                height: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 180px;
+                padding: 12px 8px;
+            }
+            .sidebar .stage-item {
+                font-size: 0.7rem;
+                padding: 6px 8px;
+                gap: 6px;
+            }
+            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) {
+                display: inline;
+                font-size: 0.65rem;
+            }
+            .sidebar .stage-count {
+                font-size: 0.6rem;
+                padding: 1px 6px;
             }
             .sidebar-section h3 {
-                text-align: center;
-                font-size: 0.5rem;
+                font-size: 0.55rem;
             }
             .cards-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
             .form-row,
             .form-row-3 {
@@ -794,21 +802,52 @@
                 padding: 16px;
                 margin: 8px;
             }
-            .header-actions .btn span {
-                display: none;
-            }
             .btn {
                 font-size: 0.7rem;
-                padding: 6px 10px;
+                padding: 6px 12px;
+            }
+            .btn-sm {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
+            .card-actions {
+                gap: 4px;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 140px;
+                padding: 8px 4px;
+            }
+            .sidebar .stage-item {
+                font-size: 0.6rem;
+                padding: 4px 6px;
+                gap: 4px;
+            }
+            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) {
+                font-size: 0.55rem;
+            }
+            .sidebar .stage-count {
+                font-size: 0.5rem;
+                padding: 1px 4px;
+            }
+            .sidebar .stage-dot {
+                width: 8px;
+                height: 8px;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
             .header {
                 padding: 8px 12px;
             }
             .header h1 {
                 font-size: 0.85rem;
+            }
+            .header-actions .btn span {
+                display: inline;
+                font-size: 0.6rem;
             }
             .content-body {
                 padding: 10px 12px;
@@ -831,6 +870,47 @@
             .status-bar {
                 font-size: 0.55rem;
                 padding: 4px 12px;
+            }
+            .btn {
+                font-size: 0.65rem;
+                padding: 5px 10px;
+            }
+            .btn-sm {
+                font-size: 0.55rem;
+                padding: 2px 6px;
+            }
+            .card-actions {
+                gap: 3px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 100px;
+            }
+            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) {
+                display: none;
+            }
+            .sidebar .stage-count {
+                display: none;
+            }
+            .sidebar .stage-item {
+                justify-content: center;
+                padding: 6px 4px;
+            }
+            .sidebar .stage-dot {
+                width: 10px;
+                height: 10px;
+            }
+            .sidebar-section h3 {
+                text-align: center;
+                font-size: 0.5rem;
+            }
+            .header-actions .btn span {
+                display: none;
+            }
+            .header h1 {
+                font-size: 0.75rem;
             }
         }
 
@@ -1180,13 +1260,12 @@
             if (!githubToken) return false;
             if (isSyncing) return false;
 
+            // Permite salvar array vazio para o log (exclusão de todos os cards)
             if (filePath === GITHUB_FILE_PATH && (!data || data.length === 0)) {
-                console.warn('⚠️ Tentativa de salvar array vazio, ignorando.');
-                return false;
+                console.log('⚠️ Salvando array vazio no GitHub (exclusão em massa)');
             }
             if (filePath === GITHUB_ROTEIROS_PATH && (!data || Object.keys(data).length === 0)) {
-                console.warn('⚠️ Tentativa de salvar roteiros vazio, ignorando.');
-                return false;
+                console.log('⚠️ Salvando roteiros vazio no GitHub');
             }
 
             isSyncing = true;
@@ -1245,10 +1324,12 @@
             if (!githubToken) return;
             if (syncTimeout) clearTimeout(syncTimeout);
             syncTimeout = setTimeout(async () => {
-                if (cards.length > 0) {
-                    await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
-                }
+                // Salva cards (mesmo que vazio para refletir exclusões)
+                await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
                 if (Object.keys(roteiros).length > 0) {
+                    await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
+                } else {
+                    // Se não tem roteiros, salva vazio
                     await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
                 }
                 syncTimeout = null;
@@ -1300,7 +1381,8 @@
                             dataEdicao: card.dataEdicao || '',
                             dataEntrega: card.dataEntrega || '',
                             linkArmazenamento: card.linkArmazenamento || '',
-                            version: card.version || 0
+                            version: card.version || 0,
+                            deleted: card.deleted || false
                         }));
                     }
                 }
@@ -1356,24 +1438,42 @@
                 let cardsAtualizados = false;
                 let roteirosAtualizados = false;
 
-                if (dadosCards && dadosCards.data) {
+                // Sincronizar cards
+                if (dadosCards && dadosCards.data !== undefined) {
                     const gitHubCards = dadosCards.data;
-                    if (Array.isArray(gitHubCards) && gitHubCards.length > 0) {
+                    if (Array.isArray(gitHubCards)) {
+                        // Merge: GitHub tem prioridade, mas mantém cards locais não sincronizados
                         const mergedCards = [...cards];
                         let mudou = false;
 
+                        // Atualiza com cards do GitHub
                         gitHubCards.forEach(gc => {
                             const localIdx = mergedCards.findIndex(lc => lc.id === gc.id);
                             if (localIdx >= 0) {
+                                // Se a versão do GitHub é maior, atualiza
                                 if ((gc.version || 0) > (mergedCards[localIdx].version || 0)) {
                                     mergedCards[localIdx] = gc;
                                     mudou = true;
                                 }
                             } else {
+                                // Card novo do GitHub
                                 mergedCards.push(gc);
                                 mudou = true;
                             }
                         });
+
+                        // Remove cards locais que foram deletados no GitHub
+                        const cardsToRemove = [];
+                        mergedCards.forEach((lc, idx) => {
+                            if (!gitHubCards.some(gc => gc.id === lc.id) && lc.deleted) {
+                                cardsToRemove.push(idx);
+                            }
+                        });
+                        if (cardsToRemove.length > 0) {
+                            cardsToRemove.sort((a, b) => b - a);
+                            cardsToRemove.forEach(idx => mergedCards.splice(idx, 1));
+                            mudou = true;
+                        }
 
                         if (mudou) {
                             cards = mergedCards;
@@ -1384,19 +1484,29 @@
                             lastSyncData = dadosCards.sha;
                         }
                     } else if (cards.length > 0) {
+                        // GitHub vazio, enviar dados locais
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards);
                     }
                 }
 
-                if (dadosRoteiros && dadosRoteiros.data) {
+                // Sincronizar roteiros
+                if (dadosRoteiros && dadosRoteiros.data !== undefined) {
                     const gitHubRoteiros = dadosRoteiros.data;
-                    if (typeof gitHubRoteiros === 'object' && Object.keys(gitHubRoteiros).length > 0) {
+                    if (typeof gitHubRoteiros === 'object') {
                         const mergedRoteiros = { ...roteiros };
                         let mudou = false;
 
                         Object.keys(gitHubRoteiros).forEach(key => {
                             if (!mergedRoteiros[key] || gitHubRoteiros[key].version > (mergedRoteiros[key] || {}).version) {
                                 mergedRoteiros[key] = gitHubRoteiros[key];
+                                mudou = true;
+                            }
+                        });
+
+                        // Remove roteiros que não existem mais no GitHub
+                        Object.keys(mergedRoteiros).forEach(key => {
+                            if (!gitHubRoteiros[key] && !roteiros[key]) {
+                                delete mergedRoteiros[key];
                                 mudou = true;
                             }
                         });
@@ -1499,12 +1609,10 @@
             window.addEventListener('beforeunload', async (e) => {
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
-                if (githubToken && cards.length > 0) {
+                if (githubToken) {
                     try {
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
-                        if (Object.keys(roteiros).length > 0) {
-                            await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
-                        }
+                        await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
                     } catch (err) {
                         console.error('❌ Erro ao salvar ao sair:', err);
                     }
@@ -1533,7 +1641,8 @@
                 dataEdicao: '',
                 dataEntrega: proxSemana,
                 linkArmazenamento: '',
-                version: 1
+                version: 1,
+                deleted: false
             }, {
                 id: Date.now() + 2,
                 titulo: 'Bastidores do evento anual',
@@ -1551,7 +1660,8 @@
                 dataEdicao: '',
                 dataEntrega: '',
                 linkArmazenamento: 'https://drive.google.com/drive/folders/exemplo',
-                version: 1
+                version: 1,
+                deleted: false
             }, {
                 id: Date.now() + 3,
                 titulo: 'Depoimento cliente satisfeito',
@@ -1569,7 +1679,8 @@
                 dataEdicao: '2026-06-28',
                 dataEntrega: '2026-07-01',
                 linkArmazenamento: 'https://drive.google.com/drive/folders/depoimentos',
-                version: 1
+                version: 1,
+                deleted: false
             }];
             salvarDadosLocais(cards);
         }
@@ -1708,12 +1819,15 @@
         function excluirCard(id) {
             const card = cards.find(c => c.id === id);
             if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?`)) {
+                // Remove o card da lista
                 cards = cards.filter(c => c.id !== id);
+                // Remove o roteiro associado
                 delete roteiros[id];
+                // Salva localmente e sincroniza
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
                 renderCards();
-                mostrarToast('🗑 Conteúdo excluído!');
+                mostrarToast('🗑 Conteúdo excluído permanentemente!');
             }
         }
 
