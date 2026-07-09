@@ -1,25 +1,25 @@
 [
   {
-    "titulo": "teste 2",
+    "titulo": "Achados e perdidos",
     "formato": "Reels",
-    "categoria": "Educativo",
-    "prioridade": "media",
-    "stage": "ideia",
-    "responsavel": "",
+    "categoria": "Bastidores",
+    "prioridade": "baixa",
+    "stage": "desenv",
+    "responsavel": "Cleverson/Jr",
     "dataCriacao": "2026-07-09",
     "tags": [],
     "descricao": "",
     "checklist": {
-      "sinopse": false,
+      "sinopse": true,
       "objetivo": false,
       "estrutura": false,
-      "roteiro": false
+      "roteiro": true
     },
     "metricas": {},
-    "dataGravacao": "",
-    "dataEdicao": "",
-    "dataEntrega": "",
+    "dataGravacao": "2026-07-13",
+    "dataEdicao": "2026-07-14",
+    "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
-    "id": 1783606846054
+    "id": 1783607173138
   }
 ]
