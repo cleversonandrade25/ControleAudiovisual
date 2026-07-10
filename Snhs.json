@@ -14,5 +14,12 @@
       "email": "gilson@exemplo.com",
       "ativo": true
     }
+    {
+      "id": 3,
+      "nome": "admin",
+      "senha": "admin",
+      "email": "admin@exemplo.com",
+      "ativo": true
+    }
   ]
 }
