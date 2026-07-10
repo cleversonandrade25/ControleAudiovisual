@@ -4,24 +4,24 @@
     "titulo": "Como e feita a manutencao dos trilhos",
     "formato": "Reels",
     "categoria": "Bastidores",
-    "prioridade": "media",
-    "stage": "desenv",
-    "dataCriacao": "2026-07-10",
-    "responsavel": "Cleverson",
+    "prioridade": "alta",
+    "stage": "prod",
+    "dataCriacao": "2026-07-06",
+    "responsavel": "Cleverson/Jr",
     "tags": [],
     "descricao": "Acompanhar como e feita a manutencao dos trilhos durante a madrugada",
     "checklist": {
       "sinopse": true,
       "objetivo": true,
-      "estrutura": false,
+      "estrutura": true,
       "roteiro": false
     },
     "metricas": {},
     "dataGravacao": "2026-07-13",
     "dataEdicao": "2026-07-14",
     "dataEntrega": "2026-07-15",
-    "linkArmazenamento": "",
-    "version": 6
+    "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDZuQTYalG3S7teVSt49iw9AaZPBLOv4nS8g2Hnu94E9RQ?e=MFaomY",
+    "version": 7
   },
   {
     "id": 1783686572899,
