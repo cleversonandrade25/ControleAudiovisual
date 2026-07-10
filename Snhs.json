@@ -20,6 +20,13 @@
       "senha": "admin",
       "email": "admin@exemplo.com",
       "ativo": true
+    },
+    {
+      "id": 4,
+      "nome": "Gi",
+      "senha": "123",
+      "email": "cleverson@exemplo.com",
+      "ativo": true
     }
   ]
 }
