@@ -49,13 +49,13 @@
   },
   {
     "id": 1783686915228,
-    "titulo": "Teste 3",
+    "titulo": "Obras em andamento",
     "formato": "Reels",
-    "categoria": "Educativo",
-    "prioridade": "alta",
-    "stage": "ideia",
-    "dataCriacao": "2026-07-10",
-    "responsavel": "Cleverson",
+    "categoria": "Institucional",
+    "prioridade": "media",
+    "stage": "desenv",
+    "dataCriacao": "2026-07-06",
+    "responsavel": "Cleverson/Jr",
     "tags": [],
     "descricao": "",
     "checklist": {
@@ -65,10 +65,10 @@
       "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "2026-07-10",
-    "dataEdicao": "2026-07-11",
-    "dataEntrega": "2026-07-12",
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
     "linkArmazenamento": "",
-    "version": 2
+    "version": 3
   }
 ]
