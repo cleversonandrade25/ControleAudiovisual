@@ -1,1 +1,10 @@
-
+[
+  {
+    "timestamp": "2026-07-10T14:32:15.123Z",
+    "usuario": "Cleverson Andrade",
+    "usuarioId": 1,
+    "acao": "LOGIN",
+    "detalhes": "Usuário fez login no sistema",
+    "ip": "cliente"
+  }
+]
