@@ -1,5 +1,32 @@
 [
   {
+    "id": 1783684537868,
+    "titulo": "Bastidores do evento anual",
+    "formato": "YouTube",
+    "categoria": "Bastidores",
+    "prioridade": "media",
+    "stage": "desenv",
+    "dataCriacao": "2026-07-10",
+    "responsavel": "Joao",
+    "tags": [
+      "#bastidores",
+      "#evento"
+    ],
+    "descricao": "Mostrar os bastidores do evento.",
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-17",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "https://drive.google.com/drive/folders/exemplo",
+    "version": 1
+  },
+  {
     "id": 1783684537869,
     "titulo": "Depoimento cliente satisfeito",
     "formato": "Reels",
