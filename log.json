@@ -12,7 +12,7 @@
       "#tutorial",
       "#produtoX"
     ],
-    "descricao": "Fazer um tutorial rapido mostrando as 3 principais funções do novo produto.",
+    "descricao": "Fazer um tutorial rapido mostrando as 3 principais funÃ§Ãµes do novo produto.",
     "checklist": {
       "sinopse": true,
       "objetivo": false,
@@ -34,7 +34,7 @@
     "prioridade": "media",
     "stage": "desenv",
     "dataCriacao": "2026-07-10",
-    "responsavel": "João",
+    "responsavel": "JoÃ£o",
     "tags": [
       "#bastidores",
       "#evento"
@@ -66,7 +66,7 @@
       "#depoimento",
       "#cliente"
     ],
-    "descricao": "Cliente falando sobre como nosso serviço ajudou ele.",
+    "descricao": "Cliente falando sobre como nosso serviÃ§o ajudou ele.",
     "checklist": {
       "sinopse": true,
       "objetivo": true,
