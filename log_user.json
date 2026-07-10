@@ -22,5 +22,13 @@
     "acao": "CRIAR",
     "detalhes": "Novo conteúdo \"Thats all folks\" criado",
     "ip": "cliente"
+  },
+  {
+    "timestamp": "2026-07-10T22:25:18.376Z",
+    "usuario": "Clevs",
+    "usuarioId": 1,
+    "acao": "CRIAR",
+    "detalhes": "Novo conteúdo \"Thats all folks\" criado",
+    "ip": "cliente"
   }
 ]
