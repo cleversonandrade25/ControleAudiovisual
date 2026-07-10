@@ -25,32 +25,5 @@
     "dataEntrega": "2026-07-17",
     "linkArmazenamento": "",
     "version": 1
-  },
-  {
-    "id": 1783684066506,
-    "titulo": "Depoimento cliente satisfeito",
-    "formato": "Reels",
-    "categoria": "Vendas",
-    "prioridade": "alta",
-    "stage": "aprov",
-    "dataCriacao": "2026-06-20",
-    "responsavel": "Ana",
-    "tags": [
-      "#depoimento",
-      "#cliente"
-    ],
-    "checklist": {
-      "sinopse": true,
-      "objetivo": true,
-      "estrutura": true,
-      "roteiro": true
-    },
-    "metricas": {},
-    "descricao": "Cliente falando sobre como nosso serviÃÂÃÂ§o ajudou ele.",
-    "dataGravacao": "2026-06-25",
-    "dataEdicao": "2026-06-28",
-    "dataEntrega": "2026-07-01",
-    "linkArmazenamento": "https://drive.google.com/drive/folders/depoimentos",
-    "version": 1
   }
 ]
