@@ -52,5 +52,29 @@
     "dataEntrega": "2026-07-01",
     "linkArmazenamento": "https://drive.google.com/drive/folders/depoimentos",
     "version": 2
+  },
+  {
+    "titulo": "teste1",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-10",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783685987015,
+    "version": 1
   }
 ]
