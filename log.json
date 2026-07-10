@@ -4,7 +4,7 @@
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "media",
-    "stage": "ideia",
+    "stage": "desenv",
     "responsavel": "",
     "dataCriacao": "2026-07-10",
     "tags": [],
@@ -21,6 +21,6 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1783685987015,
-    "version": 1
+    "version": 2
   }
 ]
