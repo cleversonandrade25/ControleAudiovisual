@@ -14,5 +14,13 @@
     "acao": "LOGIN",
     "detalhes": "Usuário fez login no sistema",
     "ip": "cliente"
+  },
+  {
+    "timestamp": "2026-07-10T22:24:12.725Z",
+    "usuario": "Clevs",
+    "usuarioId": 1,
+    "acao": "CRIAR",
+    "detalhes": "Novo conteúdo \"Thats all folks\" criado",
+    "ip": "cliente"
   }
 ]
