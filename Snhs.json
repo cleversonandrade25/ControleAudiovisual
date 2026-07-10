@@ -13,7 +13,7 @@
       "senha": "987654321",
       "email": "gilson@exemplo.com",
       "ativo": true
-    }
+    },
     {
       "id": 3,
       "nome": "admin",
