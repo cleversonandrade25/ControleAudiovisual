@@ -70,5 +70,29 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "version": 4
+  },
+  {
+    "titulo": "Thats all folks",
+    "formato": "Reels",
+    "categoria": "Institucional",
+    "prioridade": "alta",
+    "stage": "pub",
+    "responsavel": "Cleverson",
+    "dataCriacao": "2026-07-10",
+    "tags": [],
+    "descricao": "Informativo para os passageiros o pq nao podemos mais publicar nada durante o periodo eleitoral",
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783722318376,
+    "version": 1
   }
 ]
