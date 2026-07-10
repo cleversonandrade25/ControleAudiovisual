@@ -1117,6 +1117,30 @@
             font-size: 0.8rem;
             white-space: nowrap;
         }
+
+        /* CORREÇÃO: GARANTE QUE O TEXTO APAREÇA NOS INPUTS DE LOGIN */
+        #loginUsuario,
+        #loginSenha,
+        #loginToken {
+            color: #1a1a1a !important;
+            background: #f0f0f0 !important;
+            font-size: 0.95rem !important;
+            padding: 12px 16px !important;
+        }
+        /* Força a cor do texto para garantir visibilidade */
+        .login-box .form-group input::placeholder {
+            color: #999 !important;
+            opacity: 1 !important;
+        }
+        .login-box .form-group input {
+            color: #1a1a1a !important;
+            -webkit-text-fill-color: #1a1a1a !important;
+        }
+        /* Corrige problema específico de webkit */
+        .login-box .form-group input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px #f0f0f0 inset !important;
+            -webkit-text-fill-color: #1a1a1a !important;
+        }
     </style>
 </head>
 <body>
@@ -1312,6 +1336,7 @@
         const GITHUB_FILE_PATH = 'log.json';
         const GITHUB_ROTEIROS_PATH = 'Roteiros.json';
         const GITHUB_SENHAS_PATH = 'Snhs.json';
+        const GITHUB_LOG_USER_PATH = 'log_user.json';
         const GITHUB_BRANCH = 'main';
 
         const STORAGE_KEY = 'audiovisual_cards_v5';
@@ -1344,6 +1369,7 @@
         let isSyncing = false;
         let lastSyncData = null;
         let lastSyncRoteiros = null;
+        let lastSyncLogUser = null;
         let syncTimeout = null;
         let cards = [];
         let roteiros = {};
@@ -1355,6 +1381,94 @@
         let usuariosCadastrados = [];
         let tokenValido = false;
         let dadosCarregadosDoGitHub = false;
+        let logUserBuffer = [];
+        let logUserSha = null;
+
+        // ============ FUNÇÕES DE LOG DO USUÁRIO ============
+        function getTimestamp() {
+            return new Date().toISOString();
+        }
+
+        function formatLogTimestamp(iso) {
+            const d = new Date(iso);
+            return d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
+        async function carregarLogUser() {
+            if (!githubToken || !tokenValido) return;
+            try {
+                const dados = await lerDoGitHub(GITHUB_LOG_USER_PATH);
+                if (dados && dados.data && Array.isArray(dados.data)) {
+                    logUserBuffer = dados.data;
+                    logUserSha = dados.sha;
+                    console.log(`📥 Log de usuário carregado: ${logUserBuffer.length} registros`);
+                } else {
+                    logUserBuffer = [];
+                    logUserSha = null;
+                }
+            } catch (error) {
+                console.error('❌ Erro ao carregar log_user:', error);
+            }
+        }
+
+        async function salvarLogUser(force = false) {
+            if (!githubToken || !tokenValido) return false;
+            if (!force && logUserBuffer.length === 0) return false;
+            
+            try {
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(logUserBuffer, null, 2))));
+                const body = {
+                    message: `📋 Log de usuário - ${new Date().toLocaleString('pt-BR')}`,
+                    content: content,
+                    branch: GITHUB_BRANCH
+                };
+                if (logUserSha) body.sha = logUserSha;
+
+                const response = await fetch(getApiUrl(GITHUB_LOG_USER_PATH), {
+                    method: 'PUT',
+                    headers: getHeaders(),
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro ao salvar log_user: ${response.status}`);
+                }
+
+                const result = await response.json();
+                logUserSha = result.content.sha;
+                console.log(`📤 Log de usuário salvo: ${logUserBuffer.length} registros`);
+                return true;
+            } catch (error) {
+                console.error('❌ Erro ao salvar log_user:', error);
+                return false;
+            }
+        }
+
+        function adicionarLogUsuario(acao, detalhes = '') {
+            if (!usuarioLogado) return;
+            
+            const logEntry = {
+                timestamp: getTimestamp(),
+                usuario: usuarioLogado.nome,
+                usuarioId: usuarioLogado.id,
+                acao: acao,
+                detalhes: detalhes,
+                ip: 'cliente'
+            };
+            
+            logUserBuffer.push(logEntry);
+            console.log(`📝 Log: ${acao} - ${usuarioLogado.nome}`);
+            
+            // Salva imediatamente no GitHub se possível
+            if (githubToken && tokenValido) {
+                salvarLogUser(true);
+            }
+            
+            // Mantém apenas os últimos 500 registros
+            if (logUserBuffer.length > 500) {
+                logUserBuffer = logUserBuffer.slice(-500);
+            }
+        }
 
         // ============ FUNÇÕES DE API ============
         function getApiUrl(filePath) {
@@ -1441,6 +1555,8 @@
                             return { data: {}, sha: null };
                         } else if (filePath === GITHUB_SENHAS_PATH) {
                             return { data: { usuarios: [] }, sha: null };
+                        } else if (filePath === GITHUB_LOG_USER_PATH) {
+                            return { data: [], sha: null };
                         }
                         return { data: null, sha: null };
                     }
@@ -1514,6 +1630,8 @@
                     lastSyncData = result.content.sha;
                 } else if (filePath === GITHUB_ROTEIROS_PATH) {
                     lastSyncRoteiros = result.content.sha;
+                } else if (filePath === GITHUB_LOG_USER_PATH) {
+                    logUserSha = result.content.sha;
                 }
                 console.log(`📤 Dados salvos em ${filePath} com sucesso!`);
                 atualizarSyncIndicator('online');
@@ -1534,6 +1652,7 @@
             syncTimeout = setTimeout(async () => {
                 await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
                 await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
+                await salvarLogUser(true);
                 syncTimeout = null;
             }, 5000);
         }
@@ -1670,6 +1789,14 @@
                         email: usuarioEncontrado.email
                     }));
                     
+                    // Carrega log de usuário
+                    if (tokenValido) {
+                        await carregarLogUser();
+                    }
+                    
+                    // Registra login
+                    adicionarLogUsuario('LOGIN', 'Usuário fez login no sistema');
+                    
                     document.getElementById('loginOverlay').style.display = 'none';
                     document.getElementById('mainHeader').style.display = 'flex';
                     document.getElementById('mainContainer').style.display = 'flex';
@@ -1712,6 +1839,14 @@
 
         function fazerLogout() {
             if (confirm('Tem certeza que deseja sair?')) {
+                // Registra logout
+                adicionarLogUsuario('LOGOUT', 'Usuário fez logout do sistema');
+                
+                // Salva log antes de sair
+                if (githubToken && tokenValido) {
+                    salvarLogUser(true);
+                }
+                
                 localStorage.removeItem(SESSION_KEY);
                 usuarioLogado = null;
                 
@@ -1755,6 +1890,8 @@
                             tokenValido = response.ok;
                             if (tokenValido) {
                                 atualizarSyncIndicator('online');
+                                // Carrega log user em background
+                                carregarLogUser();
                             } else {
                                 atualizarSyncIndicator('offline');
                             }
@@ -1861,9 +1998,10 @@
             atualizarSyncIndicator('syncing');
 
             try {
-                const [dadosCards, dadosRoteiros] = await Promise.all([
+                const [dadosCards, dadosRoteiros, dadosLogUser] = await Promise.all([
                     lerDoGitHub(GITHUB_FILE_PATH),
-                    lerDoGitHub(GITHUB_ROTEIROS_PATH)
+                    lerDoGitHub(GITHUB_ROTEIROS_PATH),
+                    lerDoGitHub(GITHUB_LOG_USER_PATH)
                 ]);
 
                 let cardsAtualizados = false;
@@ -1874,7 +2012,6 @@
                     const gitHubCards = dadosCards.data;
                     if (Array.isArray(gitHubCards)) {
                         if (gitHubCards.length > 0) {
-                            // GitHub tem cards - usar eles
                             cards = gitHubCards.map(card => ({
                                 ...card,
                                 version: card.version || 1
@@ -1884,11 +2021,9 @@
                             dadosCarregadosDoGitHub = true;
                             console.log(`📥 Carregados ${cards.length} cards do GitHub`);
                         } else if (gitHubCards.length === 0 && cards.length > 0 && !dadosCarregadosDoGitHub) {
-                            // GitHub vazio e temos cards locais - enviar para o GitHub
                             await salvarNoGitHub(GITHUB_FILE_PATH, cards);
                             console.log(`📤 Enviados ${cards.length} cards para o GitHub`);
                         } else if (gitHubCards.length === 0 && cards.length === 0) {
-                            // Ambos vazios - criar dados demo
                             carregarDadosDemo();
                             cardsAtualizados = true;
                             dadosCarregadosDoGitHub = true;
@@ -1910,6 +2045,15 @@
                             await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros);
                         }
                         if (dadosRoteiros.sha) lastSyncRoteiros = dadosRoteiros.sha;
+                    }
+                }
+
+                // Processa log do usuário
+                if (dadosLogUser && dadosLogUser.data && Array.isArray(dadosLogUser.data)) {
+                    if (dadosLogUser.data.length > logUserBuffer.length) {
+                        logUserBuffer = dadosLogUser.data;
+                        logUserSha = dadosLogUser.sha;
+                        console.log(`📥 Log de usuário atualizado: ${logUserBuffer.length} registros`);
                     }
                 }
 
@@ -1990,6 +2134,7 @@
                     try {
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
                         await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
+                        await salvarLogUser(true);
                     } catch (err) {
                         console.error('❌ Erro ao salvar ao sair:', err);
                     }
@@ -1998,7 +2143,6 @@
         }
 
         function carregarDadosDemo() {
-            // Só cria dados demo se não houver dados no localStorage
             const dadosExistentes = localStorage.getItem(STORAGE_KEY);
             if (dadosExistentes) {
                 try {
@@ -2186,10 +2330,12 @@
         function moverStage(id, novoStage) {
             const card = cards.find(c => c.id === id);
             if (card) {
+                const stageAntigo = card.stage;
                 card.stage = novoStage;
                 card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
+                adicionarLogUsuario('MOVER_STAGE', `Conteúdo "${card.titulo}" movido de ${stageAntigo} para ${novoStage}`);
                 mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
             }
         }
@@ -2197,10 +2343,12 @@
         function moverParaGaveta(id) {
             const card = cards.find(c => c.id === id);
             if (card && card.stage !== 'gaveta') {
+                const stageAntigo = card.stage;
                 card.stage = 'gaveta';
                 card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
+                adicionarLogUsuario('MOVER_GAVETA', `Conteúdo "${card.titulo}" movido de ${stageAntigo} para Gaveta`);
                 mostrarToast('📚 Conteúdo movido para a Gaveta!');
             }
         }
@@ -2213,6 +2361,7 @@
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
                 renderCards();
+                adicionarLogUsuario('EXCLUIR', `Conteúdo "${card.titulo}" foi excluído permanentemente`);
                 mostrarToast('🗑 Conteúdo excluído permanentemente!');
             }
         }
@@ -2388,15 +2537,19 @@
                 };
             }
 
+            let tituloLog = dados.titulo;
             if (id) {
                 const idx = cards.findIndex(c => c.id === id);
                 if (idx >= 0) {
+                    const oldTitulo = cards[idx].titulo;
                     cards[idx] = { ...cards[idx], ...dados, version: (cards[idx].version || 0) + 1 };
+                    adicionarLogUsuario('EDITAR', `Conteúdo "${oldTitulo}" foi editado`);
                 }
                 mostrarToast('✅ Conteúdo atualizado!');
             } else {
                 const newCard = { ...dados, id: Date.now(), version: 1 };
                 cards.push(newCard);
+                adicionarLogUsuario('CRIAR', `Novo conteúdo "${tituloLog}" criado`);
                 mostrarToast('🎉 Novo conteúdo criado!');
             }
 
@@ -2442,11 +2595,14 @@
         function salvarRoteiro() {
             if (cardRoteiroAtual === null) return;
             const texto = document.getElementById('roteiroTexto').value;
+            const card = cards.find(c => c.id === cardRoteiroAtual);
             
             if (texto.trim()) {
                 roteiros[cardRoteiroAtual] = texto;
+                if (card) adicionarLogUsuario('ROTEIRO_SALVO', `Roteiro do conteúdo "${card.titulo}" foi salvo/atualizado`);
             } else {
                 delete roteiros[cardRoteiroAtual];
+                if (card) adicionarLogUsuario('ROTEIRO_REMOVIDO', `Roteiro do conteúdo "${card.titulo}" foi removido`);
             }
             
             salvarRoteirosLocais(roteiros);
@@ -2466,6 +2622,7 @@
             a.download = `backup_audiovisual_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
             URL.revokeObjectURL(url);
+            adicionarLogUsuario('EXPORTAR', `Exportou backup com ${cards.length} conteúdos`);
             mostrarToast('📥 Backup exportado!');
         }
 
@@ -2486,6 +2643,7 @@
                         salvarDadosLocais(cards);
                         salvarRoteirosLocais(roteiros);
                         renderCards();
+                        adicionarLogUsuario('IMPORTAR', `Importou ${cards.length} conteúdos de backup`);
                         mostrarToast(`📤 ${cards.length} conteúdos importados!`);
                     }
                 } catch (err) {
@@ -2532,6 +2690,7 @@
                 e.preventDefault();
                 salvarDadosLocais(cards);
                 salvarRoteirosLocais(roteiros);
+                adicionarLogUsuario('SALVAR_MANUAL', 'Salvou dados manualmente (Ctrl+S)');
                 mostrarToast('💾 Dados salvos!');
             }
         });
