@@ -1,27 +1,27 @@
 [
   {
-    "titulo": "teste1",
+    "titulo": "Como é feita a manutencao dos trilhos",
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "media",
     "stage": "desenv",
-    "responsavel": "",
+    "responsavel": "Cleverson",
     "dataCriacao": "2026-07-10",
     "tags": [],
-    "descricao": "",
+    "descricao": "Acompanhar como e feita a manutencao dos trilhos durante a madrugada",
     "checklist": {
-      "sinopse": false,
-      "objetivo": false,
+      "sinopse": true,
+      "objetivo": true,
       "estrutura": false,
       "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "2026-07-10",
-    "dataEdicao": "2026-07-13",
+    "dataGravacao": "2026-07-13",
+    "dataEdicao": "2026-07-14",
     "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
     "id": 1783685987015,
-    "version": 3
+    "version": 4
   },
   {
     "titulo": "teste 2",
