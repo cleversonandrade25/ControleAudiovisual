@@ -29,7 +29,7 @@
     "categoria": "Educativo",
     "prioridade": "media",
     "stage": "ideia",
-    "responsavel": "",
+    "responsavel": "gisele",
     "dataCriacao": "2026-07-10",
     "tags": [],
     "descricao": "",
@@ -45,6 +45,6 @@
     "dataEntrega": "2026-07-31",
     "linkArmazenamento": "",
     "id": 1783686572899,
-    "version": 1
+    "version": 2
   }
 ]
