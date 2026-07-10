@@ -27,30 +27,27 @@
     "version": 1
   },
   {
-    "id": 1783684537869,
-    "titulo": "Depoimento cliente satisfeito",
+    "titulo": "teste1",
     "formato": "Reels",
-    "categoria": "Vendas",
-    "prioridade": "alta",
-    "stage": "aprov",
-    "dataCriacao": "2026-06-20",
-    "responsavel": "Ana",
-    "tags": [
-      "#depoimento",
-      "#cliente"
-    ],
-    "descricao": "Cliente falando sobre como nosso servico ajudou ele.",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-10",
+    "tags": [],
+    "descricao": "",
     "checklist": {
-      "sinopse": true,
-      "objetivo": true,
-      "estrutura": true,
-      "roteiro": true
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "2026-06-25",
-    "dataEdicao": "2026-06-28",
-    "dataEntrega": "2026-07-01",
-    "linkArmazenamento": "https://drive.google.com/drive/folders/depoimentos",
-    "version": 2
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783685869497,
+    "version": 1
   }
 ]
