@@ -12,7 +12,7 @@
       "#tutorial",
       "#produtoX"
     ],
-    "descricao": "Fazer um tutorial rapido mostrando as 3 principais funÃÂ§ÃÂµes do novo produto.",
+    "descricao": "Fazer um tutorial rapido mostrando as 3 principais funÃÂÃÂ§ÃÂÃÂµes do novo produto.",
     "checklist": {
       "sinopse": true,
       "objetivo": false,
@@ -34,7 +34,7 @@
     "prioridade": "media",
     "stage": "desenv",
     "dataCriacao": "2026-07-10",
-    "responsavel": "JoÃÂ£o",
+    "responsavel": "JoÃÂÃÂ£o",
     "tags": [
       "#bastidores",
       "#evento"
