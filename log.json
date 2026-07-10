@@ -46,5 +46,29 @@
     "linkArmazenamento": "",
     "id": 1783686572899,
     "version": 2
+  },
+  {
+    "titulo": "Teste 3",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "alta",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-10",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-10",
+    "dataEdicao": "2026-07-11",
+    "dataEntrega": "2026-07-12",
+    "linkArmazenamento": "",
+    "id": 1783686915228,
+    "version": 1
   }
 ]
