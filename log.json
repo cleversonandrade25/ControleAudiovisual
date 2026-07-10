@@ -1,32 +1,5 @@
 [
   {
-    "id": 1783684537867,
-    "titulo": "Tutorial: Como usar o novo produto X",
-    "formato": "Reels",
-    "categoria": "Educativo",
-    "prioridade": "alta",
-    "stage": "ideia",
-    "dataCriacao": "2026-07-10",
-    "responsavel": "Maria",
-    "tags": [
-      "#tutorial",
-      "#produtoX"
-    ],
-    "descricao": "Fazer um tutorial rapido mostrando as 3 principais funcoes do novo produto.",
-    "checklist": {
-      "sinopse": true,
-      "objetivo": false,
-      "estrutura": false,
-      "roteiro": false
-    },
-    "metricas": {},
-    "dataGravacao": "",
-    "dataEdicao": "",
-    "dataEntrega": "2026-07-17",
-    "linkArmazenamento": "",
-    "version": 2
-  },
-  {
     "id": 1783684537868,
     "titulo": "Bastidores do evento anual",
     "formato": "YouTube",
