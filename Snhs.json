@@ -9,15 +9,15 @@
     },
     {
       "id": 2,
-      "nome": "Gilson Siqueira",
-      "senha": "987654321",
+      "nome": "Gilson",
+      "senha": "123",
       "email": "gilson@exemplo.com",
       "ativo": true
     },
     {
       "id": 3,
       "nome": "admin",
-      "senha": "admin",
+      "senha": "admin123",
       "email": "admin@exemplo.com",
       "ativo": true
     },
