@@ -4,6 +4,14 @@
     "usuario": "Cleverson Andrade",
     "usuarioId": 1,
     "acao": "LOGIN",
+    "detalhes": "UsuÃ¡rio fez login no sistema",
+    "ip": "cliente"
+  },
+  {
+    "timestamp": "2026-07-10T22:22:43.236Z",
+    "usuario": "Clevs",
+    "usuarioId": 1,
+    "acao": "LOGIN",
     "detalhes": "Usuário fez login no sistema",
     "ip": "cliente"
   }
