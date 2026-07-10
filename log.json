@@ -53,7 +53,7 @@
     "categoria": "Educativo",
     "prioridade": "alta",
     "stage": "ideia",
-    "responsavel": "",
+    "responsavel": "Cleverson",
     "dataCriacao": "2026-07-10",
     "tags": [],
     "descricao": "",
@@ -69,6 +69,6 @@
     "dataEntrega": "2026-07-12",
     "linkArmazenamento": "",
     "id": 1783686915228,
-    "version": 1
+    "version": 2
   }
 ]
