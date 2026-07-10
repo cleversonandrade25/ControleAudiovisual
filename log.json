@@ -12,7 +12,7 @@
       "#tutorial",
       "#produtoX"
     ],
-    "descricao": "Fazer um tutorial rápido mostrando as 3 principais funções do novo produto.",
+    "descricao": "Fazer um tutorial rapido mostrando as 3 principais funções do novo produto.",
     "checklist": {
       "sinopse": true,
       "objetivo": false,
@@ -24,7 +24,7 @@
     "dataEdicao": "",
     "dataEntrega": "2026-07-17",
     "linkArmazenamento": "",
-    "version": 1
+    "version": 2
   },
   {
     "id": 1783684537868,
