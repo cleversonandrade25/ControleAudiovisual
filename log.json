@@ -1,12 +1,13 @@
 [
   {
+    "id": 1783685987015,
     "titulo": "Como e feita a manutencao dos trilhos",
     "formato": "Reels",
-    "categoria": "Educativo",
+    "categoria": "Bastidores",
     "prioridade": "media",
     "stage": "desenv",
-    "responsavel": "Cleverson",
     "dataCriacao": "2026-07-10",
+    "responsavel": "Cleverson",
     "tags": [],
     "descricao": "Acompanhar como e feita a manutencao dos trilhos durante a madrugada",
     "checklist": {
@@ -20,17 +21,17 @@
     "dataEdicao": "2026-07-14",
     "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
-    "id": 1783685987015,
-    "version": 5
+    "version": 6
   },
   {
+    "id": 1783686572899,
     "titulo": "teste 2",
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "media",
     "stage": "ideia",
-    "responsavel": "gisele",
     "dataCriacao": "2026-07-10",
+    "responsavel": "gisele",
     "tags": [],
     "descricao": "",
     "checklist": {
@@ -44,17 +45,17 @@
     "dataEdicao": "2026-07-31",
     "dataEntrega": "2026-07-31",
     "linkArmazenamento": "",
-    "id": 1783686572899,
     "version": 2
   },
   {
+    "id": 1783686915228,
     "titulo": "Teste 3",
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "alta",
     "stage": "ideia",
-    "responsavel": "Cleverson",
     "dataCriacao": "2026-07-10",
+    "responsavel": "Cleverson",
     "tags": [],
     "descricao": "",
     "checklist": {
@@ -68,7 +69,6 @@
     "dataEdicao": "2026-07-11",
     "dataEntrega": "2026-07-12",
     "linkArmazenamento": "",
-    "id": 1783686915228,
     "version": 2
   }
 ]
