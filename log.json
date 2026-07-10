@@ -25,15 +25,15 @@
   },
   {
     "id": 1783686572899,
-    "titulo": "teste 2",
+    "titulo": "Como funciona a operacao assistida",
     "formato": "Reels",
     "categoria": "Educativo",
-    "prioridade": "media",
+    "prioridade": "baixa",
     "stage": "ideia",
-    "dataCriacao": "2026-07-10",
-    "responsavel": "gisele",
+    "dataCriacao": "2026-07-06",
+    "responsavel": "Cleverson/Jr",
     "tags": [],
-    "descricao": "",
+    "descricao": "Explicar por que novas linhas e estações começam com horário reduzido e intervalos maiores.\nPróximos passos da Linha 17: cronograma e benefícios para os passageiros",
     "checklist": {
       "sinopse": false,
       "objetivo": false,
@@ -41,11 +41,11 @@
       "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "2026-07-28",
-    "dataEdicao": "2026-07-31",
-    "dataEntrega": "2026-07-31",
-    "linkArmazenamento": "",
-    "version": 2
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgA5HZp5xE5JSbzD2TulLW2rAd5AaXx6dCVSADZspIimin8?e=kiyMeh",
+    "version": 3
   },
   {
     "id": 1783686915228,
