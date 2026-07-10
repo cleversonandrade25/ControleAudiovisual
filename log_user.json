@@ -30,5 +30,13 @@
     "acao": "CRIAR",
     "detalhes": "Novo conteúdo \"Thats all folks\" criado",
     "ip": "cliente"
+  },
+  {
+    "timestamp": "2026-07-10T22:26:01.806Z",
+    "usuario": "Clevs",
+    "usuarioId": 1,
+    "acao": "LOGOUT",
+    "detalhes": "Usuário fez logout do sistema",
+    "ip": "cliente"
   }
 ]
