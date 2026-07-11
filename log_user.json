@@ -62,5 +62,13 @@
     "acao": "LOGIN",
     "detalhes": "Usuário fez login no sistema",
     "ip": "cliente"
+  },
+  {
+    "timestamp": "2026-07-11T16:26:26.016Z",
+    "usuario": "admin",
+    "usuarioId": 3,
+    "acao": "LOGOUT",
+    "detalhes": "Usuário fez logout do sistema",
+    "ip": "cliente"
   }
 ]
