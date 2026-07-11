@@ -829,298 +829,180 @@
             gap: 4px;
         }
 
+        /* CALENDÁRIO ESTILOS (Novo) */
+        .calendar-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .calendar-header-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface2);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+        .calendar-header-controls h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            text-transform: capitalize;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            overflow-x: auto;
+            min-width: 600px; /* Previne amassar muito no mobile */
+        }
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            padding: 8px 0;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        .calendar-day {
+            background: var(--surface);
+            border: 2px solid var(--surface2);
+            border-radius: 8px;
+            min-height: 90px;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: border-color 0.2s;
+        }
+        .calendar-day:hover {
+            border-color: var(--primary-light);
+        }
+        .calendar-day.today {
+            border-color: var(--primary);
+            background: rgba(0, 20, 137, 0.02);
+        }
+        .calendar-day.other-month {
+            opacity: 0.4;
+            background: var(--surface2);
+        }
+        .calendar-date-number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text2);
+            align-self: flex-end;
+            margin-bottom: 4px;
+        }
+        .calendar-day.today .calendar-date-number {
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+        }
+        .calendar-event {
+            font-size: 0.65rem;
+            padding: 4px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+        .event-gravacao {
+            background: rgba(155, 89, 182, 0.15);
+            color: #8e44ad;
+            border-left-color: #8e44ad;
+        }
+        .event-edicao {
+            background: rgba(243, 156, 18, 0.15);
+            color: #d35400;
+            border-left-color: #d35400;
+        }
+        .event-entrega {
+            background: rgba(0, 122, 94, 0.15);
+            color: var(--success);
+            border-left-color: var(--success);
+        }
+        .calendar-legend {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            color: var(--text2);
+        }
+
         /* RESPONSIVO */
         @media (max-width: 992px) {
-            .sidebar {
-                width: 200px;
-            }
-            .sidebar .stage-item {
-                font-size: 0.75rem;
-                padding: 8px 10px;
-            }
+            .sidebar { width: 200px; }
         }
-
         @media (max-width: 768px) {
-            .sidebar {
-                width: 180px;
-                padding: 12px 8px;
+            .sidebar { width: 180px; padding: 12px 8px; }
+            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) { display: inline; font-size: 0.65rem; }
+            .cards-grid { grid-template-columns: 1fr 1fr; }
+            .form-row, .form-row-3 { grid-template-columns: 1fr; }
+            .header-stats { display: none; }
+            .calendar-grid {
+                /* No mobile, permite o scroll horizontal para manter legibilidade */
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
             }
-            .sidebar .stage-item {
-                font-size: 0.7rem;
-                padding: 6px 8px;
-                gap: 6px;
-            }
-            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) {
-                display: inline;
-                font-size: 0.65rem;
-            }
-            .sidebar .stage-count {
-                font-size: 0.6rem;
-                padding: 1px 6px;
-            }
-            .sidebar-section h3 {
-                font-size: 0.55rem;
-            }
-            .cards-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .form-row,
-            .form-row-3 {
-                grid-template-columns: 1fr;
-            }
-            .header-stats {
-                display: none;
-            }
-            .card-datas {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-            .header h1 {
-                font-size: 1rem;
-            }
-            .content-header h2 {
-                font-size: 0.9rem;
-            }
-            .modal {
-                padding: 16px;
-                margin: 8px;
-            }
-            .btn {
-                font-size: 0.7rem;
-                padding: 6px 12px;
-            }
-            .btn-sm {
-                font-size: 0.6rem;
-                padding: 3px 8px;
-            }
-            .card-actions {
-                gap: 4px;
-            }
-            .login-box {
-                padding: 30px 20px;
+            .calendar-day-header, .calendar-day {
+                min-width: 120px;
+                flex-shrink: 0;
             }
         }
-
         @media (max-width: 600px) {
-            .sidebar {
-                width: 140px;
-                padding: 8px 4px;
-            }
-            .sidebar .stage-item {
-                font-size: 0.6rem;
-                padding: 4px 6px;
-                gap: 4px;
-            }
-            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) {
-                font-size: 0.55rem;
-            }
-            .sidebar .stage-count {
-                font-size: 0.5rem;
-                padding: 1px 4px;
-            }
-            .sidebar .stage-dot {
-                width: 8px;
-                height: 8px;
-            }
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            .header {
-                padding: 8px 12px;
-            }
-            .header h1 {
-                font-size: 0.85rem;
-            }
-            .header-actions .btn span {
-                display: inline;
-                font-size: 0.6rem;
-            }
-            .content-body {
-                padding: 10px 12px;
-            }
-            .card {
-                padding: 12px;
-            }
-            .card-datas {
-                grid-template-columns: 1fr 1fr;
-            }
-            .search-bar input {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-            .search-bar select {
-                font-size: 0.75rem;
-                padding: 8px 10px;
-                min-width: 80px;
-            }
-            .status-bar {
-                font-size: 0.55rem;
-                padding: 4px 12px;
-            }
-            .btn {
-                font-size: 0.65rem;
-                padding: 5px 10px;
-            }
-            .btn-sm {
-                font-size: 0.55rem;
-                padding: 2px 6px;
-            }
-            .card-actions {
-                gap: 3px;
-            }
-            .user-info {
-                font-size: 0.6rem;
-                padding: 2px 8px;
-            }
+            .sidebar { width: 140px; }
+            .cards-grid { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 400px) {
-            .sidebar {
-                width: 100px;
-            }
-            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) {
-                display: none;
-            }
-            .sidebar .stage-count {
-                display: none;
-            }
-            .sidebar .stage-item {
-                justify-content: center;
-                padding: 6px 4px;
-            }
-            .sidebar .stage-dot {
-                width: 10px;
-                height: 10px;
-            }
-            .sidebar-section h3 {
-                text-align: center;
-                font-size: 0.5rem;
-            }
-            .header-actions .btn span {
-                display: none;
-            }
-            .header h1 {
-                font-size: 0.75rem;
-            }
-            .user-info {
-                display: none;
-            }
+            .sidebar { width: 100px; }
+            .sidebar .stage-item span:not(.stage-dot):not(.stage-count) { display: none; }
+            .sidebar .stage-count { display: none; }
+            .user-info { display: none; }
         }
 
         /* ETAPA CORES */
-        .stage-ideia {
-            border-left: 4px solid var(--ideia);
-        }
-        .stage-desenv {
-            border-left: 4px solid var(--desenv);
-        }
-        .stage-preprod {
-            border-left: 4px solid var(--preprod);
-        }
-        .stage-prod {
-            border-left: 4px solid var(--prod);
-        }
-        .stage-posprod {
-            border-left: 4px solid var(--posprod);
-        }
-        .stage-aprov {
-            border-left: 4px solid var(--aprov);
-        }
-        .stage-pub {
-            border-left: 4px solid var(--pub);
-        }
-        .stage-gaveta {
-            border-left: 4px solid var(--gaveta);
-        }
-        .stage-result {
-            border-left: 4px solid var(--result);
-        }
+        .stage-ideia { border-left: 4px solid var(--ideia); }
+        .stage-desenv { border-left: 4px solid var(--desenv); }
+        .stage-preprod { border-left: 4px solid var(--preprod); }
+        .stage-prod { border-left: 4px solid var(--prod); }
+        .stage-posprod { border-left: 4px solid var(--posprod); }
+        .stage-aprov { border-left: 4px solid var(--aprov); }
+        .stage-pub { border-left: 4px solid var(--pub); }
+        .stage-gaveta { border-left: 4px solid var(--gaveta); }
+        .stage-result { border-left: 4px solid var(--result); }
 
-        .badge-ideia {
-            background: rgba(155, 89, 182, 0.15);
-            color: #8e44ad;
-        }
-        .badge-desenv {
-            background: rgba(52, 152, 219, 0.15);
-            color: #2471a3;
-        }
-        .badge-preprod {
-            background: rgba(26, 188, 156, 0.15);
-            color: #1a7a6e;
-        }
-        .badge-prod {
-            background: rgba(230, 126, 34, 0.15);
-            color: #b9770e;
-        }
-        .badge-posprod {
-            background: rgba(231, 76, 60, 0.15);
-            color: #c0392b;
-        }
-        .badge-aprov {
-            background: rgba(0, 122, 94, 0.15);
-            color: var(--success);
-        }
-        .badge-pub {
-            background: rgba(0, 20, 137, 0.15);
-            color: var(--primary);
-        }
-        .badge-gaveta {
-            background: rgba(127, 140, 141, 0.15);
-            color: #5d6d7e;
-        }
-        .badge-result {
-            background: rgba(23, 23, 150, 0.15);
-            color: var(--primary2);
-        }
+        .badge-ideia { background: rgba(155, 89, 182, 0.15); color: #8e44ad; }
+        .badge-desenv { background: rgba(52, 152, 219, 0.15); color: #2471a3; }
+        .badge-preprod { background: rgba(26, 188, 156, 0.15); color: #1a7a6e; }
+        .badge-prod { background: rgba(230, 126, 34, 0.15); color: #b9770e; }
+        .badge-posprod { background: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .badge-aprov { background: rgba(0, 122, 94, 0.15); color: var(--success); }
+        .badge-pub { background: rgba(0, 20, 137, 0.15); color: var(--primary); }
+        .badge-gaveta { background: rgba(127, 140, 141, 0.15); color: #5d6d7e; }
+        .badge-result { background: rgba(23, 23, 150, 0.15); color: var(--primary2); }
 
-        .import-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+        .import-wrapper { position: relative; display: inline-block; }
         .import-wrapper input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            top: 0;
-            left: 0;
+            position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; top: 0; left: 0;
         }
 
-        /* ROTEIRO MODAL */
-        .btn-roteiro {
-            background: rgba(0, 20, 137, 0.1);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-        .btn-roteiro:hover {
-            background: rgba(0, 20, 137, 0.2);
-        }
-        .btn-gaveta {
-            background: rgba(127, 140, 141, 0.1);
-            color: #5d6d7e;
-            border: 2px solid #5d6d7e;
-        }
-        .btn-gaveta:hover {
-            background: rgba(127, 140, 141, 0.2);
-        }
+        .btn-roteiro { background: rgba(0, 20, 137, 0.1); color: var(--primary); border: 2px solid var(--primary); }
+        .btn-roteiro:hover { background: rgba(0, 20, 137, 0.2); }
+        .btn-gaveta { background: rgba(127, 140, 141, 0.1); color: #5d6d7e; border: 2px solid #5d6d7e; }
+        .btn-gaveta:hover { background: rgba(127, 140, 141, 0.2); }
 
-        .token-input-container {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .token-input-container input {
-            flex: 1;
-            /* Modificado: Fonte e espaçamento para melhor visualização */
-            font-family: monospace;
-            font-size: 1.05rem;
-            letter-spacing: 0.5px;
-        }
-        .token-input-container .btn {
-            padding: 10px 16px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
+        .token-input-container { display: flex; gap: 8px; align-items: center; }
+        .token-input-container input { font-family: monospace; font-size: 1.05rem; letter-spacing: 0.5px; flex: 1; }
+        .token-input-container .btn { padding: 10px 16px; font-size: 0.8rem; white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -1179,6 +1061,9 @@
         <div class="header-actions">
             <span class="user-info" id="userInfo">👤 <strong id="usuarioNome">Usuário</strong></span>
             <span class="sync-indicator sync-offline" id="syncIndicator">🔴 Offline</span>
+            
+            <button class="btn btn-outline btn-sm" onclick="abrirCalendario()">📅 <span>Calendário</span></button>
+            
             <button class="btn btn-primary" onclick="abrirModalNovo()">➕ <span>Novo</span></button>
             <button class="btn btn-outline btn-sm" onclick="exportarDados()">📥 <span>Exportar</span></button>
             <span class="import-wrapper">
@@ -1293,6 +1178,40 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="calendarioOverlay" style="display:none" onclick="fecharCalendario(event)">
+        <div class="modal" id="calendarioContent" onclick="event.stopPropagation()" style="max-width: 950px; padding: 20px;">
+            <button class="modal-close" onclick="fecharCalendario()">✕</button>
+            <h2 style="color:var(--primary); font-size: 1.3rem; margin-bottom: 16px;">📅 Calendário de Produção</h2>
+            
+            <div class="calendar-container">
+                <div class="calendar-header-controls">
+                    <button class="btn btn-outline" onclick="mudarMes(-1)">◀ Anterior</button>
+                    <h3 id="calendarioMesAno">Maio 2026</h3>
+                    <button class="btn btn-outline" onclick="mudarMes(1)">Próximo ▶</button>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Dom</div>
+                    <div class="calendar-day-header">Seg</div>
+                    <div class="calendar-day-header">Ter</div>
+                    <div class="calendar-day-header">Qua</div>
+                    <div class="calendar-day-header">Qui</div>
+                    <div class="calendar-day-header">Sex</div>
+                    <div class="calendar-day-header">Sáb</div>
+                </div>
+                
+                <div class="calendar-grid" id="calendarioGridDias">
+                    </div>
+                
+                <div class="calendar-legend">
+                    <span><span style="display:inline-block;width:12px;height:12px;background:#8e44ad;border-radius:3px;margin-right:4px"></span>Gravação</span>
+                    <span><span style="display:inline-block;width:12px;height:12px;background:#d35400;border-radius:3px;margin-right:4px"></span>Edição</span>
+                    <span><span style="display:inline-block;width:12px;height:12px;background:var(--success);border-radius:3px;margin-right:4px"></span>Entrega</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="toast" id="toast" style="display:none"></div>
 
     <div class="status-bar" id="statusBar" style="display:none">
@@ -1314,13 +1233,11 @@
         const SESSION_KEY = 'audiovisual_session';
         const TOKEN_KEY = 'github_token_v5';
 
-        // ============ USUÁRIOS PADRÃO (APENAS PARA FALLBACK) ============
         const USUARIOS_PADRAO = [
             { id: 1, nome: 'Cleverson Andrade', senha: '123456789', email: 'cleverson@exemplo.com', ativo: true },
             { id: 2, nome: 'Gilson Siqueira', senha: '987654321', email: 'gilson@exemplo.com', ativo: true }
         ];
 
-        // ============ ESTÁGIOS ============
         const STAGES = {
             ideia: { nome: '💡 Ideias', cor: 'ideia', badge: 'badge-ideia', stageClass: 'stage-ideia' },
             desenv: { nome: '📝 Desenvolvimento', cor: 'desenv', badge: 'badge-desenv', stageClass: 'stage-desenv' },
@@ -1350,6 +1267,9 @@
         let usuariosCadastrados = [];
         let tokenValido = false;
         let dadosCarregadosDoGitHub = false;
+
+        // Variável de estado do Calendário
+        let dataCalendarioAtual = new Date();
 
         // ============ FUNÇÕES DE API ============
         function getApiUrl(filePath) {
@@ -1413,26 +1333,16 @@
         }
 
         async function lerDoGitHub(filePath) {
-            if (!githubToken || !tokenValido) {
-                return null;
-            }
-            
+            if (!githubToken || !tokenValido) return null;
             try {
                 const url = getApiUrl(filePath);
-                
-                const response = await fetch(url, {
-                    headers: getHeaders()
-                });
+                const response = await fetch(url, { headers: getHeaders() });
                 
                 if (!response.ok) {
                     if (response.status === 404) {
-                        if (filePath === GITHUB_FILE_PATH) {
-                            return { data: [], sha: null };
-                        } else if (filePath === GITHUB_ROTEIROS_PATH) {
-                            return { data: {}, sha: null };
-                        } else if (filePath === GITHUB_SENHAS_PATH) {
-                            return { data: { usuarios: [] }, sha: null };
-                        }
+                        if (filePath === GITHUB_FILE_PATH) return { data: [], sha: null };
+                        else if (filePath === GITHUB_ROTEIROS_PATH) return { data: {}, sha: null };
+                        else if (filePath === GITHUB_SENHAS_PATH) return { data: { usuarios: [] }, sha: null };
                         return { data: null, sha: null };
                     }
                     if (response.status === 401) {
@@ -1444,11 +1354,8 @@
                 }
                 
                 const result = await response.json();
-                
-                // Modificado: Correção para Caracteres Especiais UTF-8 (acentos, cedilhas, etc)
                 const content = decodeURIComponent(escape(atob(result.content)));
                 const data = JSON.parse(content);
-                
                 return { data, sha: result.sha };
             } catch (error) {
                 console.error(`❌ Erro ao ler ${filePath}:`, error);
@@ -1461,11 +1368,9 @@
         }
 
         async function salvarNoGitHub(filePath, data, sha = null) {
-            if (!githubToken || !tokenValido) {
-                return false;
-            }
-            
+            if (!githubToken || !tokenValido) return false;
             if (isSyncing) return false;
+            
             isSyncing = true;
             atualizarSyncIndicator('syncing');
 
@@ -1475,9 +1380,7 @@
                     sha = dadosExistentes ? dadosExistentes.sha : null;
                 }
 
-                // Codificação UTF-8 protegida para o envio
                 const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-                
                 const body = {
                     message: `🔄 Atualização - ${new Date().toLocaleString('pt-BR')}`,
                     content: content,
@@ -1498,7 +1401,6 @@
                         atualizarSyncIndicator('offline');
                         throw new Error('Token expirado!');
                     }
-                    // Se der erro 409 (Conflict), tentaremos mesclar no próximo ciclo
                     throw new Error(`Erro ao salvar: ${response.status}`);
                 }
 
@@ -1523,10 +1425,8 @@
         function agendarSincronizacao(imediato = false) {
             if (!githubToken || !tokenValido) return;
             if (syncTimeout) clearTimeout(syncTimeout);
-            
-            // Reduzimos o tempo de 5000 para 1500ms para ficar mais responsivo
             syncTimeout = setTimeout(async () => {
-                await sincronizarComGitHub(true); // Chamamos a função completa que faz o merge primeiro
+                await sincronizarComGitHub(true);
                 syncTimeout = null;
             }, imediato ? 100 : 1500);
         }
@@ -1799,7 +1699,6 @@
             atualizarSyncIndicator('syncing');
 
             try {
-                // Buscamos os dados atuais do repositório para realizar a mesclagem (Merge)
                 const [dadosCards, dadosRoteiros] = await Promise.all([
                     lerDoGitHub(GITHUB_FILE_PATH),
                     lerDoGitHub(GITHUB_ROTEIROS_PATH)
@@ -1809,11 +1708,9 @@
                 let necessitaPushCards = false;
                 let necessitaPushRoteiros = false;
 
-                // Modificado: Lógica de Mesclagem de Cards e Resolução de Conflitos
                 if (dadosCards && dadosCards.data !== undefined) {
                     const gitHubCards = Array.isArray(dadosCards.data) ? dadosCards.data : [];
                     
-                    // Mapa para facilitar busca pelo ID
                     const mapLocal = new Map(cards.map(c => [c.id, c]));
                     const mapRemote = new Map(gitHubCards.map(c => [c.id, c]));
                     const mergedCards = [];
@@ -1824,41 +1721,34 @@
                         const remote = mapRemote.get(id);
 
                         if (local && remote) {
-                            // Se ambos existem, preserva o que tem a versão MAIS ALTA
                             if (local.version > remote.version) {
                                 mergedCards.push(local);
-                                necessitaPushCards = true; // O nosso é mais novo, vamos enviar
+                                necessitaPushCards = true;
                             } else {
                                 mergedCards.push(remote);
                             }
                         } else if (local) {
-                            // Está só na máquina local (foi criado recentemente)
                             mergedCards.push(local);
                             necessitaPushCards = true;
                         } else if (remote) {
-                            // Veio do GitHub (alguém criou lá)
                             mergedCards.push(remote);
                         }
                     });
 
-                    // Substituímos os cards na memória pelos mesclados
                     cards = mergedCards;
                     salvarDadosLocais(cards);
                     atualizouInterface = true;
                     dadosCarregadosDoGitHub = true;
                     
-                    // Se estiver no modo Save ou identificou versão superior local, enviamos a mesclagem final
                     if (necessitaPushCards || isSavingMode) {
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards, dadosCards.sha);
                     } else {
-                        lastSyncData = dadosCards.sha; // Só atualizamos a ref interna
+                        lastSyncData = dadosCards.sha;
                     }
                 }
 
-                // Mesclagem Básica de Roteiros
                 if (dadosRoteiros && dadosRoteiros.data !== undefined) {
                     const gitHubRoteiros = typeof dadosRoteiros.data === 'object' ? dadosRoteiros.data : {};
-                    // Mantemos ambos, priorizando local se estourar conflito momentâneo
                     roteiros = { ...gitHubRoteiros, ...roteiros }; 
                     salvarRoteirosLocais(roteiros);
                     atualizouInterface = true;
@@ -1877,6 +1767,10 @@
 
                 if (atualizouInterface) {
                     renderCards();
+                    // Atualiza o calendário caso ele esteja aberto
+                    if (document.getElementById('calendarioOverlay').style.display === 'flex') {
+                        renderCalendario();
+                    }
                 }
 
                 atualizarSyncIndicator('online');
@@ -1891,7 +1785,7 @@
             if (syncInterval) clearInterval(syncInterval);
             syncInterval = setInterval(async () => {
                 if (githubToken && tokenValido && isInitialized && !isSyncing) {
-                    await sincronizarComGitHub(false); // Apenas recebe novos dados
+                    await sincronizarComGitHub(false);
                 }
             }, 30000);
         }
@@ -1902,7 +1796,7 @@
                 return;
             }
             mostrarToast('🔄 Sincronizando com GitHub...');
-            await sincronizarComGitHub(true); // Força envio
+            await sincronizarComGitHub(true);
             mostrarToast('✅ Sincronização concluída!');
         }
 
@@ -1957,7 +1851,7 @@
                 checklist: { sinopse: true, objetivo: false, estrutura: false, roteiro: false },
                 metricas: {},
                 descricao: 'Fazer um tutorial rápido mostrando as 3 principais funções do novo produto.',
-                dataGravacao: '',
+                dataGravacao: hoje,
                 dataEdicao: '',
                 dataEntrega: proxSemana,
                 linkArmazenamento: '',
@@ -1969,7 +1863,6 @@
 
         // ============ RENDER ============
         function getCardsFiltrados() {
-            // Modificado: Ignorar cards com o Soft Delete (excluido: true)
             let filtrados = cards.filter(c => !c.excluido);
             
             if (stageFiltro !== 'all') {
@@ -2083,11 +1976,11 @@
             const card = cards.find(c => c.id === id);
             if (card) {
                 card.stage = novoStage;
-                card.version = (card.version || 0) + 1; // Incrementa a versão
+                card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
                 mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
-                agendarSincronizacao(true); // Dispara sync quase imediato
+                agendarSincronizacao(true);
             }
         }
 
@@ -2106,19 +1999,17 @@
         function excluirCard(id) {
             const card = cards.find(c => c.id === id);
             if (card && confirm(`Tem certeza que deseja excluir "${card.titulo}"?`)) {
-                // Modificado: Soft Delete (Marca como excluído e aumenta versão, não retira do Array)
                 card.excluido = true;
                 card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
                 mostrarToast('🗑 Conteúdo excluído permanentemente!');
-                agendarSincronizacao(true); // Força sincronização do delete
+                agendarSincronizacao(true);
             }
         }
 
         function atualizarContadores() {
             const counts = {};
-            // Filtrar os excluídos primeiro
             const validCards = cards.filter(c => !c.excluido);
             
             ['all', ...Object.keys(STAGES)].forEach(s => {
@@ -2296,7 +2187,6 @@
             if (id) {
                 const idx = cards.findIndex(c => c.id === id);
                 if (idx >= 0) {
-                    // Aumenta a versão no merge
                     cards[idx] = { ...cards[idx], ...dados, version: (cards[idx].version || 0) + 1, excluido: false };
                 }
                 mostrarToast('✅ Conteúdo atualizado!');
@@ -2310,7 +2200,7 @@
             document.getElementById('modalOverlay').style.display = 'none';
             cardEditando = null;
             renderCards();
-            agendarSincronizacao(true); // Força sincronização após salvar
+            agendarSincronizacao(true);
         }
 
         // ============ ROTEIRO ============
@@ -2364,9 +2254,108 @@
             agendarSincronizacao(true);
         }
 
+        // ============ LÓGICA DO CALENDÁRIO ============
+        function abrirCalendario() {
+            document.getElementById('calendarioOverlay').style.display = 'flex';
+            renderCalendario();
+        }
+
+        function fecharCalendario(event) {
+            if (!event || event.target === document.getElementById('calendarioOverlay')) {
+                document.getElementById('calendarioOverlay').style.display = 'none';
+            }
+        }
+
+        function mudarMes(delta) {
+            dataCalendarioAtual.setMonth(dataCalendarioAtual.getMonth() + delta);
+            renderCalendario();
+        }
+
+        function renderCalendario() {
+            const ano = dataCalendarioAtual.getFullYear();
+            const mes = dataCalendarioAtual.getMonth(); // 0 a 11
+            
+            // Nomes dos meses em PT-BR
+            const nomesMeses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            document.getElementById('calendarioMesAno').textContent = `${nomesMeses[mes]} ${ano}`;
+            
+            // Dados para montagem do grid
+            const primeiroDia = new Date(ano, mes, 1);
+            const ultimoDia = new Date(ano, mes + 1, 0);
+            const diaDaSemanaInicio = primeiroDia.getDay(); // 0 (Dom) a 6 (Sáb)
+            const totalDiasMes = ultimoDia.getDate();
+            
+            // Preparar eventos mapeando pelas datas (YYYY-MM-DD)
+            const eventos = {};
+            const cardsAtivos = cards.filter(c => !c.excluido && c.stage !== 'gaveta'); // Não mostra eventos na gaveta
+
+            cardsAtivos.forEach(card => {
+                const addEvent = (dataRaw, tipoClass, emoji) => {
+                    if (!dataRaw) return;
+                    if (!eventos[dataRaw]) eventos[dataRaw] = [];
+                    eventos[dataRaw].push({
+                        id: card.id,
+                        titulo: card.titulo,
+                        classe: tipoClass,
+                        icone: emoji
+                    });
+                };
+                addEvent(card.dataGravacao, 'event-gravacao', '🎥');
+                addEvent(card.dataEdicao, 'event-edicao', '🎞');
+                addEvent(card.dataEntrega, 'event-entrega', '📅');
+            });
+
+            // Geração do HTML
+            let html = '';
+            
+            // Dias do mês anterior
+            const diasMesAnterior = new Date(ano, mes, 0).getDate();
+            for (let i = diaDaSemanaInicio - 1; i >= 0; i--) {
+                const diaAnterior = diasMesAnterior - i;
+                html += `<div class="calendar-day other-month"><div class="calendar-date-number">${diaAnterior}</div></div>`;
+            }
+            
+            // Dias do mês atual
+            const hojeLocal = new Date();
+            const dataHojeStr = `${hojeLocal.getFullYear()}-${String(hojeLocal.getMonth()+1).padStart(2,'0')}-${String(hojeLocal.getDate()).padStart(2,'0')}`;
+            
+            for (let d = 1; d <= totalDiasMes; d++) {
+                const mesStr = String(mes + 1).padStart(2, '0');
+                const diaStr = String(d).padStart(2, '0');
+                const dataString = `${ano}-${mesStr}-${diaStr}`;
+                
+                const isToday = (dataString === dataHojeStr) ? 'today' : '';
+                
+                let eventosHtml = '';
+                if (eventos[dataString]) {
+                    eventosHtml = eventos[dataString].map(ev => 
+                        `<div class="calendar-event ${ev.classe}" title="${ev.titulo}" onclick="fecharCalendario(); abrirModalEditar(${ev.id}); event.stopPropagation();">
+                            ${ev.icone} ${escapeHTML(ev.titulo)}
+                        </div>`
+                    ).join('');
+                }
+
+                html += `
+                    <div class="calendar-day ${isToday}">
+                        <div class="calendar-date-number">${d}</div>
+                        ${eventosHtml}
+                    </div>
+                `;
+            }
+            
+            // Dias do próximo mês para completar as 42 células (6 linhas completas)
+            const diasPreenchidos = diaDaSemanaInicio + totalDiasMes;
+            const celulasFaltantes = 42 - diasPreenchidos;
+            
+            for (let i = 1; i <= celulasFaltantes; i++) {
+                html += `<div class="calendar-day other-month"><div class="calendar-date-number">${i}</div></div>`;
+            }
+            
+            document.getElementById('calendarioGridDias').innerHTML = html;
+        }
+
         // ============ EXPORTAR/IMPORTAR ============
         function exportarDados() {
-            // Removemos os cards que já foram permanentemente excluídos na exportação
             const cardsLimpos = cards.filter(c => !c.excluido);
             const dados = JSON.stringify({ cards: cardsLimpos, roteiros }, null, 2);
             const blob = new Blob([dados], { type: 'application/json' });
@@ -2435,6 +2424,7 @@
             if (e.key === 'Escape') {
                 document.getElementById('modalOverlay').style.display = 'none';
                 document.getElementById('roteiroOverlay').style.display = 'none';
+                document.getElementById('calendarioOverlay').style.display = 'none';
                 cardEditando = null;
                 cardRoteiroAtual = null;
             }
