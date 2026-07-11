@@ -19,7 +19,7 @@
       "roteiro": false
     },
     "metricas": {},
-    "descricao": "Fazer um tutorial rápido mostrando as 3 principais funções do novo produto.",
+    "descricao": "Fazer um tutorial rÃ¡pido mostrando as 3 principais funÃ§Ãµes do novo produto.",
     "dataGravacao": "",
     "dataEdicao": "",
     "dataEntrega": "2026-07-18",
@@ -34,7 +34,7 @@
     "prioridade": "media",
     "stage": "desenv",
     "dataCriacao": "2026-07-11",
-    "responsavel": "João",
+    "responsavel": "JoÃ£o",
     "tags": [
       "#bastidores",
       "#evento"
@@ -73,7 +73,7 @@
       "roteiro": true
     },
     "metricas": {},
-    "descricao": "Cliente falando sobre como nosso serviço ajudou ele.",
+    "descricao": "Cliente falando sobre como nosso serviÃ§o ajudou ele.",
     "dataGravacao": "2026-06-25",
     "dataEdicao": "2026-06-28",
     "dataEntrega": "2026-07-01",
