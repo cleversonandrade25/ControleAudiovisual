@@ -1,83 +1,74 @@
 [
   {
-    "id": 1783786523857,
-    "titulo": "Tutorial: Como usar o novo produto X",
+    "id": 1783685987015,
+    "titulo": "Como e feita a manutencao dos trilhos",
     "formato": "Reels",
-    "categoria": "Educativo",
+    "categoria": "Bastidores",
     "prioridade": "alta",
-    "stage": "ideia",
-    "dataCriacao": "2026-07-11",
-    "responsavel": "Maria",
-    "tags": [
-      "#tutorial",
-      "#produtoX"
-    ],
+    "stage": "prod",
+    "dataCriacao": "2026-07-06",
+    "responsavel": "Cleverson/Jr",
+    "tags": [],
+    "descricao": "Acompanhar como e feita a manutencao dos trilhos durante a madrugada",
     "checklist": {
       "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-13",
+    "dataEdicao": "2026-07-14",
+    "dataEntrega": "2026-07-15",
+    "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDZuQTYalG3S7teVSt49iw9AaZPBLOv4nS8g2Hnu94E9RQ?e=MFaomY",
+    "version": 7
+  },
+  {
+    "id": 1783686572899,
+    "titulo": "Como funciona a operacao assistida",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "baixa",
+    "stage": "ideia",
+    "dataCriacao": "2026-07-06",
+    "responsavel": "Cleverson/Jr",
+    "tags": [],
+    "descricao": "Explicar por que novas linhas e estações começam com horário reduzido e intervalos maiores.\nPróximos passos da Linha 17: cronograma e benefícios para os passageiros",
+    "checklist": {
+      "sinopse": false,
       "objetivo": false,
       "estrutura": false,
       "roteiro": false
     },
     "metricas": {},
-    "descricao": "Fazer um tutorial rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡pido mostrando as 3 principais funÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂµes do novo produto.",
     "dataGravacao": "",
     "dataEdicao": "",
-    "dataEntrega": "2026-07-18",
-    "linkArmazenamento": "",
-    "version": 1
+    "dataEntrega": "",
+    "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgA5HZp5xE5JSbzD2TulLW2rAd5AaXx6dCVSADZspIimin8?e=kiyMeh",
+    "version": 3
   },
   {
-    "id": 1783786523858,
-    "titulo": "Bastidores do evento anual",
-    "formato": "YouTube",
-    "categoria": "Bastidores",
+    "id": 1783686915228,
+    "titulo": "Obras em andamento",
+    "formato": "Reels",
+    "categoria": "Institucional",
     "prioridade": "media",
     "stage": "desenv",
-    "dataCriacao": "2026-07-11",
-    "responsavel": "JoÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o",
-    "tags": [
-      "#bastidores",
-      "#evento"
-    ],
+    "dataCriacao": "2026-07-06",
+    "responsavel": "Cleverson/Jr",
+    "tags": [],
+    "descricao": "",
     "checklist": {
       "sinopse": true,
       "objetivo": true,
-      "estrutura": true,
+      "estrutura": false,
       "roteiro": false
     },
     "metricas": {},
-    "descricao": "Mostrar os bastidores do evento.",
-    "dataGravacao": "2026-07-18",
+    "dataGravacao": "",
     "dataEdicao": "",
     "dataEntrega": "",
-    "linkArmazenamento": "https://drive.google.com/drive/folders/exemplo",
-    "version": 1
-  },
-  {
-    "id": 1783786523859,
-    "titulo": "Depoimento cliente satisfeito",
-    "formato": "Reels",
-    "categoria": "Vendas",
-    "prioridade": "alta",
-    "stage": "aprov",
-    "dataCriacao": "2026-06-20",
-    "responsavel": "Ana",
-    "tags": [
-      "#depoimento",
-      "#cliente"
-    ],
-    "checklist": {
-      "sinopse": true,
-      "objetivo": true,
-      "estrutura": true,
-      "roteiro": true
-    },
-    "metricas": {},
-    "descricao": "Cliente falando sobre como nosso serviÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ§o ajudou ele.",
-    "dataGravacao": "2026-06-25",
-    "dataEdicao": "2026-06-28",
-    "dataEntrega": "2026-07-01",
-    "linkArmazenamento": "https://drive.google.com/drive/folders/depoimentos",
-    "version": 1
+    "linkArmazenamento": "",
+    "version": 3
   }
 ]
