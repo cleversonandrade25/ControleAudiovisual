@@ -33,7 +33,7 @@
     "dataCriacao": "2026-07-06",
     "responsavel": "Cleverson/Jr",
     "tags": [],
-    "descricao": "Explicar por que novas linhas e estaÃÂ§ÃÂµes comeÃÂ§am com horÃÂ¡rio reduzido e intervalos maiores.\nPrÃÂ³ximos passos da Linha 17: cronograma e benefÃÂ­cios para os passageiros",
+    "descricao": "Explicar por que novas linhas e estações começam com horário reduzido e intervalos maiores.\nPróximos passos da Linha 17: cronograma e benefí­cios para os passageiros",
     "checklist": {
       "sinopse": false,
       "objetivo": false,
@@ -45,7 +45,8 @@
     "dataEdicao": "",
     "dataEntrega": "",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgA5HZp5xE5JSbzD2TulLW2rAd5AaXx6dCVSADZspIimin8?e=kiyMeh",
-    "version": 3
+    "version": 4,
+    "excluido": false
   },
   {
     "id": 1783686915228,
