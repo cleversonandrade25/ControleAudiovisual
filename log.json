@@ -96,5 +96,30 @@
     "id": 1783789019369,
     "version": 2,
     "excluido": false
+  },
+  {
+    "titulo": "Achados e perdidos - Gravação SP1",
+    "formato": "Reels",
+    "categoria": "Entretenimento",
+    "prioridade": "alta",
+    "stage": "prod",
+    "responsavel": "Cleverson/Jr",
+    "dataCriacao": "2026-07-07",
+    "tags": [],
+    "descricao": "Temos alguns objetos curisosos. Podemos aproveitar e gravar lá.",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-13",
+    "dataEdicao": "2026-07-13",
+    "dataEntrega": "2026-07-14",
+    "linkArmazenamento": "",
+    "id": 1783789945241,
+    "version": 1,
+    "excluido": false
   }
 ]
