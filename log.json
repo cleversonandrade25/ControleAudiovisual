@@ -17,11 +17,12 @@
       "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "2026-07-13",
-    "dataEdicao": "2026-07-14",
-    "dataEntrega": "2026-07-15",
+    "dataGravacao": "2026-07-15",
+    "dataEdicao": "2026-07-16",
+    "dataEntrega": "2026-07-17",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDZuQTYalG3S7teVSt49iw9AaZPBLOv4nS8g2Hnu94E9RQ?e=MFaomY",
-    "version": 7
+    "version": 8,
+    "excluido": false
   },
   {
     "id": 1783686572899,
