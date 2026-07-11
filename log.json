@@ -122,5 +122,30 @@
     "id": 1783789945241,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "O que acontece quando um trem apresenta falha?",
+    "formato": "Reels",
+    "categoria": "Bastidores",
+    "prioridade": "baixa",
+    "stage": "ideia",
+    "responsavel": "Cleverson/Jr",
+    "dataCriacao": "2026-07-11",
+    "tags": [],
+    "descricao": "Mostrar o passo a passo da atuação do CCO.",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": true,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1783792796482,
+    "version": 1,
+    "excluido": false
   }
 ]
