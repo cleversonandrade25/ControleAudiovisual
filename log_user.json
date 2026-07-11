@@ -4,7 +4,7 @@
     "usuario": "Cleverson Andrade",
     "usuarioId": 1,
     "acao": "LOGIN",
-    "detalhes": "UsuÃ¡rio fez login no sistema",
+    "detalhes": "UsuÃÂ¡rio fez login no sistema",
     "ip": "cliente"
   },
   {
@@ -12,7 +12,7 @@
     "usuario": "Clevs",
     "usuarioId": 1,
     "acao": "LOGIN",
-    "detalhes": "Usuário fez login no sistema",
+    "detalhes": "UsuÃ¡rio fez login no sistema",
     "ip": "cliente"
   },
   {
@@ -20,7 +20,7 @@
     "usuario": "Clevs",
     "usuarioId": 1,
     "acao": "CRIAR",
-    "detalhes": "Novo conteúdo \"Thats all folks\" criado",
+    "detalhes": "Novo conteÃºdo \"Thats all folks\" criado",
     "ip": "cliente"
   },
   {
@@ -28,7 +28,7 @@
     "usuario": "Clevs",
     "usuarioId": 1,
     "acao": "CRIAR",
-    "detalhes": "Novo conteúdo \"Thats all folks\" criado",
+    "detalhes": "Novo conteÃºdo \"Thats all folks\" criado",
     "ip": "cliente"
   },
   {
@@ -36,7 +36,15 @@
     "usuario": "Clevs",
     "usuarioId": 1,
     "acao": "LOGOUT",
-    "detalhes": "Usuário fez logout do sistema",
+    "detalhes": "UsuÃ¡rio fez logout do sistema",
+    "ip": "cliente"
+  },
+  {
+    "timestamp": "2026-07-11T16:17:32.680Z",
+    "usuario": "Clevs",
+    "usuarioId": 1,
+    "acao": "LOGIN",
+    "detalhes": "Usuário fez login no sistema",
     "ip": "cliente"
   }
 ]
