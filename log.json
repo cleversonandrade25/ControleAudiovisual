@@ -1,1 +1,83 @@
-[]
+[
+  {
+    "id": 1783786523857,
+    "titulo": "Tutorial: Como usar o novo produto X",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "alta",
+    "stage": "ideia",
+    "dataCriacao": "2026-07-11",
+    "responsavel": "Maria",
+    "tags": [
+      "#tutorial",
+      "#produtoX"
+    ],
+    "checklist": {
+      "sinopse": true,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "descricao": "Fazer um tutorial rápido mostrando as 3 principais funções do novo produto.",
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "2026-07-18",
+    "linkArmazenamento": "",
+    "version": 1
+  },
+  {
+    "id": 1783786523858,
+    "titulo": "Bastidores do evento anual",
+    "formato": "YouTube",
+    "categoria": "Bastidores",
+    "prioridade": "media",
+    "stage": "desenv",
+    "dataCriacao": "2026-07-11",
+    "responsavel": "João",
+    "tags": [
+      "#bastidores",
+      "#evento"
+    ],
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": false
+    },
+    "metricas": {},
+    "descricao": "Mostrar os bastidores do evento.",
+    "dataGravacao": "2026-07-18",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "https://drive.google.com/drive/folders/exemplo",
+    "version": 1
+  },
+  {
+    "id": 1783786523859,
+    "titulo": "Depoimento cliente satisfeito",
+    "formato": "Reels",
+    "categoria": "Vendas",
+    "prioridade": "alta",
+    "stage": "aprov",
+    "dataCriacao": "2026-06-20",
+    "responsavel": "Ana",
+    "tags": [
+      "#depoimento",
+      "#cliente"
+    ],
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
+    },
+    "metricas": {},
+    "descricao": "Cliente falando sobre como nosso serviço ajudou ele.",
+    "dataGravacao": "2026-06-25",
+    "dataEdicao": "2026-06-28",
+    "dataEntrega": "2026-07-01",
+    "linkArmazenamento": "https://drive.google.com/drive/folders/depoimentos",
+    "version": 1
+  }
+]
