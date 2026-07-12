@@ -109,10 +109,10 @@
     "tags": [],
     "descricao": "Temos alguns objetos curisosos. Podemos aproveitar e gravar lá.",
     "checklist": {
-      "sinopse": false,
-      "objetivo": false,
-      "estrutura": false,
-      "roteiro": false
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
     },
     "metricas": {},
     "dataGravacao": "2026-07-13",
@@ -120,7 +120,7 @@
     "dataEntrega": "2026-07-14",
     "linkArmazenamento": "",
     "id": 1783789945241,
-    "version": 1,
+    "version": 2,
     "excluido": false
   },
   {
