@@ -64,7 +64,7 @@
             background: var(--surface);
             border-radius: 16px;
             padding: 40px;
-            max-width: 450px;
+            max-width: 500px;
             width: 100%;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -1003,6 +1003,101 @@
         .token-input-container { display: flex; gap: 8px; align-items: center; }
         .token-input-container input { font-family: monospace; font-size: 1.05rem; letter-spacing: 0.5px; flex: 1; }
         .token-input-container .btn { padding: 10px 16px; font-size: 0.8rem; white-space: nowrap; }
+
+        .login-box .form-group input.token-field {
+            font-family: 'Courier New', monospace;
+            font-size: 1.05rem;
+            letter-spacing: 0.4px;
+            padding: 16px 44px 16px 16px;
+            min-height: 52px;
+        }
+
+        /* Campo de senha com botão de mostrar/ocultar */
+        .input-with-toggle { position: relative; }
+        .input-with-toggle input { padding-right: 44px !important; }
+        .toggle-visibility {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 6px 8px;
+            border-radius: 6px;
+            line-height: 1;
+            opacity: 0.65;
+            transition: opacity 0.15s, background 0.15s;
+        }
+        .toggle-visibility:hover { opacity: 1; background: var(--surface2); }
+
+        /* Seção opcional de sincronização (token) — recolhível */
+        .sync-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+            color: var(--text2);
+            user-select: none;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .sync-toggle:hover { background: var(--primary-light); border-color: var(--primary); }
+        .sync-toggle .sync-toggle-label { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+        .sync-toggle .sync-toggle-badge {
+            font-size: 0.62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .sync-toggle .sync-toggle-badge.ativo {
+            background: rgba(0, 122, 94, 0.15);
+            color: var(--success);
+        }
+        .sync-toggle .chevron {
+            transition: transform 0.2s;
+            font-size: 0.7rem;
+        }
+        .sync-toggle.aberto .chevron { transform: rotate(180deg); }
+
+        .sync-section {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease, margin-bottom 0.25s ease;
+            margin-bottom: 0;
+        }
+        .sync-section.aberto {
+            max-height: 320px;
+            margin-bottom: 14px;
+        }
+        .sync-section-inner {
+            text-align: left;
+            padding: 2px 2px 4px;
+        }
+        .sync-section-desc {
+            font-size: 0.72rem;
+            color: var(--text2);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .token-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .token-status .spinner { display: inline-block; animation: spin 1s linear infinite; }
     </style>
 </head>
 <body>
@@ -1023,20 +1118,26 @@
             </div>
             <div class="form-group">
                 <label>🔒 Senha</label>
-                <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') fazerLogin()">
+                <div class="input-with-toggle">
+                    <input type="password" id="loginSenha" placeholder="Digite sua senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') fazerLogin()">
+                    <button type="button" class="toggle-visibility" onclick="alternarVisibilidade('loginSenha', this)" title="Mostrar/ocultar senha" aria-label="Mostrar ou ocultar senha">👁️</button>
+                </div>
             </div>
-            
+
             <div class="form-group">
-                <label>🔑 Token GitHub</label>
-                <div class="token-input-container">
-                    <input type="text" id="loginToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-                    <button class="btn btn-outline btn-sm" onclick="testarToken()" style="padding:10px 14px;">Testar</button>
+                <label>🔑 Token <span style="color:var(--danger)">*</span></label>
+                <p class="sync-section-desc" style="margin-top:-2px;">
+                    Necessário para sincronizar seus dados com o GitHub e acessá-los em qualquer aparelho.
+                </p>
+                <div class="input-with-toggle">
+                    <input type="text" id="loginToken" class="token-field" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+                    <button type="button" class="toggle-visibility" onclick="alternarVisibilidade('loginToken', this)" title="Mostrar/ocultar token" aria-label="Mostrar ou ocultar token">🙈</button>
+                </div>
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                    <button type="button" class="btn btn-outline btn-sm" onclick="testarToken()" style="flex:1; padding:10px;">🔍 Testar token</button>
                 </div>
                 <div class="token-status" id="tokenStatus"></div>
-                <div style="font-size:0.6rem;color:var(--text2);margin-top:4px;">
-                    <a href="https://github.com/settings/tokens" target="_blank">Criar token no GitHub</a> (permissão: repo)
-                </div>
-            </div>
+                            </div>
             
             <div class="login-loading" id="loginLoading">
                 <span class="spinner">⏳</span> Verificando credenciais...
@@ -1045,7 +1146,7 @@
             <button class="btn btn-primary" onclick="fazerLogin()">🔑 Entrar</button>
             
             <p class="help-text">
-                <small>Digite seu usuário, senha e o token do GitHub para sincronizar.</small>
+                <small>Usuário, senha e token são necessários para entrar.</small>
             </p>
         </div>
     </div>
@@ -1284,6 +1385,18 @@
             };
         }
 
+        // Mostra/oculta o conteúdo de um campo de senha ou token
+        function alternarVisibilidade(inputId, botao) {
+            const input = document.getElementById(inputId);
+            const oculto = input.type === 'password';
+            input.type = oculto ? 'text' : 'password';
+            botao.textContent = oculto ? '🙈' : '👁️';
+        }
+
+        // Mantida por compatibilidade com chamadas existentes; a seção de token agora é sempre visível.
+        function alternarSecaoToken() {}
+        function atualizarBadgeSync() {}
+
         if (localStorage.getItem(TOKEN_KEY)) {
             document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('loginToken').value = localStorage.getItem(TOKEN_KEY);
@@ -1292,17 +1405,28 @@
 
         async function testarToken() {
             const token = document.getElementById('loginToken').value.trim();
-            if (!token || !token.startsWith('ghp_')) {
-                const status = document.getElementById('tokenStatus');
-                status.className = 'token-status error';
-                status.textContent = '❌ Token inválido! Deve começar com "ghp_"';
+            const status = document.getElementById('tokenStatus');
+
+            if (!token) {
+                status.className = 'token-status';
+                status.textContent = 'ℹ️ Nenhum token informado — o sistema funcionará offline.';
                 status.style.display = 'block';
+                tokenValido = false;
+                atualizarBadgeSync();
                 return;
             }
 
-            const status = document.getElementById('tokenStatus');
+            if (!token.startsWith('ghp_')) {
+                status.className = 'token-status error';
+                status.textContent = '❌ Token inválido! Deve começar com "ghp_"';
+                status.style.display = 'block';
+                tokenValido = false;
+                atualizarBadgeSync();
+                return;
+            }
+
             status.className = 'token-status';
-            status.textContent = '⏳ Testando token...';
+            status.innerHTML = '<span class="spinner">⏳</span> Testando token...';
             status.style.display = 'block';
 
             try {
@@ -1314,21 +1438,28 @@
                 });
 
                 if (response.ok) {
+                    const dadosUsuario = await response.json();
                     status.className = 'token-status success';
-                    status.textContent = '✅ Token válido!';
+                    status.textContent = `✅ Token válido! Conectado como ${dadosUsuario.login}.`;
                     tokenValido = true;
                     githubToken = token;
                     localStorage.setItem(TOKEN_KEY, token);
                     mostrarToast('✅ Token validado com sucesso!');
+                } else if (response.status === 401) {
+                    status.className = 'token-status error';
+                    status.textContent = '❌ Token inválido ou expirado.';
+                    tokenValido = false;
                 } else {
                     status.className = 'token-status error';
-                    status.textContent = '❌ Token inválido ou sem permissões!';
+                    status.textContent = '❌ Token sem permissões suficientes (verifique o escopo "repo").';
                     tokenValido = false;
                 }
+                atualizarBadgeSync();
             } catch (error) {
                 status.className = 'token-status error';
-                status.textContent = '❌ Erro ao testar token: ' + error.message;
+                status.textContent = '❌ Erro de conexão ao testar o token. Verifique sua internet.';
                 tokenValido = false;
+                atualizarBadgeSync();
             }
         }
 
@@ -1492,12 +1623,18 @@
                 return;
             }
 
+            if (!token) {
+                mostrarErroLogin('Informe o token do GitHub para continuar!');
+                document.getElementById('loginToken').focus();
+                return;
+            }
+
             if (token) {
                 githubToken = token;
                 localStorage.setItem(TOKEN_KEY, token);
                 const status = document.getElementById('tokenStatus');
                 status.className = 'token-status';
-                status.textContent = '⏳ Validando token...';
+                status.innerHTML = '<span class="spinner">⏳</span> Validando token...';
                 status.style.display = 'block';
                 
                 try {
@@ -1510,19 +1647,23 @@
                     if (response.ok) {
                         tokenValido = true;
                         status.className = 'token-status success';
-                        status.textContent = '✅ Token válido!';
+                        status.textContent = '✅ Token válido! Sincronização ativada.';
                     } else {
                         tokenValido = false;
                         status.className = 'token-status error';
                         status.textContent = '❌ Token inválido! O sistema funcionará offline.';
+                        alternarSecaoToken(true);
                     }
                 } catch (error) {
                     tokenValido = false;
                     status.className = 'token-status error';
                     status.textContent = '❌ Erro ao validar token. Funcionará offline.';
+                    alternarSecaoToken(true);
                 }
+                atualizarBadgeSync();
             } else {
                 tokenValido = false;
+                atualizarBadgeSync();
             }
 
             const errorDiv = document.getElementById('loginError');
@@ -1633,9 +1774,11 @@
                             } else {
                                 atualizarSyncIndicator('offline');
                             }
+                            atualizarBadgeSync();
                         }).catch(() => {
                             tokenValido = false;
                             atualizarSyncIndicator('offline');
+                            atualizarBadgeSync();
                         });
                     }
                     
