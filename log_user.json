@@ -163,5 +163,16 @@
     "data": "12/07/2026",
     "hora": "11:27:40",
     "dataHora": "12/07/2026, 11:27:40"
+  },
+  {
+    "id": "1783866500919_udhdnx",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-12T14:28:20.919Z",
+    "data": "12/07/2026",
+    "hora": "11:28:20",
+    "dataHora": "12/07/2026, 11:28:20"
   }
 ]
