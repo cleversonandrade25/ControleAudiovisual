@@ -9,5 +9,16 @@
     "data": "12/07/2026",
     "hora": "11:10:51",
     "dataHora": "12/07/2026, 11:10:51"
+  },
+  {
+    "id": "1783865541204_qoa312",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Achados e perdidos - Gravação SP1\" atualizado",
+    "dataHoraISO": "2026-07-12T14:12:21.204Z",
+    "data": "12/07/2026",
+    "hora": "11:12:21",
+    "dataHora": "12/07/2026, 11:12:21"
   }
 ]
