@@ -119,5 +119,16 @@
     "data": "12/07/2026",
     "hora": "11:24:21",
     "dataHora": "12/07/2026, 11:24:21"
+  },
+  {
+    "id": "1783866307383_e5v77q",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-12T14:25:07.374Z",
+    "data": "12/07/2026",
+    "hora": "11:25:07",
+    "dataHora": "12/07/2026, 11:25:07"
   }
 ]
