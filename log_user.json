@@ -185,5 +185,16 @@
     "data": "12/07/2026",
     "hora": "11:31:05",
     "dataHora": "12/07/2026, 11:31:05"
+  },
+  {
+    "id": "1783866814440_783srt",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_gaveta",
+    "detalhes": "\"Thats all folks\" movido para a Gaveta",
+    "dataHoraISO": "2026-07-12T14:33:34.438Z",
+    "data": "12/07/2026",
+    "hora": "11:33:34",
+    "dataHora": "12/07/2026, 11:33:34"
   }
 ]
