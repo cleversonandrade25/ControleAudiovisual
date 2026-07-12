@@ -229,5 +229,16 @@
     "data": "12/07/2026",
     "hora": "11:35:52",
     "dataHora": "12/07/2026, 11:35:52"
+  },
+  {
+    "id": "1783892795462_qn5w5o",
+    "usuarioId": 2,
+    "usuario": "Gilson",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-12T21:46:35.454Z",
+    "data": "12/07/2026",
+    "hora": "18:46:35",
+    "dataHora": "12/07/2026, 18:46:35"
   }
 ]
