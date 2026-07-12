@@ -1,2 +1,13 @@
 [
+  {
+    "id": "1783865451476_ftr5t8",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-12T14:10:51.468Z",
+    "data": "12/07/2026",
+    "hora": "11:10:51",
+    "dataHora": "12/07/2026, 11:10:51"
+  }
 ]
