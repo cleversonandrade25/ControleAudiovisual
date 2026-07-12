@@ -17,5 +17,16 @@
     "data": "12/07/2026",
     "hora": "10:30:08",
     "dataHora": "12/07/2026, 10:30:08"
+  },
+  {
+    "id": "1783863111245_pac8xm",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-12T13:31:51.245Z",
+    "data": "12/07/2026",
+    "hora": "10:31:51",
+    "dataHora": "12/07/2026, 10:31:51"
   }
 ]
