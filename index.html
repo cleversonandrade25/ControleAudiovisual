@@ -1098,6 +1098,60 @@
             gap: 6px;
         }
         .token-status .spinner { display: inline-block; animation: spin 1s linear infinite; }
+
+        /* ORDENAÇÃO E ZOOM */
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sort-direction-btn {
+            padding: 8px 10px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            color: var(--text2);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .sort-direction-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .zoom-controls button {
+            background: none;
+            border: none;
+            color: var(--text2);
+            font-size: 0.9rem;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .zoom-controls button:hover { background: var(--primary-light); color: var(--primary); }
+        .zoom-controls .zoom-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text2);
+            min-width: 40px;
+            text-align: center;
+            user-select: none;
+        }
+
+        /* CONFIGURAÇÕES DA CONTA */
+        .config-hint {
+            font-size: 0.75rem;
+            color: var(--text2);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -1172,6 +1226,7 @@
                 <input type="file" accept=".json" onchange="importarDados(event)">
             </span>
             <button class="btn btn-outline btn-sm" onclick="sincronizarAgora()">🔄 <span>Sincronizar</span></button>
+            <button class="btn btn-outline btn-sm" onclick="abrirConfiguracoes()">⚙️ <span>Configurações</span></button>
             <button class="btn btn-outline btn-sm" onclick="fazerLogout()" style="color:var(--danger);border-color:var(--danger)">🚪 <span>Sair</span></button>
         </div>
     </div>
@@ -1254,6 +1309,22 @@
                         <option value="media">🟡 Média</option>
                         <option value="baixa">🟢 Baixa</option>
                     </select>
+                    <div class="toolbar-group">
+                        <select id="ordenacaoCampo" onchange="renderCards()" title="Ordenar por data" style="padding:8px 12px;background:var(--surface);border:2px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem">
+                            <option value="">Sem ordenação</option>
+                            <option value="dataCriacao">📅 Ordenar por Criação</option>
+                            <option value="dataGravacao">🎥 Ordenar por Gravação</option>
+                            <option value="dataEdicao">🎞 Ordenar por Edição</option>
+                            <option value="dataEntrega">📦 Ordenar por Entrega</option>
+                        </select>
+                        <button type="button" class="sort-direction-btn" id="ordenacaoDirecaoBtn" onclick="alternarDirecaoOrdenacao()" title="Inverter ordem">⬇️</button>
+                    </div>
+                    <div class="zoom-controls" title="Ajustar tamanho dos cards">
+                        <button type="button" onclick="alterarZoom(-0.1)" title="Diminuir cards">➖</button>
+                        <span class="zoom-label" id="zoomLabel">100%</span>
+                        <button type="button" onclick="alterarZoom(0.1)" title="Aumentar cards">➕</button>
+                        <button type="button" onclick="resetarZoom()" title="Restaurar tamanho padrão">↺</button>
+                    </div>
                 </div>
             </div>
             <div class="content-body">
@@ -1315,6 +1386,47 @@
 
     <div class="toast" id="toast" style="display:none"></div>
 
+    <div class="modal-overlay" id="configOverlay" style="display:none" onclick="fecharConfiguracoes(event)">
+        <div class="modal" id="configContent" onclick="event.stopPropagation()" style="max-width:480px;">
+            <button class="modal-close" onclick="fecharConfiguracoes()">✕</button>
+            <h2>⚙️ Configurações da Conta</h2>
+            <p class="config-hint">Atualize seus dados de acesso. Os campos de senha só precisam ser preenchidos se você quiser alterá-la.</p>
+            <div id="configErro" style="display:none;background:rgba(255,44,44,0.1);color:var(--danger);padding:10px;border-radius:8px;font-size:0.85rem;margin-bottom:12px;border:1px solid var(--danger);"></div>
+            <form onsubmit="salvarConfiguracoes(event)">
+                <div class="form-group">
+                    <label>👤 Nome de usuário</label>
+                    <input type="text" id="cfgNome" required>
+                </div>
+                <div class="form-group">
+                    <label>📧 E-mail</label>
+                    <input type="email" id="cfgEmail" placeholder="seuemail@exemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>📱 Telefone</label>
+                    <input type="text" id="cfgTelefone" placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-group">
+                    <label>🔒 Nova senha</label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="cfgSenha" autocomplete="new-password" placeholder="Deixe em branco para manter a atual">
+                        <button type="button" class="toggle-visibility" onclick="alternarVisibilidade('cfgSenha', this)" title="Mostrar/ocultar senha">👁️</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>🔒 Confirmar nova senha</label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="cfgSenhaConfirma" autocomplete="new-password">
+                        <button type="button" class="toggle-visibility" onclick="alternarVisibilidade('cfgSenhaConfirma', this)" title="Mostrar/ocultar senha">👁️</button>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
+                    <button type="button" class="btn btn-outline" onclick="fecharConfiguracoes()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">💾 Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="status-bar" id="statusBar" style="display:none">
         <span id="statusText">💾 Carregando...</span>
         <span>💡 Ctrl+N = Novo | Ctrl+S = Salvar | ESC = Fechar</span>
@@ -1327,15 +1439,18 @@
         const GITHUB_FILE_PATH = 'log.json';
         const GITHUB_ROTEIROS_PATH = 'Roteiros.json';
         const GITHUB_SENHAS_PATH = 'Snhs.json';
+        const GITHUB_LOG_USUARIOS_PATH = 'log_user.json';
         const GITHUB_BRANCH = 'main';
 
         const STORAGE_KEY = 'audiovisual_cards_v5';
         const ROTEIROS_KEY = 'audiovisual_roteiros_v1';
         const SESSION_KEY = 'audiovisual_session';
         const TOKEN_KEY = 'github_token_v5';
+        const LOG_USUARIOS_KEY = 'audiovisual_log_usuarios_v1';
+        const ZOOM_KEY = 'audiovisual_zoom_v1';
 
         const USUARIOS_PADRAO = [
-            { id: 1, nome: 'admin_cleverson', senha: '123456789', email: 'cleverson@exemplo.com', ativo: true }
+            { id: 1, nome: 'admin_cleverson', senha: '123456789', email: 'cleverson@exemplo.com', telefone: '', ativo: true }
             
         ];
 
@@ -1368,6 +1483,17 @@
         let usuariosCadastrados = [];
         let tokenValido = false;
         let dadosCarregadosDoGitHub = false;
+
+        // Ordenação por data
+        let ordenacaoDirecao = 'asc';
+
+        // Zoom dos cards
+        const ZOOM_MIN = 0.7, ZOOM_MAX = 1.5, ZOOM_STEP = 0.1;
+        let cardZoom = parseFloat(localStorage.getItem(ZOOM_KEY)) || 1;
+
+        // Log de ações do usuário
+        let logsUsuarios = [];
+        let logSyncTimeout = null;
 
         // Variável de estado do Calendário
         let dataCalendarioAtual = new Date();
@@ -1613,6 +1739,91 @@
             }
         }
 
+        // ============ LOG DE AÇÕES DO USUÁRIO ============
+        // Fuso horário fixo (Brasília) para garantir que a data/hora gravada
+        // seja sempre correta, independente do fuso configurado no dispositivo.
+        const FUSO_HORARIO_LOG = 'America/Sao_Paulo';
+
+        function obterCarimboDataHora() {
+            const dataObj = new Date();
+            return {
+                iso: dataObj.toISOString(),
+                data: dataObj.toLocaleDateString('pt-BR', { timeZone: FUSO_HORARIO_LOG }),
+                hora: dataObj.toLocaleTimeString('pt-BR', { timeZone: FUSO_HORARIO_LOG, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                dataHora: dataObj.toLocaleString('pt-BR', { timeZone: FUSO_HORARIO_LOG, dateStyle: 'short', timeStyle: 'medium' })
+            };
+        }
+
+        function carregarLogsLocais() {
+            try {
+                const dados = localStorage.getItem(LOG_USUARIOS_KEY);
+                if (dados) return JSON.parse(dados);
+            } catch (e) {}
+            return [];
+        }
+
+        function salvarLogsLocais(logs) {
+            try {
+                // Mantém no dispositivo apenas os últimos 1000 registros para não pesar o localStorage
+                localStorage.setItem(LOG_USUARIOS_KEY, JSON.stringify(logs.slice(-1000)));
+            } catch (e) {}
+        }
+
+        function registrarLogUsuario(acao, detalhes = '') {
+            if (!usuarioLogado) return;
+            const carimbo = obterCarimboDataHora();
+            const registro = {
+                id: `${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+                usuarioId: usuarioLogado.id,
+                usuario: usuarioLogado.nome,
+                acao,
+                detalhes,
+                dataHoraISO: carimbo.iso,
+                data: carimbo.data,
+                hora: carimbo.hora,
+                dataHora: carimbo.dataHora
+            };
+            logsUsuarios.push(registro);
+            salvarLogsLocais(logsUsuarios);
+            agendarSincronizacaoLog();
+        }
+
+        function agendarSincronizacaoLog(imediato = false) {
+            if (!githubToken || !tokenValido) return;
+            if (logSyncTimeout) clearTimeout(logSyncTimeout);
+            logSyncTimeout = setTimeout(async () => {
+                await sincronizarLogsUsuarios();
+                logSyncTimeout = null;
+            }, imediato ? 100 : 2000);
+        }
+
+        async function sincronizarLogsUsuarios() {
+            if (!githubToken || !tokenValido) return false;
+            try {
+                const remoto = await lerDoGitHub(GITHUB_LOG_USUARIOS_PATH);
+                const logsRemotos = remoto && Array.isArray(remoto.data) ? remoto.data : [];
+
+                // Mescla os registros locais com os remotos pelo id, evitando duplicados
+                // e preservando o histórico gravado por outros dispositivos/usuários.
+                const mapa = new Map(logsRemotos.map(l => [l.id, l]));
+                logsUsuarios.forEach(l => mapa.set(l.id, l));
+
+                const mesclado = Array.from(mapa.values()).sort((a, b) =>
+                    new Date(a.dataHoraISO) - new Date(b.dataHoraISO)
+                );
+
+                // Limita o histórico salvo no GitHub para não crescer indefinidamente
+                const limitado = mesclado.slice(-3000);
+                logsUsuarios = limitado;
+                salvarLogsLocais(logsUsuarios);
+
+                return await salvarNoGitHub(GITHUB_LOG_USUARIOS_PATH, logsUsuarios, remoto ? remoto.sha : null);
+            } catch (error) {
+                console.error('❌ Erro ao sincronizar log de usuários:', error);
+                return false;
+            }
+        }
+
         async function fazerLogin() {
             const usuario = document.getElementById('loginUsuario').value.trim();
             const senha = document.getElementById('loginSenha').value.trim();
@@ -1702,6 +1913,7 @@
                         mostrarToast(`👋 Bem-vindo, ${usuarioEncontrado.nome}! (Offline)`);
                     }
                     
+                    registrarLogUsuario('login', `Login realizado (${tokenValido ? 'online' : 'offline'})`);
                     await inicializarSistema();
                 } else {
                     const usuarioExiste = usuariosCadastrados.find(u => 
@@ -1728,8 +1940,13 @@
             }, 5000);
         }
 
-        function fazerLogout() {
+        async function fazerLogout() {
             if (confirm('Tem certeza que deseja sair?')) {
+                registrarLogUsuario('logout', 'Logout realizado pelo usuário');
+                if (githubToken && tokenValido) {
+                    try { await sincronizarLogsUsuarios(); } catch (e) {}
+                }
+
                 localStorage.removeItem(SESSION_KEY);
                 usuarioLogado = null;
                 
@@ -1788,6 +2005,7 @@
                     document.getElementById('statusBar').style.display = 'flex';
                     document.getElementById('usuarioNome').textContent = dados.nome;
                     
+                    registrarLogUsuario('sessao_retomada', 'Sessão restaurada automaticamente');
                     setTimeout(async () => await inicializarSistema(), 100);
                     return true;
                 } catch (e) {
@@ -1795,6 +2013,129 @@
                 }
             }
             return false;
+        }
+
+        // ============ CONFIGURAÇÕES DA CONTA ============
+        async function abrirConfiguracoes() {
+            if (!usuarioLogado) return;
+
+            // Recarrega a lista de usuários para garantir que os campos (ex: telefone)
+            // estejam com os dados mais recentes, mesmo após restaurar a sessão.
+            await carregarUsuarios();
+            const usuarioAtual = usuariosCadastrados.find(u => u.id === usuarioLogado.id) || usuarioLogado;
+
+            document.getElementById('configErro').style.display = 'none';
+            document.getElementById('cfgNome').value = usuarioAtual.nome || '';
+            document.getElementById('cfgEmail').value = usuarioAtual.email || '';
+            document.getElementById('cfgTelefone').value = usuarioAtual.telefone || '';
+            document.getElementById('cfgSenha').value = '';
+            document.getElementById('cfgSenhaConfirma').value = '';
+
+            document.getElementById('configOverlay').style.display = 'flex';
+        }
+
+        function fecharConfiguracoes(event) {
+            if (!event || event.target === document.getElementById('configOverlay')) {
+                document.getElementById('configOverlay').style.display = 'none';
+            }
+        }
+
+        function mostrarErroConfiguracoes(mensagem) {
+            const erro = document.getElementById('configErro');
+            erro.textContent = '❌ ' + mensagem;
+            erro.style.display = 'block';
+        }
+
+        async function salvarConfiguracoes(event) {
+            event.preventDefault();
+            if (!usuarioLogado) return;
+
+            const novoNome = document.getElementById('cfgNome').value.trim();
+            const novoEmail = document.getElementById('cfgEmail').value.trim();
+            const novoTelefone = document.getElementById('cfgTelefone').value.trim();
+            const novaSenha = document.getElementById('cfgSenha').value;
+            const confirmaSenha = document.getElementById('cfgSenhaConfirma').value;
+
+            document.getElementById('configErro').style.display = 'none';
+
+            if (!novoNome) {
+                mostrarErroConfiguracoes('O nome de usuário não pode ficar em branco!');
+                return;
+            }
+
+            const nomeEmUsoPorOutro = usuariosCadastrados.some(u =>
+                u.id !== usuarioLogado.id && u.nome.toLowerCase() === novoNome.toLowerCase()
+            );
+            if (nomeEmUsoPorOutro) {
+                mostrarErroConfiguracoes('Já existe outro usuário com esse nome!');
+                return;
+            }
+
+            if (novaSenha || confirmaSenha) {
+                if (novaSenha.length < 6) {
+                    mostrarErroConfiguracoes('A nova senha deve ter pelo menos 6 caracteres!');
+                    return;
+                }
+                if (novaSenha !== confirmaSenha) {
+                    mostrarErroConfiguracoes('As senhas não coincidem!');
+                    return;
+                }
+            }
+
+            const idx = usuariosCadastrados.findIndex(u => u.id === usuarioLogado.id);
+            if (idx < 0) {
+                mostrarErroConfiguracoes('Usuário não encontrado. Faça login novamente.');
+                return;
+            }
+
+            const camposAlterados = [];
+            if (usuariosCadastrados[idx].nome !== novoNome) camposAlterados.push('nome');
+            if ((usuariosCadastrados[idx].email || '') !== novoEmail) camposAlterados.push('email');
+            if ((usuariosCadastrados[idx].telefone || '') !== novoTelefone) camposAlterados.push('telefone');
+            if (novaSenha) camposAlterados.push('senha');
+
+            usuariosCadastrados[idx] = {
+                ...usuariosCadastrados[idx],
+                nome: novoNome,
+                email: novoEmail,
+                telefone: novoTelefone,
+                senha: novaSenha ? novaSenha : usuariosCadastrados[idx].senha
+            };
+
+            usuarioLogado = { ...usuarioLogado, nome: novoNome, email: novoEmail, telefone: novoTelefone };
+            localStorage.setItem(SESSION_KEY, JSON.stringify({
+                id: usuarioLogado.id,
+                nome: usuarioLogado.nome,
+                email: usuarioLogado.email
+            }));
+            localStorage.setItem('audiovisual_usuarios', JSON.stringify(usuariosCadastrados));
+            document.getElementById('usuarioNome').textContent = usuarioLogado.nome;
+
+            document.getElementById('configOverlay').style.display = 'none';
+
+            if (camposAlterados.length > 0) {
+                registrarLogUsuario('atualizar_perfil', `Campos alterados: ${camposAlterados.join(', ')}`);
+            }
+
+            if (githubToken && tokenValido) {
+                mostrarToast('💾 Salvando alterações...');
+                const ok = await salvarUsuariosNoGitHub();
+                mostrarToast(ok ? '✅ Configurações atualizadas e sincronizadas!' : '⚠️ Salvo localmente, mas houve falha ao sincronizar com o GitHub.', ok ? 'success' : 'danger');
+            } else {
+                mostrarToast('💾 Configurações salvas localmente (sem sincronização, token ausente).', 'danger');
+            }
+        }
+
+        async function salvarUsuariosNoGitHub() {
+            if (!githubToken || !tokenValido) return false;
+            try {
+                const remoto = await lerDoGitHub(GITHUB_SENHAS_PATH);
+                const sha = remoto ? remoto.sha : null;
+                return await salvarNoGitHub(GITHUB_SENHAS_PATH, { usuarios: usuariosCadastrados }, sha);
+            } catch (error) {
+                console.error('❌ Erro ao salvar usuários no GitHub:', error);
+                return false;
+            }
         }
 
         // ============ SISTEMA PRINCIPAL ============
@@ -1940,18 +2281,31 @@
             }
             mostrarToast('🔄 Sincronizando com GitHub...');
             await sincronizarComGitHub(true);
+            await sincronizarLogsUsuarios();
             mostrarToast('✅ Sincronização concluída!');
+            registrarLogUsuario('sincronizar_manual', 'Sincronização manual com o GitHub');
         }
 
         async function inicializarSistema() {
             cards = carregarDadosLocais();
             roteiros = carregarRoteirosLocais();
 
+            // Mescla os logs já salvos localmente com os que já estejam em memória
+            // (ex.: log de login/sessão registrado antes desta função rodar)
+            const logsSalvos = carregarLogsLocais();
+            const mapaLogsInit = new Map(logsSalvos.map(l => [l.id, l]));
+            logsUsuarios.forEach(l => mapaLogsInit.set(l.id, l));
+            logsUsuarios = Array.from(mapaLogsInit.values());
+            salvarLogsLocais(logsUsuarios);
+
+            aplicarZoom();
+
             if (githubToken && tokenValido) {
                 atualizarSyncIndicator('syncing');
                 try {
                     await sincronizarComGitHub(false);
                     iniciarSincronizacaoPeriodica();
+                    agendarSincronizacaoLog(true);
                 } catch (e) {
                     atualizarSyncIndicator('offline');
                     if (cards.length === 0) carregarDadosDemo();
@@ -1969,6 +2323,7 @@
                     try {
                         await salvarNoGitHub(GITHUB_FILE_PATH, cards, lastSyncData);
                         await salvarNoGitHub(GITHUB_ROTEIROS_PATH, roteiros, lastSyncRoteiros);
+                        await sincronizarLogsUsuarios();
                     } catch (err) {}
                 }
             });
@@ -2025,7 +2380,51 @@
             if (formato) filtrados = filtrados.filter(c => c.formato === formato);
             const prioridade = document.getElementById('filtroPrioridade')?.value || '';
             if (prioridade) filtrados = filtrados.filter(c => c.prioridade === prioridade);
+
+            const campoOrdenacao = document.getElementById('ordenacaoCampo')?.value || '';
+            if (campoOrdenacao) {
+                filtrados = [...filtrados].sort((a, b) => {
+                    const va = a[campoOrdenacao];
+                    const vb = b[campoOrdenacao];
+                    // Cards sem a data selecionada ficam sempre por último, independente da direção
+                    if (!va && !vb) return 0;
+                    if (!va) return 1;
+                    if (!vb) return -1;
+                    const diff = new Date(va) - new Date(vb);
+                    return ordenacaoDirecao === 'asc' ? diff : -diff;
+                });
+            }
+
             return filtrados;
+        }
+
+        function alternarDirecaoOrdenacao() {
+            ordenacaoDirecao = ordenacaoDirecao === 'asc' ? 'desc' : 'asc';
+            const btn = document.getElementById('ordenacaoDirecaoBtn');
+            if (btn) {
+                btn.textContent = ordenacaoDirecao === 'asc' ? '⬆️' : '⬇️';
+                btn.title = ordenacaoDirecao === 'asc' ? 'Ordem crescente (mais antigo primeiro)' : 'Ordem decrescente (mais recente primeiro)';
+            }
+            renderCards();
+        }
+
+        // ============ ZOOM DOS CARDS ============
+        function aplicarZoom() {
+            const grid = document.getElementById('cardsGrid');
+            if (grid) grid.style.zoom = cardZoom;
+            const label = document.getElementById('zoomLabel');
+            if (label) label.textContent = Math.round(cardZoom * 100) + '%';
+            localStorage.setItem(ZOOM_KEY, cardZoom);
+        }
+
+        function alterarZoom(delta) {
+            cardZoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, +(cardZoom + delta).toFixed(2)));
+            aplicarZoom();
+        }
+
+        function resetarZoom() {
+            cardZoom = 1;
+            aplicarZoom();
         }
 
         function getProgressoChecklist(card) {
@@ -2118,11 +2517,13 @@
         function moverStage(id, novoStage) {
             const card = cards.find(c => c.id === id);
             if (card) {
+                const stageAnterior = card.stage;
                 card.stage = novoStage;
                 card.version = (card.version || 0) + 1;
                 salvarDadosLocais(cards);
                 renderCards();
                 mostrarToast(`✅ Movido para: ${STAGES[novoStage].nome}`);
+                registrarLogUsuario('mover_etapa', `"${card.titulo}": ${stageAnterior} → ${novoStage}`);
                 agendarSincronizacao(true);
             }
         }
@@ -2135,6 +2536,7 @@
                 salvarDadosLocais(cards);
                 renderCards();
                 mostrarToast('📚 Conteúdo movido para a Gaveta!');
+                registrarLogUsuario('mover_gaveta', `"${card.titulo}" movido para a Gaveta`);
                 agendarSincronizacao(true);
             }
         }
@@ -2147,6 +2549,7 @@
                 salvarDadosLocais(cards);
                 renderCards();
                 mostrarToast('🗑 Conteúdo excluído permanentemente!');
+                registrarLogUsuario('excluir_card', `"${card.titulo}" excluído`);
                 agendarSincronizacao(true);
             }
         }
@@ -2333,10 +2736,12 @@
                     cards[idx] = { ...cards[idx], ...dados, version: (cards[idx].version || 0) + 1, excluido: false };
                 }
                 mostrarToast('✅ Conteúdo atualizado!');
+                registrarLogUsuario('editar_card', `"${dados.titulo}" atualizado`);
             } else {
                 const newCard = { ...dados, id: Date.now(), version: 1, excluido: false };
                 cards.push(newCard);
                 mostrarToast('🎉 Novo conteúdo criado!');
+                registrarLogUsuario('criar_card', `"${dados.titulo}" criado`);
             }
 
             salvarDadosLocais(cards);
@@ -2382,6 +2787,7 @@
         function salvarRoteiro() {
             if (cardRoteiroAtual === null) return;
             const texto = document.getElementById('roteiroTexto').value;
+            const card = cards.find(c => c.id === cardRoteiroAtual);
             
             if (texto.trim()) {
                 roteiros[cardRoteiroAtual] = texto;
@@ -2393,6 +2799,7 @@
             document.getElementById('roteiroOverlay').style.display = 'none';
             renderCards();
             mostrarToast('📝 Roteiro salvo!');
+            registrarLogUsuario('salvar_roteiro', `Roteiro de "${card ? card.titulo : cardRoteiroAtual}" salvo`);
             cardRoteiroAtual = null;
             agendarSincronizacao(true);
         }
@@ -2509,6 +2916,7 @@
             a.click();
             URL.revokeObjectURL(url);
             mostrarToast('📥 Backup exportado!');
+            registrarLogUsuario('exportar_dados', `${cardsLimpos.length} conteúdos exportados`);
         }
 
         function importarDados(event) {
@@ -2530,6 +2938,7 @@
                         salvarRoteirosLocais(roteiros);
                         renderCards();
                         mostrarToast(`📤 ${cards.length} conteúdos importados!`);
+                        registrarLogUsuario('importar_dados', `${cards.length} conteúdos importados`);
                         agendarSincronizacao(true);
                     }
                 } catch (err) {
@@ -2583,6 +2992,8 @@
         });
 
         // ============ INIT ============
+        aplicarZoom();
+
         if (!verificarSessao()) {
             document.getElementById('loginOverlay').style.display = 'flex';
         }
