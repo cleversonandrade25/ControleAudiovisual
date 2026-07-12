@@ -1,74 +1,21 @@
 [
   {
-    "timestamp": "2026-07-10T14:32:15.123Z",
-    "usuario": "Cleverson Andrade",
-    "usuarioId": 1,
-    "acao": "LOGIN",
-    "detalhes": "UsuÃÂÃÂÃÂÃÂ¡rio fez login no sistema",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-10T22:22:43.236Z",
-    "usuario": "Clevs",
-    "usuarioId": 1,
-    "acao": "LOGIN",
-    "detalhes": "UsuÃÂÃÂ¡rio fez login no sistema",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-10T22:24:12.725Z",
-    "usuario": "Clevs",
-    "usuarioId": 1,
-    "acao": "CRIAR",
-    "detalhes": "Novo conteÃÂÃÂºdo \"Thats all folks\" criado",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-10T22:25:18.376Z",
-    "usuario": "Clevs",
-    "usuarioId": 1,
-    "acao": "CRIAR",
-    "detalhes": "Novo conteÃÂÃÂºdo \"Thats all folks\" criado",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-10T22:26:01.806Z",
-    "usuario": "Clevs",
-    "usuarioId": 1,
-    "acao": "LOGOUT",
-    "detalhes": "UsuÃÂÃÂ¡rio fez logout do sistema",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-11T16:17:32.680Z",
-    "usuario": "Clevs",
-    "usuarioId": 1,
-    "acao": "LOGIN",
-    "detalhes": "UsuÃÂ¡rio fez login no sistema",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-11T16:24:50.680Z",
-    "usuario": "Clevs",
-    "usuarioId": 1,
-    "acao": "LOGOUT",
-    "detalhes": "UsuÃ¡rio fez logout do sistema",
-    "ip": "cliente"
-  },
-  {
-    "timestamp": "2026-07-11T16:25:19.157Z",
-    "usuario": "admin",
-    "usuarioId": 3,
-    "acao": "LOGIN",
-    "detalhes": "Usuário fez login no sistema",
-    "ip": "cliente"
-  },
-  {
     "timestamp": "2026-07-11T16:26:26.016Z",
     "usuario": "admin",
     "usuarioId": 3,
     "acao": "LOGOUT",
     "detalhes": "Usuário fez logout do sistema",
     "ip": "cliente"
+  },
+  {
+    "id": "1783863008166_wn66jm",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-12T13:30:08.165Z",
+    "data": "12/07/2026",
+    "hora": "10:30:08",
+    "dataHora": "12/07/2026, 10:30:08"
   }
 ]
