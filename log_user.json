@@ -50,5 +50,16 @@
     "data": "12/07/2026",
     "hora": "10:32:25",
     "dataHora": "12/07/2026, 10:32:25"
+  },
+  {
+    "id": "1783863152302_wqox6w",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "sessao_retomada",
+    "detalhes": "Sessão restaurada automaticamente",
+    "dataHoraISO": "2026-07-12T13:32:32.301Z",
+    "data": "12/07/2026",
+    "hora": "10:32:32",
+    "dataHora": "12/07/2026, 10:32:32"
   }
 ]
