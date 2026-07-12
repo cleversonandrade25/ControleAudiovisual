@@ -105,5 +105,16 @@
     "data": "12/07/2026",
     "hora": "10:35:09",
     "dataHora": "12/07/2026, 10:35:09"
+  },
+  {
+    "id": "1783863326657_cdiass",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-12T13:35:26.657Z",
+    "data": "12/07/2026",
+    "hora": "10:35:26",
+    "dataHora": "12/07/2026, 10:35:26"
   }
 ]
