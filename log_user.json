@@ -449,5 +449,16 @@
     "data": "13/07/2026",
     "hora": "19:32:14",
     "dataHora": "13/07/2026, 19:32:14"
+  },
+  {
+    "id": "1783981950558_ktefqq",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-13T22:32:30.557Z",
+    "data": "13/07/2026",
+    "hora": "19:32:30",
+    "dataHora": "13/07/2026, 19:32:30"
   }
 ]
