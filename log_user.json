@@ -328,5 +328,16 @@
     "data": "13/07/2026",
     "hora": "14:26:52",
     "dataHora": "13/07/2026, 14:26:52"
+  },
+  {
+    "id": "1783963622159_2hfxmf",
+    "usuarioId": 3,
+    "usuario": "Fabiola",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-13T17:27:02.158Z",
+    "data": "13/07/2026",
+    "hora": "14:27:02",
+    "dataHora": "13/07/2026, 14:27:02"
   }
 ]
