@@ -471,5 +471,16 @@
     "data": "13/07/2026",
     "hora": "19:35:42",
     "dataHora": "13/07/2026, 19:35:42"
+  },
+  {
+    "id": "1783982177121_nu2rxa",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_etapa",
+    "detalhes": "\"Achados e perdidos - Gravação SP1\": posprod → aprov",
+    "dataHoraISO": "2026-07-13T22:36:17.121Z",
+    "data": "13/07/2026",
+    "hora": "19:36:17",
+    "dataHora": "13/07/2026, 19:36:17"
   }
 ]
