@@ -101,18 +101,18 @@
   {
     "titulo": "Achados e perdidos - Gravação SP1",
     "formato": "Reels",
-    "categoria": "Entretenimento",
+    "categoria": "Bastidores",
     "prioridade": "alta",
-    "stage": "prod",
+    "stage": "posprod",
     "responsavel": "Cleverson/Jr",
     "dataCriacao": "2026-07-07",
     "tags": [],
     "descricao": "Temos alguns objetos curisosos. Podemos aproveitar e gravar lá.",
     "checklist": {
-      "sinopse": false,
-      "objetivo": false,
-      "estrutura": false,
-      "roteiro": false
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
     },
     "metricas": {},
     "dataGravacao": "2026-07-13",
@@ -120,7 +120,7 @@
     "dataEntrega": "2026-07-14",
     "linkArmazenamento": "",
     "id": 1783789945241,
-    "version": 1,
+    "version": 2,
     "excluido": false
   },
   {
