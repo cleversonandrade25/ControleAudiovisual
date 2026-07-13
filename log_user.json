@@ -383,5 +383,16 @@
     "data": "13/07/2026",
     "hora": "17:06:26",
     "dataHora": "13/07/2026, 17:06:26"
+  },
+  {
+    "id": "1783973214681_qook93",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Como e feita a manutencao dos trilhos\" atualizado",
+    "dataHoraISO": "2026-07-13T20:06:54.680Z",
+    "data": "13/07/2026",
+    "hora": "17:06:54",
+    "dataHora": "13/07/2026, 17:06:54"
   }
 ]
