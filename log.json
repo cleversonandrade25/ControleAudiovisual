@@ -9,7 +9,7 @@
     "dataCriacao": "2026-07-06",
     "responsavel": "Cleverson/Jr",
     "tags": [],
-    "descricao": "Acompanhar como e feita a manutencao dos trilhos durante a madrugada",
+    "descricao": "Acompanhar como e feita a manutencao dos trilhos durante a madrugada.\nAcompanhar a Record na gravação.\ntroca de 50 metros de trilho\n21h no CCO",
     "checklist": {
       "sinopse": true,
       "objetivo": true,
@@ -17,11 +17,11 @@
       "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "2026-07-15",
+    "dataGravacao": "2026-07-14",
     "dataEdicao": "2026-07-16",
     "dataEntrega": "2026-07-17",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDZuQTYalG3S7teVSt49iw9AaZPBLOv4nS8g2Hnu94E9RQ?e=MFaomY",
-    "version": 9,
+    "version": 10,
     "excluido": false
   },
   {
