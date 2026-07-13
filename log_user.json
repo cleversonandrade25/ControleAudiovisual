@@ -317,5 +317,16 @@
     "data": "13/07/2026",
     "hora": "14:26:42",
     "dataHora": "13/07/2026, 14:26:42"
+  },
+  {
+    "id": "1783963612291_r78wsi",
+    "usuarioId": 3,
+    "usuario": "Fabiola",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-13T17:26:52.291Z",
+    "data": "13/07/2026",
+    "hora": "14:26:52",
+    "dataHora": "13/07/2026, 14:26:52"
   }
 ]
