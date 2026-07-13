@@ -39,6 +39,14 @@
       "email": "junior@exemplo.com",
       "ativo": true,
       "telefone": "00000000000"
+    },
+{
+      "id": 6,
+      "nome": "Marcia",
+      "senha": "123",
+      "email": "marcia@exemplo.com",
+      "ativo": true,
+      "telefone": "00000000000"
     }
   ]
 }
