@@ -5,7 +5,7 @@
     "formato": "Reels",
     "categoria": "Bastidores",
     "prioridade": "alta",
-    "stage": "prod",
+    "stage": "preprod",
     "dataCriacao": "2026-07-06",
     "responsavel": "Cleverson/Jr",
     "tags": [],
@@ -21,7 +21,7 @@
     "dataEdicao": "2026-07-16",
     "dataEntrega": "2026-07-17",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDZuQTYalG3S7teVSt49iw9AaZPBLOv4nS8g2Hnu94E9RQ?e=MFaomY",
-    "version": 8,
+    "version": 9,
     "excluido": false
   },
   {
