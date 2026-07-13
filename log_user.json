@@ -339,5 +339,16 @@
     "data": "13/07/2026",
     "hora": "14:27:02",
     "dataHora": "13/07/2026, 14:27:02"
+  },
+  {
+    "id": "1783964127918_b2pcfh",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-13T17:35:27.917Z",
+    "data": "13/07/2026",
+    "hora": "14:35:27",
+    "dataHora": "13/07/2026, 14:35:27"
   }
 ]
