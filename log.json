@@ -622,5 +622,30 @@
     "id": 1783862278094,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Live - Conselho administrativo - Presidencia",
+    "formato": "Feed",
+    "categoria": "Institucional",
+    "prioridade": "alta",
+    "stage": "desenv",
+    "responsavel": "Cleverson",
+    "dataCriacao": "2026-07-13",
+    "tags": [],
+    "descricao": "live as 15h no cco - sala vitrine",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-15",
+    "dataEdicao": "2026-07-15",
+    "dataEntrega": "2026-07-15",
+    "linkArmazenamento": "",
+    "id": 1783974057791,
+    "version": 1,
+    "excluido": false
   }
 ]
