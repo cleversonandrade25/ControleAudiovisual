@@ -394,5 +394,27 @@
     "data": "13/07/2026",
     "hora": "17:06:54",
     "dataHora": "13/07/2026, 17:06:54"
+  },
+  {
+    "id": "1783974057821_ndgomn",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Live - Conselho administrativo - Presidencia\" criado",
+    "dataHoraISO": "2026-07-13T20:20:57.816Z",
+    "data": "13/07/2026",
+    "hora": "17:20:57",
+    "dataHora": "13/07/2026, 17:20:57"
+  },
+  {
+    "id": "1783974797822_lwcjti",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Como e feita a manutencao dos trilhos\" atualizado",
+    "dataHoraISO": "2026-07-13T20:33:17.820Z",
+    "data": "13/07/2026",
+    "hora": "17:33:17",
+    "dataHora": "13/07/2026, 17:33:17"
   }
 ]
