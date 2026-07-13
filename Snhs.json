@@ -13,21 +13,32 @@
       "nome": "Gilson",
       "senha": "123",
       "email": "gilson@exemplo.com",
-      "ativo": true
+      "ativo": true,
+ "telefone": "00000000000"
     },
     {
       "id": 3,
-      "nome": "admin",
-      "senha": "admin123",
-      "email": "admin@exemplo.com",
-      "ativo": true
+      "nome": "Fabiola",
+      "senha": "123",
+      "email": "fabiola@exemplo.com",
+      "ativo": true,
+ "telefone": "00000000000"
     },
     {
       "id": 4,
-      "nome": "Gi",
+      "nome": "Mariana",
       "senha": "123",
-      "email": "cleverson@exemplo.com",
-      "ativo": true
+      "email": "mariana@exemplo.com",
+      "ativo": true,
+ "telefone": "00000000000"
+    },
+{
+      "id": 5,
+      "nome": "Junior",
+      "senha": "123",
+      "email": "junior@exemplo.com",
+      "ativo": true,
+      "telefone": "00000000000"
     }
   ]
 }
