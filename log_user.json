@@ -416,5 +416,16 @@
     "data": "13/07/2026",
     "hora": "17:33:17",
     "dataHora": "13/07/2026, 17:33:17"
+  },
+  {
+    "id": "1783974961130_0mxj4p",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-13T20:36:01.129Z",
+    "data": "13/07/2026",
+    "hora": "17:36:01",
+    "dataHora": "13/07/2026, 17:36:01"
   }
 ]
