@@ -735,5 +735,16 @@
     "data": "14/07/2026",
     "hora": "14:56:51",
     "dataHora": "14/07/2026, 14:56:51"
+  },
+  {
+    "id": "1784051851815_qsu1j9",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_gaveta",
+    "detalhes": "\"Achados e perdidos - Interna\" movido para a Gaveta",
+    "dataHoraISO": "2026-07-14T17:57:31.814Z",
+    "data": "14/07/2026",
+    "hora": "14:57:31",
+    "dataHora": "14/07/2026, 14:57:31"
   }
 ]
