@@ -680,5 +680,16 @@
     "data": "14/07/2026",
     "hora": "12:53:46",
     "dataHora": "14/07/2026, 12:53:46"
+  },
+  {
+    "id": "1784044491498_6xkg7e",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Achados e perdidos - Stories\" atualizado",
+    "dataHoraISO": "2026-07-14T15:54:51.496Z",
+    "data": "14/07/2026",
+    "hora": "12:54:51",
+    "dataHora": "14/07/2026, 12:54:51"
   }
 ]
