@@ -672,5 +672,30 @@
     "id": 1784044017930,
     "version": 2,
     "excluido": false
+  },
+  {
+    "titulo": "Achados e perdidos",
+    "formato": "YouTube",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "Cleverson",
+    "dataCriacao": "2026-07-13",
+    "tags": [],
+    "descricao": "Veiculação interna sobre o recorde de devoluçao de 40% do itens encontrados",
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-13",
+    "dataEdicao": "2026-07-14",
+    "dataEntrega": "2026-07-14",
+    "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDMT4de19LGTYh0EVik2IoaAVqRSKodCYO7XIVHhifTaGg?e=LgMotS",
+    "id": 1784044157998,
+    "version": 1,
+    "excluido": false
   }
 ]
