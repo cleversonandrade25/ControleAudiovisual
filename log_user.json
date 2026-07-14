@@ -592,5 +592,27 @@
     "data": "14/07/2026",
     "hora": "12:49:26",
     "dataHora": "14/07/2026, 12:49:26"
+  },
+  {
+    "id": "1784044172322_415vot",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_etapa",
+    "detalhes": "\"Achados e perdidos\": prod → posprod",
+    "dataHoraISO": "2026-07-14T15:49:32.322Z",
+    "data": "14/07/2026",
+    "hora": "12:49:32",
+    "dataHora": "14/07/2026, 12:49:32"
+  },
+  {
+    "id": "1784044174085_lzsc7x",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_etapa",
+    "detalhes": "\"Achados e perdidos\": posprod → aprov",
+    "dataHoraISO": "2026-07-14T15:49:34.085Z",
+    "data": "14/07/2026",
+    "hora": "12:49:34",
+    "dataHora": "14/07/2026, 12:49:34"
   }
 ]
