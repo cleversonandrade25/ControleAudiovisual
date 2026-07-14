@@ -103,7 +103,7 @@
     "formato": "Reels",
     "categoria": "Entretenimento",
     "prioridade": "alta",
-    "stage": "posprod",
+    "stage": "gaveta",
     "responsavel": "Cleverson/Jr",
     "dataCriacao": "2026-07-07",
     "tags": [],
@@ -120,7 +120,7 @@
     "dataEntrega": "2026-07-14",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDMT4de19LGTYh0EVik2IoaAVqRSKodCYO7XIVHhifTaGg?e=LgMotS",
     "id": 1783789945241,
-    "version": 8,
+    "version": 9,
     "excluido": false
   },
   {
