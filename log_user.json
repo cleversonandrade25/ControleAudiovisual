@@ -515,5 +515,16 @@
     "data": "14/07/2026",
     "hora": "12:44:27",
     "dataHora": "14/07/2026, 12:44:27"
+  },
+  {
+    "id": "1784044017938_80rpdk",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Achados e perdidos\" criado",
+    "dataHoraISO": "2026-07-14T15:46:57.937Z",
+    "data": "14/07/2026",
+    "hora": "12:46:57",
+    "dataHora": "14/07/2026, 12:46:57"
   }
 ]
