@@ -691,5 +691,16 @@
     "data": "14/07/2026",
     "hora": "12:54:51",
     "dataHora": "14/07/2026, 12:54:51"
+  },
+  {
+    "id": "1784044503581_61qisk",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Achados e perdidos - Interna\" atualizado",
+    "dataHoraISO": "2026-07-14T15:55:03.581Z",
+    "data": "14/07/2026",
+    "hora": "12:55:03",
+    "dataHora": "14/07/2026, 12:55:03"
   }
 ]
