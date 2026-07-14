@@ -746,5 +746,16 @@
     "data": "14/07/2026",
     "hora": "14:57:31",
     "dataHora": "14/07/2026, 14:57:31"
+  },
+  {
+    "id": "1784051860536_ve3hq5",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_gaveta",
+    "detalhes": "\"Achados e perdidos - Stories\" movido para a Gaveta",
+    "dataHoraISO": "2026-07-14T17:57:40.536Z",
+    "data": "14/07/2026",
+    "hora": "14:57:40",
+    "dataHora": "14/07/2026, 14:57:40"
   }
 ]
