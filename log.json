@@ -647,5 +647,30 @@
     "id": 1783974057791,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Achados e perdidos",
+    "formato": "Stories",
+    "categoria": "Institucional",
+    "prioridade": "media",
+    "stage": "aprov",
+    "responsavel": "Cleverson",
+    "dataCriacao": "2026-07-13",
+    "tags": [],
+    "descricao": "Storie informando sobre o achados e perdidos na estação da sé",
+    "checklist": {
+      "sinopse": true,
+      "objetivo": true,
+      "estrutura": true,
+      "roteiro": true
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-13",
+    "dataEdicao": "2026-07-14",
+    "dataEntrega": "2026-07-14",
+    "linkArmazenamento": "",
+    "id": 1784044017930,
+    "version": 1,
+    "excluido": false
   }
 ]
