@@ -768,5 +768,16 @@
     "data": "14/07/2026",
     "hora": "14:58:01",
     "dataHora": "14/07/2026, 14:58:01"
+  },
+  {
+    "id": "1784051886910_oe92h2",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_gaveta",
+    "detalhes": "\"Achados e perdidos - Reels\" movido para a Gaveta",
+    "dataHoraISO": "2026-07-14T17:58:06.910Z",
+    "data": "14/07/2026",
+    "hora": "14:58:06",
+    "dataHora": "14/07/2026, 14:58:06"
   }
 ]
