@@ -526,5 +526,16 @@
     "data": "14/07/2026",
     "hora": "12:46:57",
     "dataHora": "14/07/2026, 12:46:57"
+  },
+  {
+    "id": "1784044049172_qqauaw",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Achados e perdidos - Gravação SP1\" atualizado",
+    "dataHoraISO": "2026-07-14T15:47:29.172Z",
+    "data": "14/07/2026",
+    "hora": "12:47:29",
+    "dataHora": "14/07/2026, 12:47:29"
   }
 ]
