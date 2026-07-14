@@ -614,5 +614,16 @@
     "data": "14/07/2026",
     "hora": "12:49:34",
     "dataHora": "14/07/2026, 12:49:34"
+  },
+  {
+    "id": "1784044183225_02r68k",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "sincronizar_manual",
+    "detalhes": "Sincronização manual com o GitHub",
+    "dataHoraISO": "2026-07-14T15:49:43.224Z",
+    "data": "14/07/2026",
+    "hora": "12:49:43",
+    "dataHora": "14/07/2026, 12:49:43"
   }
 ]
