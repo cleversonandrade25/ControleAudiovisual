@@ -678,7 +678,7 @@
     "formato": "YouTube",
     "categoria": "Educativo",
     "prioridade": "media",
-    "stage": "desenv",
+    "stage": "prod",
     "responsavel": "Cleverson",
     "dataCriacao": "2026-07-13",
     "tags": [],
@@ -695,7 +695,7 @@
     "dataEntrega": "2026-07-14",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgDMT4de19LGTYh0EVik2IoaAVqRSKodCYO7XIVHhifTaGg?e=LgMotS",
     "id": 1784044157998,
-    "version": 2,
+    "version": 4,
     "excluido": false
   }
 ]
