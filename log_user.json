@@ -658,5 +658,16 @@
     "data": "14/07/2026",
     "hora": "12:53:04",
     "dataHora": "14/07/2026, 12:53:04"
+  },
+  {
+    "id": "1784044393736_lgfqtc",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Achados e perdidos\" atualizado",
+    "dataHoraISO": "2026-07-14T15:53:13.736Z",
+    "data": "14/07/2026",
+    "hora": "12:53:13",
+    "dataHora": "14/07/2026, 12:53:13"
   }
 ]
