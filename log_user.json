@@ -757,5 +757,16 @@
     "data": "14/07/2026",
     "hora": "14:57:40",
     "dataHora": "14/07/2026, 14:57:40"
+  },
+  {
+    "id": "1784051881167_bw3p6f",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Achados e perdidos - Reels\" atualizado",
+    "dataHoraISO": "2026-07-14T17:58:01.167Z",
+    "data": "14/07/2026",
+    "hora": "14:58:01",
+    "dataHora": "14/07/2026, 14:58:01"
   }
 ]
