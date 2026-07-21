@@ -697,5 +697,30 @@
     "id": 1784044157998,
     "version": 9,
     "excluido": false
+  },
+  {
+    "titulo": "Criosidades Monotrilho - Interno",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "posprod",
+    "responsavel": "Cleverson/Jr",
+    "dataCriacao": "2026-07-21",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-20",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1784603298892,
+    "version": 1,
+    "excluido": false
   }
 ]
