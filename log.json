@@ -78,7 +78,7 @@
     "formato": "Reels",
     "categoria": "Institucional",
     "prioridade": "alta",
-    "stage": "aprov",
+    "stage": "gaveta",
     "responsavel": "Cleverson",
     "dataCriacao": "2026-07-11",
     "tags": [],
@@ -95,7 +95,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgBz9np4wFarQLUHO8ywA7AxAe9CvGAwOy5tAmFDFNOn6-A?e=Q1HL4h",
     "id": 1783789019369,
-    "version": 2,
+    "version": 3,
     "excluido": false
   },
   {
