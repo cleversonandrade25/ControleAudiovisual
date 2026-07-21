@@ -966,5 +966,16 @@
     "data": "21/07/2026",
     "hora": "00:42:00",
     "dataHora": "21/07/2026, 00:42:00"
+  },
+  {
+    "id": "1784605337643_5zctkh",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Criosidades Monotrilho - Redes\" atualizado",
+    "dataHoraISO": "2026-07-21T03:42:17.643Z",
+    "data": "21/07/2026",
+    "hora": "00:42:17",
+    "dataHora": "21/07/2026, 00:42:17"
   }
 ]
