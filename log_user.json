@@ -1087,5 +1087,16 @@
     "data": "21/07/2026",
     "hora": "02:13:49",
     "dataHora": "21/07/2026, 02:13:49"
+  },
+  {
+    "id": "1784610838906_vcpbq5",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-21T05:13:58.906Z",
+    "data": "21/07/2026",
+    "hora": "02:13:58",
+    "dataHora": "21/07/2026, 02:13:58"
   }
 ]
