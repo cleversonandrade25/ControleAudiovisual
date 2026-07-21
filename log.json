@@ -853,7 +853,7 @@
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "media",
-    "stage": "ideia",
+    "stage": "prod",
     "responsavel": "",
     "dataCriacao": "2026-07-21",
     "tags": [],
@@ -870,7 +870,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgD0zInYYu7iQYSuuDp5a35zAf6E_lQVJe8Jx6twCQsBuRA?e=N455Ia",
     "id": 1784605398178,
-    "version": 1,
+    "version": 2,
     "excluido": false
   }
 ]
