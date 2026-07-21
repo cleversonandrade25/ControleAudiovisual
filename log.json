@@ -728,7 +728,7 @@
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "media",
-    "stage": "ideia",
+    "stage": "posprod",
     "responsavel": "",
     "dataCriacao": "2026-07-21",
     "tags": [],
@@ -740,12 +740,12 @@
       "roteiro": false
     },
     "metricas": {},
-    "dataGravacao": "",
+    "dataGravacao": "2026-07-20",
     "dataEdicao": "",
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1784603385533,
-    "version": 1,
+    "version": 2,
     "excluido": false
   }
 ]
