@@ -1065,5 +1065,16 @@
     "data": "21/07/2026",
     "hora": "00:49:06",
     "dataHora": "21/07/2026, 00:49:06"
+  },
+  {
+    "id": "1784610772651_gu31ty",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "login",
+    "detalhes": "Login realizado (online)",
+    "dataHoraISO": "2026-07-21T05:12:52.643Z",
+    "data": "21/07/2026",
+    "hora": "02:12:52",
+    "dataHora": "21/07/2026, 02:12:52"
   }
 ]
