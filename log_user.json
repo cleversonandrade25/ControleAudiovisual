@@ -988,5 +988,16 @@
     "data": "21/07/2026",
     "hora": "00:42:27",
     "dataHora": "21/07/2026, 00:42:27"
+  },
+  {
+    "id": "1784605398181_2rcmr7",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Novos Trens - Monotrilho - Redes\" criado",
+    "dataHoraISO": "2026-07-21T03:43:18.181Z",
+    "data": "21/07/2026",
+    "hora": "00:43:18",
+    "dataHora": "21/07/2026, 00:43:18"
   }
 ]
