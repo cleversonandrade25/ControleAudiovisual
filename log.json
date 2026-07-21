@@ -822,5 +822,30 @@
     "id": 1784603629116,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Visitas L17 - CCO",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-21",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-24",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1784603655460,
+    "version": 1,
+    "excluido": false
   }
 ]
