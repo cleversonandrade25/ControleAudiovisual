@@ -747,5 +747,30 @@
     "id": 1784603385533,
     "version": 2,
     "excluido": false
+  },
+  {
+    "titulo": "Gravação PSE - Record - Marcia Fu",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "preprod",
+    "responsavel": "",
+    "dataCriacao": "2026-07-21",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-21",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1784603450214,
+    "version": 1,
+    "excluido": false
   }
 ]
