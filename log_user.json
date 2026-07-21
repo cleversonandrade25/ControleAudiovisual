@@ -1010,5 +1010,16 @@
     "data": "21/07/2026",
     "hora": "00:43:45",
     "dataHora": "21/07/2026, 00:43:45"
+  },
+  {
+    "id": "1784605441766_wpj6x2",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Novos Trens - Monotrilho - Redes\" atualizado",
+    "dataHoraISO": "2026-07-21T03:44:01.765Z",
+    "data": "21/07/2026",
+    "hora": "00:44:01",
+    "dataHora": "21/07/2026, 00:44:01"
   }
 ]
