@@ -823,5 +823,16 @@
     "data": "20/07/2026",
     "hora": "23:57:41",
     "dataHora": "20/07/2026, 23:57:41"
+  },
+  {
+    "id": "1784603298897_gc5f6w",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Criosidades Monotrilho - Interno\" criado",
+    "dataHoraISO": "2026-07-21T03:08:18.897Z",
+    "data": "21/07/2026",
+    "hora": "00:08:18",
+    "dataHora": "21/07/2026, 00:08:18"
   }
 ]
