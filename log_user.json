@@ -922,5 +922,16 @@
     "data": "21/07/2026",
     "hora": "00:13:49",
     "dataHora": "21/07/2026, 00:13:49"
+  },
+  {
+    "id": "1784603655461_nq2u7k",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Visitas L17 - CCO\" criado",
+    "dataHoraISO": "2026-07-21T03:14:15.460Z",
+    "data": "21/07/2026",
+    "hora": "00:14:15",
+    "dataHora": "21/07/2026, 00:14:15"
   }
 ]
