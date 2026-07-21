@@ -645,8 +645,8 @@
     "dataEntrega": "2026-07-15",
     "linkArmazenamento": "",
     "id": 1783974057791,
-    "version": 1,
-    "excluido": false
+    "version": 2,
+    "excluido": true
   },
   {
     "titulo": "Achados e perdidos - Stories",
