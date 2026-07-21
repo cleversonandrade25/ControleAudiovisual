@@ -1021,5 +1021,16 @@
     "data": "21/07/2026",
     "hora": "00:44:01",
     "dataHora": "21/07/2026, 00:44:01"
+  },
+  {
+    "id": "1784605559551_qaky7k",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Gravação PSE - Record - Marcia Fu\" atualizado",
+    "dataHoraISO": "2026-07-21T03:45:59.550Z",
+    "data": "21/07/2026",
+    "hora": "00:45:59",
+    "dataHora": "21/07/2026, 00:45:59"
   }
 ]
