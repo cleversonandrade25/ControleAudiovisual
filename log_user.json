@@ -878,5 +878,16 @@
     "data": "21/07/2026",
     "hora": "00:10:50",
     "dataHora": "21/07/2026, 00:10:50"
+  },
+  {
+    "id": "1784603480600_0bmw36",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "excluir_card",
+    "detalhes": "\"Live - Conselho administrativo - Presidencia\" excluído",
+    "dataHoraISO": "2026-07-21T03:11:20.599Z",
+    "data": "21/07/2026",
+    "hora": "00:11:20",
+    "dataHora": "21/07/2026, 00:11:20"
   }
 ]
