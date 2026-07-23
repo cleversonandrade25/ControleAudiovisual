@@ -1109,5 +1109,16 @@
     "data": "23/07/2026",
     "hora": "09:35:39",
     "dataHora": "23/07/2026, 09:35:39"
+  },
+  {
+    "id": "1784810293019_vl9vvr",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "excluir_card",
+    "detalhes": "\"Visitas L17 - CCO\" excluído",
+    "dataHoraISO": "2026-07-23T12:38:13.019Z",
+    "data": "23/07/2026",
+    "hora": "09:38:13",
+    "dataHora": "23/07/2026, 09:38:13"
   }
 ]
