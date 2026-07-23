@@ -820,8 +820,8 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1784603629116,
-    "version": 1,
-    "excluido": false
+    "version": 2,
+    "excluido": true
   },
   {
     "titulo": "Visitas L17 - CCO",
