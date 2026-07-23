@@ -753,7 +753,7 @@
     "formato": "Reels",
     "categoria": "Educativo",
     "prioridade": "media",
-    "stage": "preprod",
+    "stage": "prod",
     "responsavel": "",
     "dataCriacao": "2026-07-21",
     "tags": [],
@@ -770,7 +770,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/r/personal/cleverson_andrade_metrosp_com_br/Documents/Arquivos/GCM/Audiovisual/Manuten%C3%A7%C3%A3o%20dos%20trilhos%20-%20Record%20-%20Marcia%20Fu?csf=1&web=1&e=lx8xCe",
     "id": 1784603450214,
-    "version": 2,
+    "version": 3,
     "excluido": false
   },
   {
