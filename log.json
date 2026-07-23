@@ -775,10 +775,10 @@
   },
   {
     "titulo": "Visitas L17 - CCO",
-    "formato": "Reels",
-    "categoria": "Educativo",
+    "formato": "YouTube",
+    "categoria": "Institucional",
     "prioridade": "media",
-    "stage": "preprod",
+    "stage": "posprod",
     "responsavel": "",
     "dataCriacao": "2026-07-21",
     "tags": [],
@@ -795,7 +795,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgANDmhTdH4uTo3rglB1F27gAXbTZoLGzT_FOKFInh6oSaw?e=JoRW5r",
     "id": 1784603591979,
-    "version": 2,
+    "version": 3,
     "excluido": false
   },
   {
