@@ -1120,5 +1120,38 @@
     "data": "23/07/2026",
     "hora": "09:38:13",
     "dataHora": "23/07/2026, 09:38:13"
+  },
+  {
+    "id": "1784810297930_b3gnvu",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "excluir_card",
+    "detalhes": "\"Visitas L17 - CCO\" excluído",
+    "dataHoraISO": "2026-07-23T12:38:17.929Z",
+    "data": "23/07/2026",
+    "hora": "09:38:17",
+    "dataHora": "23/07/2026, 09:38:17"
+  },
+  {
+    "id": "1784810337294_xyvp54",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Visitas L17 - CCO\" atualizado",
+    "dataHoraISO": "2026-07-23T12:38:57.293Z",
+    "data": "23/07/2026",
+    "hora": "09:38:57",
+    "dataHora": "23/07/2026, 09:38:57"
+  },
+  {
+    "id": "1784810376164_l6yc2g",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Visitas L17 - CCO\" atualizado",
+    "dataHoraISO": "2026-07-23T12:39:36.164Z",
+    "data": "23/07/2026",
+    "hora": "09:39:36",
+    "dataHora": "23/07/2026, 09:39:36"
   }
 ]
