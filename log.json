@@ -845,8 +845,8 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1784603655460,
-    "version": 1,
-    "excluido": false
+    "version": 2,
+    "excluido": true
   },
   {
     "titulo": "Novos Trens - Monotrilho - Redes",
