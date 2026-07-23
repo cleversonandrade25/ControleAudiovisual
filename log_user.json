@@ -1153,5 +1153,16 @@
     "data": "23/07/2026",
     "hora": "09:39:36",
     "dataHora": "23/07/2026, 09:39:36"
+  },
+  {
+    "id": "1784810417787_rfrl6h",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_etapa",
+    "detalhes": "\"Gravação PSE - Record - Marcia Fu\": preprod → prod",
+    "dataHoraISO": "2026-07-23T12:40:17.787Z",
+    "data": "23/07/2026",
+    "hora": "09:40:17",
+    "dataHora": "23/07/2026, 09:40:17"
   }
 ]
