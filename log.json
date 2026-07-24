@@ -778,7 +778,7 @@
     "formato": "YouTube",
     "categoria": "Institucional",
     "prioridade": "media",
-    "stage": "aprov",
+    "stage": "posprod",
     "responsavel": "",
     "dataCriacao": "2026-07-21",
     "tags": [],
@@ -795,7 +795,7 @@
     "dataEntrega": "2026-07-24",
     "linkArmazenamento": "https://metrosp-my.sharepoint.com/:f:/g/personal/cleverson_andrade_metrosp_com_br/IgANDmhTdH4uTo3rglB1F27gAXbTZoLGzT_FOKFInh6oSaw?e=JoRW5r",
     "id": 1784603591979,
-    "version": 5,
+    "version": 6,
     "excluido": false
   },
   {
