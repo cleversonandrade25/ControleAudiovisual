@@ -1340,5 +1340,16 @@
     "data": "24/07/2026",
     "hora": "17:37:32",
     "dataHora": "24/07/2026, 17:37:32"
+  },
+  {
+    "id": "1784925460598_l5xypc",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-24T20:37:40.598Z",
+    "data": "24/07/2026",
+    "hora": "17:37:40",
+    "dataHora": "24/07/2026, 17:37:40"
   }
 ]
