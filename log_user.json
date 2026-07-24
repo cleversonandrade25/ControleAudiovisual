@@ -1219,5 +1219,38 @@
     "data": "24/07/2026",
     "hora": "13:11:11",
     "dataHora": "24/07/2026, 13:11:11"
+  },
+  {
+    "id": "1784909529765_svimlb",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Visitas L17 - CCOx\" atualizado",
+    "dataHoraISO": "2026-07-24T16:12:09.765Z",
+    "data": "24/07/2026",
+    "hora": "13:12:09",
+    "dataHora": "24/07/2026, 13:12:09"
+  },
+  {
+    "id": "1784909566068_s9u31q",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_etapa",
+    "detalhes": "\"Visitas L17 - CCOx\": posprod → aprov",
+    "dataHoraISO": "2026-07-24T16:12:46.067Z",
+    "data": "24/07/2026",
+    "hora": "13:12:46",
+    "dataHora": "24/07/2026, 13:12:46"
+  },
+  {
+    "id": "1784909608561_hfn22l",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Visitas L17 - CCOx\" atualizado",
+    "dataHoraISO": "2026-07-24T16:13:28.560Z",
+    "data": "24/07/2026",
+    "hora": "13:13:28",
+    "dataHora": "24/07/2026, 13:13:28"
   }
 ]
