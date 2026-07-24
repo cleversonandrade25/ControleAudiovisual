@@ -1263,5 +1263,16 @@
     "data": "24/07/2026",
     "hora": "13:14:32",
     "dataHora": "24/07/2026, 13:14:32"
+  },
+  {
+    "id": "1784909699987_phaodm",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "logout",
+    "detalhes": "Logout realizado pelo usuário",
+    "dataHoraISO": "2026-07-24T16:14:59.986Z",
+    "data": "24/07/2026",
+    "hora": "13:14:59",
+    "dataHora": "24/07/2026, 13:14:59"
   }
 ]
