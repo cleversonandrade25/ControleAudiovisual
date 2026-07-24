@@ -1307,5 +1307,16 @@
     "data": "24/07/2026",
     "hora": "17:35:59",
     "dataHora": "24/07/2026, 17:35:59"
+  },
+  {
+    "id": "1784925372938_rhmc9b",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_etapa",
+    "detalhes": "\"Visitas L17 - CCOx\": posprod → aprov",
+    "dataHoraISO": "2026-07-24T20:36:12.938Z",
+    "data": "24/07/2026",
+    "hora": "17:36:12",
+    "dataHora": "24/07/2026, 17:36:12"
   }
 ]
