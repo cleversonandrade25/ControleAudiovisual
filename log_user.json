@@ -1318,5 +1318,16 @@
     "data": "24/07/2026",
     "hora": "17:36:12",
     "dataHora": "24/07/2026, 17:36:12"
+  },
+  {
+    "id": "1784925384631_s1qq15",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "mover_gaveta",
+    "detalhes": "\"Visitas L17 - CCOx\" movido para a Gaveta",
+    "dataHoraISO": "2026-07-24T20:36:24.631Z",
+    "data": "24/07/2026",
+    "hora": "17:36:24",
+    "dataHora": "24/07/2026, 17:36:24"
   }
 ]
