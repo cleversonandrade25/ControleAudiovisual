@@ -1252,5 +1252,16 @@
     "data": "24/07/2026",
     "hora": "13:13:28",
     "dataHora": "24/07/2026, 13:13:28"
+  },
+  {
+    "id": "1784909672364_gem479",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "sincronizar_manual",
+    "detalhes": "Sincronização manual com o GitHub",
+    "dataHoraISO": "2026-07-24T16:14:32.364Z",
+    "data": "24/07/2026",
+    "hora": "13:14:32",
+    "dataHora": "24/07/2026, 13:14:32"
   }
 ]
