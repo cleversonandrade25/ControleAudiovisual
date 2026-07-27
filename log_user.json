@@ -1505,5 +1505,16 @@
     "data": "27/07/2026",
     "hora": "14:32:04",
     "dataHora": "27/07/2026, 14:32:04"
+  },
+  {
+    "id": "1785173620071_23q67f",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Como funciona a operacao transitória\" atualizado",
+    "dataHoraISO": "2026-07-27T17:33:40.071Z",
+    "data": "27/07/2026",
+    "hora": "14:33:40",
+    "dataHora": "27/07/2026, 14:33:40"
   }
 ]
