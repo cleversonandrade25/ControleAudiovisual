@@ -132,7 +132,7 @@
     "responsavel": "Cleverson/Jr",
     "dataCriacao": "2026-07-11",
     "tags": [],
-    "descricao": "Mostrar o passo a passo da atuação do CCO.",
+    "descricao": "Mostrar o passo a passo da atuação do CCO. Jurado. Mostrar desde a identificação até reposição do trem na linha.",
     "checklist": {
       "sinopse": false,
       "objetivo": true,
@@ -145,7 +145,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1783792796482,
-    "version": 1,
+    "version": 2,
     "excluido": false
   },
   {
