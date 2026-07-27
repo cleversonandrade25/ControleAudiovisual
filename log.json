@@ -251,13 +251,13 @@
   {
     "titulo": "Orientações para dias de grandes eventos",
     "formato": "Reels",
-    "categoria": "Atendimento",
+    "categoria": "Educativo",
     "prioridade": "baixa",
     "stage": "ideia",
     "responsavel": "Cleverson/Jr",
     "dataCriacao": "2026-07-12",
     "tags": [],
-    "descricao": "Alterações no horário de pico.",
+    "descricao": "Mostrar bastidores de grandes eventos e como nós nos preparamos como mostrar GOT",
     "checklist": {
       "sinopse": false,
       "objetivo": false,
@@ -270,7 +270,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1783862278077,
-    "version": 1,
+    "version": 2,
     "excluido": false
   },
   {
