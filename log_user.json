@@ -1527,5 +1527,16 @@
     "data": "27/07/2026",
     "hora": "14:38:43",
     "dataHora": "27/07/2026, 14:38:43"
+  },
+  {
+    "id": "1785174524204_okkf5r",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Chegada trem novo L15 - Frota S\" criado",
+    "dataHoraISO": "2026-07-27T17:48:44.203Z",
+    "data": "27/07/2026",
+    "hora": "14:48:44",
+    "dataHora": "27/07/2026, 14:48:44"
   }
 ]
