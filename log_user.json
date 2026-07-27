@@ -1395,5 +1395,16 @@
     "data": "27/07/2026",
     "hora": "13:56:16",
     "dataHora": "27/07/2026, 13:56:16"
+  },
+  {
+    "id": "1785171444665_1u4xfn",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "salvar_roteiro",
+    "detalhes": "Roteiro de \"Como funciona a operacao transitória\" salvo",
+    "dataHoraISO": "2026-07-27T16:57:24.664Z",
+    "data": "27/07/2026",
+    "hora": "13:57:24",
+    "dataHora": "27/07/2026, 13:57:24"
   }
 ]
