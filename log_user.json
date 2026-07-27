@@ -1362,5 +1362,16 @@
     "data": "27/07/2026",
     "hora": "13:49:05",
     "dataHora": "27/07/2026, 13:49:05"
+  },
+  {
+    "id": "1785171085983_3a58z4",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Jardim de Chuva\" criado",
+    "dataHoraISO": "2026-07-27T16:51:25.983Z",
+    "data": "27/07/2026",
+    "hora": "13:51:25",
+    "dataHora": "27/07/2026, 13:51:25"
   }
 ]
