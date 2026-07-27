@@ -1637,5 +1637,16 @@
     "data": "27/07/2026",
     "hora": "15:20:00",
     "dataHora": "27/07/2026, 15:20:00"
+  },
+  {
+    "id": "1785176756401_vnpj6p",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Como funciona a operacao transitória - Gravar com Roberto\" atualizado",
+    "dataHoraISO": "2026-07-27T18:25:56.400Z",
+    "data": "27/07/2026",
+    "hora": "15:25:56",
+    "dataHora": "27/07/2026, 15:25:56"
   }
 ]
