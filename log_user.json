@@ -1571,5 +1571,27 @@
     "data": "27/07/2026",
     "hora": "15:02:12",
     "dataHora": "27/07/2026, 15:02:12"
+  },
+  {
+    "id": "1785175361474_cwnxjq",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Como funciona a operacao transitória - Gravar com Roberto\" atualizado",
+    "dataHoraISO": "2026-07-27T18:02:41.473Z",
+    "data": "27/07/2026",
+    "hora": "15:02:41",
+    "dataHora": "27/07/2026, 15:02:41"
+  },
+  {
+    "id": "1785175436849_vs943s",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Como funciona a operacao transitória - Gravar com Roberto\" atualizado",
+    "dataHoraISO": "2026-07-27T18:03:56.848Z",
+    "data": "27/07/2026",
+    "hora": "15:03:56",
+    "dataHora": "27/07/2026, 15:03:56"
   }
 ]
