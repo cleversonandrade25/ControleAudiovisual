@@ -897,5 +897,30 @@
     "id": 1785171085975,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Treinamento Resgate Bombeiro L17",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785171622933,
+    "version": 1,
+    "excluido": false
   }
 ]
