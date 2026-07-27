@@ -1461,5 +1461,16 @@
     "data": "27/07/2026",
     "hora": "14:15:44",
     "dataHora": "27/07/2026, 14:15:44"
+  },
+  {
+    "id": "1785172863400_kit72p",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Por que um trem pode passar sem parar em uma estação?\" atualizado",
+    "dataHoraISO": "2026-07-27T17:21:03.400Z",
+    "data": "27/07/2026",
+    "hora": "14:21:03",
+    "dataHora": "27/07/2026, 14:21:03"
   }
 ]
