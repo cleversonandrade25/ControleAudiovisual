@@ -1406,5 +1406,16 @@
     "data": "27/07/2026",
     "hora": "13:57:24",
     "dataHora": "27/07/2026, 13:57:24"
+  },
+  {
+    "id": "1785171622939_61y0rn",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Treinamento Resgate Bombeiro L17\" criado",
+    "dataHoraISO": "2026-07-27T17:00:22.934Z",
+    "data": "27/07/2026",
+    "hora": "14:00:22",
+    "dataHora": "27/07/2026, 14:00:22"
   }
 ]
