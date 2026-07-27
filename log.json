@@ -922,5 +922,30 @@
     "id": 1785171622933,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Projeto BIM - Uso de realidade aumentada",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "Uso de realidade aumentada para visualizar as obras novas antes de serem construidas. Antonio Ivo de Barros - Engenheiro responsavel pelo projeto",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785172020135,
+    "version": 1,
+    "excluido": false
   }
 ]
