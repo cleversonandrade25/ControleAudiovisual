@@ -401,13 +401,13 @@
   {
     "titulo": "Como funciona a manutenção das escadas rolantes e elevadores?",
     "formato": "Reels",
-    "categoria": "Infraestrutura",
+    "categoria": "Educativo",
     "prioridade": "baixa",
     "stage": "ideia",
     "responsavel": "Cleverson/Jr",
     "dataCriacao": "2026-07-12",
     "tags": [],
-    "descricao": "",
+    "descricao": "Mostrar as diferenças entre as escadas das estações e dos shoppings, mostrar a qualidade, como eleas são realmente diferenciadas",
     "checklist": {
       "sinopse": false,
       "objetivo": false,
@@ -420,7 +420,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1783862278085,
-    "version": 1,
+    "version": 2,
     "excluido": false
   },
   {
