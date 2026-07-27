@@ -1615,5 +1615,16 @@
     "data": "27/07/2026",
     "hora": "15:10:02",
     "dataHora": "27/07/2026, 15:10:02"
+  },
+  {
+    "id": "1785176019656_uxigga",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Falar sobre a ampliação da operação 24 horas.\" criado",
+    "dataHoraISO": "2026-07-27T18:13:39.655Z",
+    "data": "27/07/2026",
+    "hora": "15:13:39",
+    "dataHora": "27/07/2026, 15:13:39"
   }
 ]
