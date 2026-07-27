@@ -1483,5 +1483,16 @@
     "data": "27/07/2026",
     "hora": "14:24:08",
     "dataHora": "27/07/2026, 14:24:08"
+  },
+  {
+    "id": "1785173356077_mn4w9f",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "editar_card",
+    "detalhes": "\"Orientações para dias de grandes eventos\" atualizado",
+    "dataHoraISO": "2026-07-27T17:29:16.076Z",
+    "data": "27/07/2026",
+    "hora": "14:29:16",
+    "dataHora": "27/07/2026, 14:29:16"
   }
 ]
