@@ -947,5 +947,30 @@
     "id": 1785172020135,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Troca de Cabos Manutenção - Cleber",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "preprod",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-28",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785172117344,
+    "version": 1,
+    "excluido": false
   }
 ]
