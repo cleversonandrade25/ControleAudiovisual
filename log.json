@@ -972,5 +972,30 @@
     "id": 1785172117344,
     "version": 2,
     "excluido": false
+  },
+  {
+    "titulo": "Chegada ultimo trem da L17 - 10 de Agosto - Frota N",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-08-10",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785173524562,
+    "version": 1,
+    "excluido": false
   }
 ]
