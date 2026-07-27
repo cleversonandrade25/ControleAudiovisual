@@ -1072,5 +1072,30 @@
     "id": 1785175084292,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Quadro - Perfil",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "Quadro para mostrar a vida e rotina de alguns personagens.",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785175332221,
+    "version": 1,
+    "excluido": false
   }
 ]
