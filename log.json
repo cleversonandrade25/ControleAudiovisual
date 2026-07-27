@@ -1022,5 +1022,30 @@
     "id": 1785173923524,
     "version": 1,
     "excluido": false
+  },
+  {
+    "titulo": "Chegada trem novo L15 - Frota S",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "2026-07-31",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785174524203,
+    "version": 1,
+    "excluido": false
   }
 ]
