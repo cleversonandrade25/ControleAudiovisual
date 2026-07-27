@@ -1494,5 +1494,16 @@
     "data": "27/07/2026",
     "hora": "14:29:16",
     "dataHora": "27/07/2026, 14:29:16"
+  },
+  {
+    "id": "1785173524566_g06akm",
+    "usuarioId": 1,
+    "usuario": "Clevs",
+    "acao": "criar_card",
+    "detalhes": "\"Chegada ultimo trem da L17 - 10 de Agosto - Frota N\" criado",
+    "dataHoraISO": "2026-07-27T17:32:04.566Z",
+    "data": "27/07/2026",
+    "hora": "14:32:04",
+    "dataHora": "27/07/2026, 14:32:04"
   }
 ]
