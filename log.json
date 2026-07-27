@@ -957,7 +957,7 @@
     "responsavel": "",
     "dataCriacao": "2026-07-27",
     "tags": [],
-    "descricao": "",
+    "descricao": "Mostrar como é a troca do cabo de energia e a importancia da manutenção",
     "checklist": {
       "sinopse": false,
       "objetivo": false,
@@ -970,7 +970,7 @@
     "dataEntrega": "",
     "linkArmazenamento": "",
     "id": 1785172117344,
-    "version": 1,
+    "version": 2,
     "excluido": false
   }
 ]
