@@ -872,5 +872,30 @@
     "id": 1784605398178,
     "version": 3,
     "excluido": false
+  },
+  {
+    "titulo": "Jardim de Chuva",
+    "formato": "Reels",
+    "categoria": "Educativo",
+    "prioridade": "media",
+    "stage": "ideia",
+    "responsavel": "",
+    "dataCriacao": "2026-07-27",
+    "tags": [],
+    "descricao": "Absorção de agua da chuva atraves dos jardins das estações",
+    "checklist": {
+      "sinopse": false,
+      "objetivo": false,
+      "estrutura": false,
+      "roteiro": false
+    },
+    "metricas": {},
+    "dataGravacao": "",
+    "dataEdicao": "",
+    "dataEntrega": "",
+    "linkArmazenamento": "",
+    "id": 1785171085975,
+    "version": 1,
+    "excluido": false
   }
 ]
